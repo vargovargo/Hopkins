@@ -1,24 +1,26 @@
 {
   "_metadata": {
     "description": "Hopkins Street corridor geometry — Berkeley, CA",
-    "coordinate_warning": "INTERSECTION COORDINATES ARE APPROXIMATE — estimated from geographic knowledge, not pulled from GIS or surveyed. Verify every lat/lon against OpenStreetMap or Google Maps before public use. Segment midpoints were inferred from intersection positions.",
+    "coordinate_status": "Intersection coordinates verified against Google Maps, March 2026.",
     "crs": "WGS84 (EPSG:4326)",
     "geojson_convention": "[longitude, latitude]",
     "project_corridor": "Sutter Ave to Gilman St (~1 mile)",
+    "east_to_west_order": "Sutter → The Alameda → McGee → Sacramento → Gilman → Peralta → Stannage → San Pablo",
     "sections": {
       "1": "Sutter Ave to The Alameda",
       "2": "The Alameda to McGee Ave",
       "3": "McGee Ave to Gilman St (commercial strip)"
     },
-    "streetlight_context_segments": "Three Streetlight segments extend west of Gilman (Peralta, San Pablo, Stannage) — included here as context but outside the project corridor boundary.",
+    "streetlight_context_segments": "Three Streetlight segments extend west of Gilman (Gilman→Peralta, Peralta→Stannage, Stannage→San Pablo) — included here as context but outside the project corridor boundary. San Pablo Ave is the western terminus of the Streetlight dataset.",
     "parallel_routes": {
       "note": "Cedar and Rose run east-west south of Hopkins. Order north to south: Hopkins → Rose → Cedar.",
       "streetlight_coverage": "Streetlight captured Cedar and Rose volumes at Sacramento Ave only."
     },
+    "segment_geometry_note": "Streetlight segment 'sanpablo_peralta' (San Pablo to Peralta) is rendered as the Peralta→Stannage block; 'stannage_sanpablo' (Stannage to San Pablo) is the Stannage→San Pablo block. Together they cover Peralta to San Pablo without overlap.",
     "sources": [
       "Bike East Bay corridor description (section definitions)",
       "City of Berkeley staff report, May 2022",
-      "OpenStreetMap (geometry to be verified)"
+      "Intersection coordinates verified via Google Maps, March 2026"
     ]
   },
   "type": "FeatureCollection",
@@ -39,11 +41,11 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2636, 37.8793],
-          [-122.2668, 37.8793],
-          [-122.2695, 37.8795],
-          [-122.2722, 37.8797],
-          [-122.2780, 37.8800]
+          [-122.272499, 37.888476],
+          [-122.274940, 37.885431],
+          [-122.281199, 37.882053],
+          [-122.283280, 37.880967],
+          [-122.284829, 37.880179]
         ]
       }
     },
@@ -55,16 +57,16 @@
         "type": "corridor_context",
         "name": "Hopkins Street — Streetlight context only (west of project)",
         "from": "Gilman St",
-        "to": "Stannage Ave",
-        "note": "Outside project boundary. Streetlight vehicle data available for these segments (2025)."
+        "to": "San Pablo Ave",
+        "note": "Outside project boundary. Streetlight vehicle data available for these segments (2025). San Pablo Ave is the western terminus of the Streetlight dataset."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2780, 37.8800],
-          [-122.2835, 37.8803],
-          [-122.2929, 37.8809],
-          [-122.2965, 37.8811]
+          [-122.284829, 37.880179],
+          [-122.288742, 37.878074],
+          [-122.292509, 37.876041],
+          [-122.294095, 37.875223]
         ]
       }
     },
@@ -82,8 +84,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2636, 37.8793],
-          [-122.2668, 37.8793]
+          [-122.272499, 37.888476],
+          [-122.274940, 37.885431]
         ]
       }
     },
@@ -101,8 +103,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2668, 37.8793],
-          [-122.2695, 37.8795]
+          [-122.274940, 37.885431],
+          [-122.281199, 37.882053]
         ]
       }
     },
@@ -121,9 +123,9 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2695, 37.8795],
-          [-122.2722, 37.8797],
-          [-122.2780, 37.8800]
+          [-122.281199, 37.882053],
+          [-122.283280, 37.880967],
+          [-122.284829, 37.880179]
         ]
       }
     },
@@ -146,8 +148,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2636, 37.8793],
-          [-122.2668, 37.8793]
+          [-122.272499, 37.888476],
+          [-122.274940, 37.885431]
         ]
       }
     },
@@ -170,8 +172,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2668, 37.8793],
-          [-122.2695, 37.8795]
+          [-122.274940, 37.885431],
+          [-122.281199, 37.882053]
         ]
       }
     },
@@ -200,8 +202,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2695, 37.8795],
-          [-122.2722, 37.8797]
+          [-122.281199, 37.882053],
+          [-122.283280, 37.880967]
         ]
       }
     },
@@ -229,8 +231,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2722, 37.8797],
-          [-122.2780, 37.8800]
+          [-122.283280, 37.880967],
+          [-122.284829, 37.880179]
         ]
       }
     },
@@ -258,8 +260,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2780, 37.8800],
-          [-122.2835, 37.8803]
+          [-122.284829, 37.880179],
+          [-122.288742, 37.878074]
         ]
       }
     },
@@ -273,7 +275,7 @@
         "name": "San Pablo to Peralta",
         "section": null,
         "in_project_corridor": false,
-        "note": "West of project corridor. Streetlight context only.",
+        "note": "West of project corridor. Streetlight context only. Geometry rendered as Peralta→Stannage block to avoid overlap with stannage_sanpablo.",
         "vehicle_volume_2025": 5549,
         "pedestrian_volume_2022": 402,
         "bicycle_volume_2022": 305,
@@ -287,8 +289,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2835, 37.8803],
-          [-122.2929, 37.8809]
+          [-122.288742, 37.878074],
+          [-122.292509, 37.876041]
         ]
       }
     },
@@ -302,7 +304,7 @@
         "name": "Stannage to San Pablo",
         "section": null,
         "in_project_corridor": false,
-        "note": "West of project corridor. Streetlight context only. Busiest vehicle segment on the full Hopkins dataset.",
+        "note": "West of project corridor. Streetlight context only. Busiest vehicle segment on the full Hopkins dataset. San Pablo Ave is the western terminus.",
         "vehicle_volume_2025": 11082,
         "vehicle_volume_unit": "estimated daily trips",
         "vehicle_volume_year": 2025,
@@ -312,8 +314,8 @@
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [-122.2929, 37.8809],
-          [-122.2965, 37.8811]
+          [-122.292509, 37.876041],
+          [-122.294095, 37.875223]
         ]
       }
     },
@@ -327,11 +329,11 @@
         "cross_street": "Sutter Ave",
         "role": "eastern_terminus",
         "section_boundary": [1],
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2636, 37.8793]
+        "coordinates": [-122.272499, 37.888476]
       }
     },
 
@@ -344,11 +346,11 @@
         "cross_street": "The Alameda",
         "role": "section_boundary",
         "section_boundary": [1, 2],
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2668, 37.8793]
+        "coordinates": [-122.274940, 37.885431]
       }
     },
 
@@ -361,11 +363,11 @@
         "cross_street": "McGee Ave",
         "role": "section_boundary",
         "section_boundary": [2, 3],
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2695, 37.8795]
+        "coordinates": [-122.281199, 37.882053]
       }
     },
 
@@ -378,12 +380,12 @@
         "cross_street": "Sacramento Ave",
         "role": "segment_boundary",
         "section_boundary": [],
-        "note": "Within Section 3 commercial strip. Pedestrian hotspot boundary.",
-        "coordinates_verified": false
+        "note": "Within Section 3 commercial strip. Boundary between the two highest-pedestrian segments.",
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2722, 37.8797]
+        "coordinates": [-122.283280, 37.880967]
       }
     },
 
@@ -394,13 +396,13 @@
         "type": "intersection",
         "name": "Hopkins & Gilman St",
         "cross_street": "Gilman St",
-        "role": "western_terminus",
+        "role": "western_project_terminus",
         "section_boundary": [3],
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2780, 37.8800]
+        "coordinates": [-122.284829, 37.880179]
       }
     },
 
@@ -413,28 +415,11 @@
         "cross_street": "Peralta Ave",
         "role": "streetlight_context_only",
         "in_project_corridor": false,
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2835, 37.8803]
-      }
-    },
-
-    {
-      "type": "Feature",
-      "id": "intersection_sanpablo",
-      "properties": {
-        "type": "intersection",
-        "name": "Hopkins & San Pablo Ave",
-        "cross_street": "San Pablo Ave",
-        "role": "streetlight_context_only",
-        "in_project_corridor": false,
-        "coordinates_verified": false
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [-122.2929, 37.8809]
+        "coordinates": [-122.288742, 37.878074]
       }
     },
 
@@ -447,11 +432,29 @@
         "cross_street": "Stannage Ave",
         "role": "streetlight_context_only",
         "in_project_corridor": false,
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2965, 37.8811]
+        "coordinates": [-122.292509, 37.876041]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_sanpablo",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & San Pablo Ave",
+        "cross_street": "San Pablo Ave",
+        "role": "streetlight_western_terminus",
+        "in_project_corridor": false,
+        "note": "Western terminus of Streetlight dataset. Busiest vehicle segment (stannage_sanpablo: 11,082/day) ends here.",
+        "coordinates_verified": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.294095, 37.875223]
       }
     },
 
@@ -463,7 +466,7 @@
         "route": "Cedar St",
         "at_cross_street": "Sacramento Ave",
         "streetlight_id": "cedar_sacramento",
-        "position": "south of Hopkins (Cedar is furthest south; order N→S: Hopkins, Rose, Cedar)",
+        "position": "south of Hopkins (furthest south; order N→S: Hopkins, Rose, Cedar)",
         "vehicle_volume_2025": 7355,
         "bicycle_volume_2022": 266,
         "pedestrian_volume_2022": 340,
@@ -474,11 +477,11 @@
         "note": "Cyclist diversion signal — 266 bike trips on Cedar suggests suppressed demand on Hopkins due to lack of protection.",
         "data_source": "Data from Streetlight",
         "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2722, 37.8764]
+        "coordinates": [-122.282693, 37.876699]
       }
     },
 
@@ -500,11 +503,11 @@
         "ped_bike_volume_year": 2022,
         "data_source": "Data from Streetlight",
         "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
-        "coordinates_verified": false
+        "coordinates_verified": true
       },
       "geometry": {
         "type": "Point",
-        "coordinates": [-122.2722, 37.8782]
+        "coordinates": [-122.282996, 37.878927]
       }
     }
 
