@@ -33,27 +33,295 @@ Do not build any components yet. Just the scaffold.
 
 -----
 
-## Prompt 2 — GeoJSON corridor boundary
+## Prompt 2 — GeoJSON corridor boundary from Streetlight shapefiles
 
 ```
 Read CLAUDE.md before starting.
 
-I need a GeoJSON file representing the Hopkins Street corridor study area for this project.
+The Streetlight data export includes shapefiles for each analysis zone. These are
+the authoritative corridor geometries — use them as the primary source for all
+map geometry. Do not guess or approximate coordinates.
 
-Create data/geo/hopkins_corridor.geojson with:
-- A LineString representing Hopkins Street from Sutter Street to Gilman Street in Berkeley, CA
-- Use accurate coordinates for this route (it runs roughly east-west through North Berkeley)
-- Key intersection points to include as properties or separate features: Sutter/Henry, The Alameda, Josephine, McGee, Monterey/California, Sacramento, Gilman
-- A separate GeoJSON for the two fatality locations: (1) Hopkins/Monterey intersection — pedestrian fatality 2017, (2) Sacramento Ave near Hopkins — cyclist fatality 2017
+STEP 1 — Convert shapefiles to GeoJSON
 
-Also create data/geo/README.md documenting what each file contains and its coordinate reference system (WGS84).
+The shapefiles are in data/raw/streetlight/. There are two shapefile types:
+- *.shp / *.dbf / *.shx / *.prj — polygon zone boundaries
+- *_line.shp etc — LineString zone centerlines with gate lat/lon
 
-Use accurate Berkeley street geometry. If you're uncertain about exact coordinates for any intersection, note it in the README with [VERIFY] so I can check against the city maps.
+Use geopandas to convert both to GeoJSON:
+
+  import geopandas as gpd
+  gdf = gpd.read_file('data/raw/streetlight/[filename].shp')
+  gdf = gdf.to_crs('EPSG:4326')  # ensure WGS84
+  gdf.to_file('data/geo/streetlight_zones.geojson', driver='GeoJSON')
+
+Do this for both the polygon and line shapefiles. Save as:
+- data/geo/streetlight_zones.geojson (polygons)
+- data/geo/streetlight_lines.geojson (linestrings)
+
+Print the zone names and geometry types to confirm what's there.
+
+STEP 2 — Build the corridor GeoJSON
+
+From the converted data, create data/geo/hopkins_corridor.geojson:
+- A FeatureCollection of the individual zone LineStrings, each as a separate
+  Feature with properties: zone_id, zone_name, is_pass_through, direction_degrees
+- This gives us named, segmented corridor geometry that matches the analysis zones
+
+STEP 3 — Fatality locations
+
+The two 2017 fatalities are NOT in the Streetlight data. For these two points only,
+use Google Maps to pin the exact locations and record coordinates manually:
+1. Hopkins St & Monterey Ave intersection — pedestrian fatality 2017
+2. Sacramento Ave near Hopkins St — cyclist fatality 2017
+
+Record both as a separate data/geo/fatality_locations.geojson with properties:
+- type: "fatality"
+- mode: "pedestrian" | "cyclist"
+- year: 2017
+- intersection: [cross street description]
+- source: "Berkeley City Council budget referral, January 2018"
+- coordinates_source: "manually verified via Google Maps"
+
+STEP 4 — data/geo/README.md
+
+Document:
+- What each GeoJSON file contains
+- Coordinate reference system (WGS84 / EPSG:4326)
+- That streetlight_zones and streetlight_lines derive directly from Streetlight shapefiles
+- That fatality_locations coordinates were manually verified
+- Any zone names from the Streetlight data that don't match the segment labels
+  used elsewhere in the project (flag for reconciliation)
+
+Install geopandas if needed: pip install geopandas --break-system-packages
 ```
 
 -----
 
-## Prompt 3 — TIMS collision data processing script
+## Prompt 3 — Streetlight data processing script
+
+```
+Read CLAUDE.md before starting. Data integrity rules are strictly enforced here.
+Do not proceed past Step 1 without printing the audit output and confirming it
+matches what is expected.
+
+The Streetlight export contains four file types across multiple folders.
+We know their structure from the READMEs:
+
+FILE TYPE SUMMARY (confirmed from READMEs):
+  za_*.csv              — Zone Activity: volume by zone, day type, day part
+                          Modes: All Vehicles (2025), Pedestrian (2022), Bicycle (2022)
+                          Day parts: All Day, Early AM (12am-6am), Peak AM (6am-10am),
+                                     Mid-Day (10am-3pm), Peak PM (3pm-7pm), Late PM (7pm-12am)
+                          Day types: All Days, Weekday (M-Th), Weekend (Sa-Su)
+                          Key field: "Zone Traffic" (volume or index — must verify)
+
+  *_prediction_intervals.csv — Daily avg volume + 95% confidence intervals
+                          Mode: All Vehicles only
+                          Day part: All Day only (no time-of-day breakdown)
+                          Key fields: "Average Daily Zone Traffic (StL Volume)",
+                                      "Lower 95 Percent Prediction Range",
+                                      "Upper 95 Percent Prediction Range"
+
+  *_network_performance_seg_metrics_*.csv — Speed + volume by segment
+                          Mode: All Vehicles only (2025)
+                          Day parts: same 5 bands as za_*.csv
+                          Key fields: "Segment Traffic", "Avg Segment Speed",
+                                      "Free Flow Speed", "Free Flow Factor",
+                                      "Congestion", speed percentiles (5th, 15th, 85th, 95th)
+
+  Analysis.txt          — Confirms: Output Type = "StL All Vehicles Volume" for vehicles
+
+---
+
+STEP 1 — Full file audit (DO NOT SKIP)
+
+Walk data/raw/streetlight/ recursively. For every CSV found, print:
+- Full relative path and file size
+- Column names
+- Unique values in Mode of Travel (if present)
+- Unique values in Day Type and Day Part (if present)
+- The exact column name containing the primary metric value
+- Row count
+- Data Periods range
+
+Also check: is the primary metric "StreetLight Volume", "StreetLight Index",
+or "StreetLight Calibrated Index"? Print this clearly for each file.
+
+Per Streetlight documentation: Index values for different modes CANNOT be
+compared. If ped/bike use Index while vehicles use Volume, print a prominent
+WARNING and document it in data/processed/data_integrity_notes.md before
+doing any further processing.
+
+---
+
+STEP 2 — Process zone activity (za_*.csv)
+
+For each mode found (All Vehicles, Pedestrian, Bicycle):
+  - Extract: zone_id, zone_name, day_type, day_part, zone_traffic, output_unit
+  - Preserve the exact column name as output_unit — do not rename or normalize it
+  - Save separate files:
+      data/processed/za_vehicles.csv
+      data/processed/za_pedestrians.csv  (if present)
+      data/processed/za_bicycles.csv     (if present)
+
+---
+
+STEP 3 — Process prediction intervals
+
+From *_prediction_intervals.csv:
+  - Extract: zone_id, zone_name, year_month, avg_daily_volume,
+             lower_95, upper_95
+  - These are All Vehicles only, All Day only
+  - Save to: data/processed/vehicle_prediction_intervals.csv
+
+---
+
+STEP 4 — Process network performance (speed data)
+
+From *_network_performance_seg_metrics_*.csv:
+  - Extract: zone_id, zone_name, day_type, day_part,
+             segment_traffic, avg_speed_mph, free_flow_speed_mph,
+             free_flow_factor, congestion,
+             speed_p5, speed_p15, speed_p85, speed_p95
+             (use whatever percentile columns are present — confirm names from audit)
+  - Save to: data/processed/network_performance.csv
+
+Note: The 85th percentile speed is the California standard for speed limit
+setting. Flag this field clearly in the output and in the metadata.
+
+---
+
+STEP 5 — Build streetlight_verified.json
+
+Produce data/processed/streetlight_verified.json:
+{
+  "_metadata": {
+    "status": "VERIFIED",
+    "generated": "[timestamp]",
+    "analysis_id": "2012902",
+    "analysis_name": "Hopkins Rose Cedar AV 2025",
+    "output_units": {
+      "vehicles_za": "[exact column name from za CSV]",
+      "vehicles_prediction": "Average Daily Zone Traffic (StL Volume)",
+      "vehicles_network": "Segment Traffic (StL Volume)",
+      "pedestrians": "[exact column name — Volume or Index]",
+      "bicycles": "[exact column name — Volume or Index]"
+    },
+    "modes_comparable": true/false,
+    "comparability_warning": "[only if false — explain what cannot be compared]",
+    "data_periods": {
+      "vehicles": "Jan 01 2025 - Dec 31 2025",
+      "pedestrians": "[from file]",
+      "bicycles": "[from file]"
+    },
+    "day_parts_available": ["All Day", "Early AM", "Peak AM", "Mid-Day", "Peak PM", "Late PM"],
+    "day_types_available": ["All Days", "Weekday", "Weekend"],
+    "speed_percentiles_available": [5, 15, 85, 95],
+    "zones": ["[list exactly as they appear in the data]"],
+    "confidence_intervals_available": true,
+    "notes": "[any data quality issues, missing zones, inferred values flagged]"
+  },
+  "zone_activity": { ... keyed by mode, then zone, then day_type/day_part ... },
+  "prediction_intervals": { ... keyed by zone ... },
+  "network_performance": { ... keyed by zone, then day_type/day_part ... }
+}
+
+---
+
+STEP 6 — Update streetlight_summary.json
+
+Correct any values that differ from the screenshot-derived estimates.
+Change status from "UNVERIFIED" to "VERIFIED".
+Log each correction with: field, old_value, new_value, source.
+
+---
+
+STEP 7 — Final stdout summary
+
+Print:
+- All zones found (by name)
+- All modes found
+- Day parts confirmed available
+- Output unit for each mode
+- Whether cross-mode volume comparison is valid
+- Whether speed data is available and which percentiles
+- Whether confidence intervals are available
+- Any zones with "Inferred Volume = Yes" in network performance (flag these)
+- Any data quality concerns
+```
+
+-----
+
+## Prompt 3b — City of Berkeley traffic count PDFs
+
+```
+Read CLAUDE.md before starting.
+
+The City of Berkeley provided four PDFs of traffic count data for the Hopkins
+corridor via a public records request. These are independent ground-truth counts
+that can validate the Streetlight estimates.
+
+The PDFs are in data/raw/city_counts/.
+
+STEP 1 — Extract and audit
+
+For each PDF:
+- Extract all numeric count data (vehicle counts, turning movements, or
+  pedestrian/bike counts — whatever each PDF contains)
+- Note: location (intersection or segment), count type, date/time of count,
+  count duration, and any methodology notes in the document
+- If the PDF is image-based and text extraction fails, note this and describe
+  what is visually present
+
+Print a summary of what each PDF contains before doing any further processing.
+
+STEP 2 — Structure the data
+
+Save extracted data to data/processed/city_counts.json:
+{
+  "_metadata": {
+    "source": "City of Berkeley public records request",
+    "request_date": "[if shown in documents]",
+    "documents": [
+      {
+        "filename": "[pdf name]",
+        "location": "[intersection or segment]",
+        "count_type": "[vehicle / pedestrian / bike / turning movement]",
+        "count_date": "[date of count if shown]",
+        "count_duration": "[e.g. 24-hour, peak hour]",
+        "notes": "[anything relevant about methodology]"
+      }
+    ]
+  },
+  "counts": [ ... structured count records ... ]
+}
+
+STEP 3 — Comparison with Streetlight
+
+Where city count locations overlap with Streetlight zones:
+- Compare the city count volume to Streetlight's estimated volume for the
+  same location and time period (note: they may use different time periods)
+- Calculate the difference as both absolute and percentage
+- Save to data/processed/counts_comparison.json
+- If counts diverge by more than 25%, flag for review and note in
+  data/processed/data_integrity_notes.md — do not suppress discrepancies
+
+The goal is validation, not reconciliation. If the data sources disagree,
+we say so and explain why (different years, different methodologies, etc.).
+Do not average them or pick the more favorable number.
+
+STEP 4 — Document for public transparency
+
+Add a section to data/processed/data_integrity_notes.md:
+"City of Berkeley Traffic Counts — Comparison with Streetlight"
+Summarize: what matched, what diverged, and what the divergence likely means.
+This section may be surfaced in the site's methodology note.
+```
+
+-----
+
+## Prompt 4 — TIMS collision data processing script
 
 ```
 Read CLAUDE.md before starting.
@@ -70,29 +338,33 @@ Create analysis/collisions.py that:
    - Longitude: -122.304 to -122.272
 3. Parses and standardizes:
    - collision_date (datetime)
-   - severity (SWITRS COLLISION_SEVERITY codes → readable labels: fatal, severe_injury, other_injury, property_damage)
-   - party_at_fault mode (SWITRS TYPE_OF_COLLISION, PARTY_TYPE fields → pedestrian, cyclist, motor_vehicle, other)
+   - severity (SWITRS COLLISION_SEVERITY codes → readable labels: fatal, severe_injury,
+     other_injury, property_damage)
+   - party_at_fault mode (SWITRS PARTY_TYPE fields → pedestrian, cyclist, motor_vehicle)
    - victim mode where available
    - year, month, day_of_week, hour
 4. Outputs:
    - data/processed/collisions_clean.csv — full cleaned record
    - data/processed/collisions_summary.json — aggregate stats:
-     - total collisions by year (2010–present)
-     - collisions by severity
-     - collisions involving ped or cyclist (victim OR at-fault)
-     - collisions by intersection (grouped to nearest named cross-street)
+     * total collisions by year (2010–present to show full time series)
+     * collisions by severity
+     * collisions involving ped or cyclist (victim OR party)
+     * collisions by named cross-street (Gilman, Sacramento, Monterey, McGee, Alameda, Sutter)
    - data/processed/collisions_geo.geojson — point features with severity and mode as properties
 
-5. Prints a summary to stdout on completion: total records, date range, severity breakdown, ped/cyclist involvement count
+5. Prints a summary to stdout: total records, date range, severity breakdown,
+   ped/cyclist involvement count
 
-Include a requirements.txt for the analysis/ directory.
+Important: the full time series (back to 2010 minimum) is needed to address the
+opposition's claim that the 2016–2019 period was an anomaly. Do not filter to
+any specific year range — include everything TIMS returns.
 
-Use pandas and geopandas. Write clean, commented code — this script may be shared.
+Include analysis/requirements.txt. Use pandas and geopandas. Write commented code.
 ```
 
 -----
 
-## Prompt 4 — Base map component
+## Prompt 5 — Base map component (was Prompt 4)
 
 ```
 Read CLAUDE.md before starting. Pay close attention to the design system section —
@@ -128,7 +400,7 @@ Also create web/src/components/CorridorMap.css for any styles that can't be inli
 
 -----
 
-## Prompt 5 — Collision visualization component
+## Prompt 6 — Collision visualization component (was Prompt 5)
 
 ```
 Read CLAUDE.md before starting.
@@ -169,7 +441,7 @@ Export as default.
 
 -----
 
-## Prompt 6 — Scrollama page shell
+## Prompt 7 — Scrollama page shell (was Prompt 6)
 
 ```
 Read CLAUDE.md before starting.
@@ -208,86 +480,95 @@ Also update web/index.html to load Google Fonts: DM Serif Display, DM Sans, JetB
 
 -----
 
-## Prompt 7 — Streetlight data visualizations (REAL DATA — no placeholder needed)
+## Prompt 8 — Streetlight data visualizations
 
 ```
 Read CLAUDE.md before starting.
 
-Streetlight data has been received. Build two components using real data from
-data/processed/streetlight_summary.json. Import the JSON directly.
-
-Attribution is required in both components: "Data from Streetlight" must appear
-as a visible data source label. The vehicle data is 2025; ped and bike data are 2022.
-Note the year difference where both appear together.
+All data comes from data/processed/streetlight_verified.json.
+Before writing any component, read _metadata carefully:
+- Check modes_comparable — if false, do NOT put vehicle and ped/bike on same axis
+- Check confidence_intervals_available — if true, show error bars on volume charts
+- Note the exact output_unit for each mode and use that label in every chart
 
 ---
 
 COMPONENT 1: SegmentVolumeChart.jsx
 
-Shows vehicle, pedestrian, and bicycle volumes side by side by corridor segment.
-This is the "who's on Hopkins" evidence — what each mode is doing, where.
+Vehicle volume by segment with confidence intervals.
 
-DATA:
-- vehicle_volumes.segments (2025)
-- pedestrian_volumes.zones (2022)
-- bicycle_volumes.zones (2022)
-
-Note: vehicle data is segment-based; ped/bike are zone-based. They roughly
-correspond. Match by segment label where possible; note any mismatches.
+DATA: streetlight_verified.json → network_performance (All Days, All Day)
+      + prediction_intervals for confidence bands
 
 DESIGN:
-- Three grouped horizontal bars per segment, one row per segment
-  (or a small-multiples approach with three separate bar charts side by side)
-- Sort segments east-to-west (Alameda/Sutter → Stannage/San Pablo)
-  so the map orientation matches a viewer looking west down Hopkins
-- Colors: vehicles in muted sage (#8a9a78), pedestrians in forest green (#4a7c59),
-  cyclists in amber (#c4713b)
-- Highlight the Sacramento-to-McGee row with a subtle amber left border or
-  background tint — this is the commercial strip, the contested zone
-- Annotate: "Highest pedestrian activity" label on that row
-- Monospace numbers, DM Sans labels
-- Data source label: "Vehicle data: Streetlight 2025 | Ped/bike data: Streetlight 2022"
-
-KEY CALLOUT to render above the chart:
-"The blocks with the most foot traffic are the same blocks where parking
- removal is proposed — and where cyclists have no protection today."
+- Horizontal bar chart, one bar per segment, sorted east-to-west
+  (Alameda/Sutter → Stannage/San Pablo)
+- Bar color: muted sage (#8a9a78)
+- Error bars from lower_95 / upper_95 — thin whiskers, labeled "95% confidence interval"
+- Amber left border on Sacramento-to-McGee bar, labeled "Commercial strip —
+  proposed parking removal"
+- Monospace volume numbers at bar end
+- Source label: "Streetlight 2025 · All Vehicles · Average Daily Volume"
+- Mark any inferred-volume zones with † and footnote
 
 ---
 
-COMPONENT 2: CedarDiversionChart.jsx
+COMPONENT 2: SpeedChart.jsx
 
-Makes the suppressed bike demand argument visually explicit.
-Shows that Cedar Street carries significant bike volume — not because Cedar is
-preferred, but because Hopkins has no protection.
+Vehicle speeds by segment — the safety evidence.
 
-DATA:
-- bicycle_volumes.zones — show Hopkins segments alongside Cedar and Rose parallel routes
-- Flag parallel_route: true entries distinctly
+DATA: streetlight_verified.json → network_performance
+      Fields: avg_speed_mph, speed_p85, free_flow_speed_mph
+      Day Type: All Days default; Weekday/Weekend toggle
 
 DESIGN:
-- Simple horizontal bar chart
-- Hopkins segments: amber (#c4713b)
-- Cedar/Rose parallel route bars: slate blue (#6a9bcc), with a label "Cedar St (parallel route)"
-- Annotation on Cedar bar: "Cyclists avoiding unprotected Hopkins"
-- A callout box or pull-quote below the chart:
-  "Cedar Street carries as many cyclists as several Hopkins segments —
-   because Hopkins offers no protection. These are not new cyclists.
-   They are Hopkins cyclists using a detour."
-- Data source: "Streetlight 2022"
+- Horizontal dot plot: average speed (filled dot) + 85th percentile (open dot),
+  connected by thin line — one row per segment
+- Color segments amber (#c4713b) where 85th percentile exceeds 25 mph,
+  sage (#8a9a78) at or below
+- Vertical reference line at 25 mph: "Berkeley Vision Zero target"
+- Weekday / Weekend toggle buttons
+- Footnote: "85th percentile speed is the California standard measure for
+  speed limit setting (CVC §22358.5)"
+- Source: "Streetlight 2025 · All Vehicles · Network Performance"
+- Do not render speeds for zones where Inferred Volume = Yes
+
+---
+
+COMPONENT 3: CedarDiversionChart.jsx
+
+Suppressed bike demand — cyclists routing around unprotected Hopkins.
+
+DATA: streetlight_verified.json → zone_activity → bicycles (All Days, All Day)
+      Distinguish Hopkins zones from parallel route zones (Cedar, Rose)
+
+DESIGN:
+- Horizontal bar chart
+- Hopkins zones: amber (#c4713b)
+- Cedar/Rose zones: slate blue (#6a9bcc), labeled "Cedar St (parallel)"
+  or "Rose St (parallel)"
+- If output unit is Index (not Volume): axis label must read
+  "StreetLight Index (relative activity — not trip counts)"
+  and include footnote: "Bicycle and vehicle volumes use different output
+  units and cannot be directly compared."
+- Source: "Streetlight 2022 · Bicycle · [exact unit from metadata]"
 
 ---
 
 File locations:
 - web/src/components/SegmentVolumeChart.jsx
+- web/src/components/SpeedChart.jsx
 - web/src/components/CedarDiversionChart.jsx
 
-Wire both into App.jsx in Section 1 ("Who's on Hopkins") and Section 2
-("The street doesn't match how people use it") respectively.
+Wiring in App.jsx:
+- SegmentVolumeChart → Section 1 "Who's on Hopkins"
+- SpeedChart → Section 4 "The cost of doing nothing" (alongside CollisionChart)
+- CedarDiversionChart → Section 2 "The street doesn't match how people use it"
 ```
 
 -----
 
-## Prompt 8 — Vercel deployment config
+## Prompt 9 — Vercel deployment config (was Prompt 8)
 
 ```
 Read CLAUDE.md before starting.
@@ -318,7 +599,7 @@ Set up Vercel deployment for the /web directory.
 
 -----
 
-## Prompt 9 — "The Record" background section
+## Prompt 10 — "The Record" background section (was Prompt 9)
 
 ```
 Read CLAUDE.md before starting.

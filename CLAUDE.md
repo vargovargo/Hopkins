@@ -36,21 +36,30 @@ Primary audiences: City Council members, general public and neighbors, press.
 
 ### In hand — Streetlight Data
 
-|Dataset                     |Source                       |Notes                                                     |
-|----------------------------|-----------------------------|----------------------------------------------------------|
-|Vehicle segment volumes     |Streetlight (2025, full year)|9 segments — see `data/processed/streetlight_summary.json`|
-|Pedestrian zone distribution|Streetlight (2022)           |Zone-based, 8 zones                                       |
-|Bicycle zone distribution   |Streetlight (2022)           |Zone-based, 8 zones; Cedar/Rose parallel routes included  |
+|Dataset                          |File type                                |Modes                            |Year                          |Day parts             |
+|---------------------------------|-----------------------------------------|---------------------------------|------------------------------|----------------------|
+|Zone Activity volumes            |`za_*.csv`                               |All Vehicles, Pedestrian, Bicycle|Vehicles: 2025; Ped/bike: 2022|All Day + 5 time bands|
+|Volume + 95% confidence intervals|`*_prediction_intervals.csv`             |All Vehicles                     |2025                          |All Day only          |
+|Speed + congestion by segment    |`*_network_performance_seg_metrics_*.csv`|All Vehicles                     |2025                          |All Day + 5 time bands|
+|Zone shapefiles                  |`*.shp` / `*_line.shp`                   |—                                |—                             |Corridor geometry     |
+
+**Speed percentiles available:** 5th, 15th, 85th, 95th (85th = California standard for speed limit setting)
+
+**Day types:** All Days, Weekday (M–Th), Weekend (Sa–Su)
+
+**Day parts:** All Day, Early AM (12am–6am), Peak AM (6am–10am), Mid-Day (10am–3pm), Peak PM (3pm–7pm), Late PM (7pm–12am)
 
 **Attribution required:** All Streetlight data must be labeled "Data from Streetlight" in any public display. WBB signed a data contract.
 
-**Key findings:**
+**Output unit status:** UNVERIFIED — must confirm Volume vs Index for ped/bike modes before any cross-mode comparison. See Prompt 3 audit step.
 
-- Busiest vehicle segment: Stannage to San Pablo (11,082/day) — western end, not the commercial strip
-- Commercial strip vehicles (Sacramento to McGee): 5,553 — moderate
-- Highest pedestrian zone: Sacramento to McGee (1,026) — the exact contested commercial strip blocks
-- Cyclist diversion: Cedar carries 266 bike trips on the Sacramento segment — suppressed demand signal
-- Eastern segments (Alameda to Sutter: 1,625) have very low vehicle volumes — strongest case for reallocation
+### In hand — City of Berkeley Traffic Counts
+
+|Dataset                      |Source                                 |Notes                                                              |
+|-----------------------------|---------------------------------------|-------------------------------------------------------------------|
+|4 PDF traffic count documents|City of Berkeley public records request|Location(s), count methodology, and dates TBD from document content|
+
+These are independent ground-truth counts. Use to validate Streetlight estimates. If they diverge significantly, document and disclose — do not suppress.
 
 -----
 
@@ -155,13 +164,14 @@ This section establishes credibility — it shows the work engaged with all side
 
 ## Key claims to support with data
 
-- [x] The highest pedestrian activity zone on Hopkins is Sacramento to McGee (1,026 trips) — exactly the commercial strip where parking removal is most contested (Streetlight 2022)
-- [x] Cyclists are already diverting to Cedar Street (266 trips/day on Cedar/Sacramento) due to lack of protection on Hopkins — protected lanes would consolidate existing desire lines, not manufacture demand (Streetlight 2022)
-- [x] Eastern Hopkins segments carry very low vehicle volumes (Alameda to Sutter: 1,625/day; McGee to Alameda: 2,588/day) — no data justification for current road width allocation (Streetlight 2025)
-- [x] The commercial strip (Sacramento to McGee: 5,553 vehicles/day) is NOT the busiest vehicle segment — Stannage to San Pablo (11,082) is nearly 2× higher (Streetlight 2025)
-- [ ] Collision rate on Hopkins vs. comparable Berkeley streets (TIMS — pending data pull)
-- [ ] 36 collisions 2015–2018 involving peds/cyclists — verify and extend time series (TIMS — pending)
-- [ ] The high-injury designation is not an anomaly — longer time series (TIMS — pending)
+- [x] The highest pedestrian activity zone on Hopkins is Sacramento to McGee — the exact commercial strip where parking removal is most contested (Streetlight 2022 — pending unit verification)
+- [x] Cyclists are diverting to Cedar Street due to lack of protection on Hopkins — protected lanes would consolidate existing desire lines (Streetlight 2022 — pending unit verification)
+- [x] Eastern Hopkins segments carry low vehicle volumes — no data justification for current road width allocation (Streetlight 2025)
+- [x] The commercial strip is NOT the busiest vehicle segment on the corridor (Streetlight 2025)
+- [ ] Vehicle speeds by segment vs. Berkeley's 25 mph Vision Zero target — 85th percentile data available (Streetlight 2025 Network Performance — pending processing)
+- [ ] Streetlight volume estimates validated against independent Berkeley traffic counts (city PDFs — pending processing)
+- [ ] Collision rate and time series on Hopkins (TIMS — pending data pull)
+- [ ] 36 collisions 2015–2018 — verify and extend to full time series (TIMS — pending)
 - [ ] Parking spaces lost vs. nearest replacement distance (city docs — already in record)
 
 -----
@@ -180,6 +190,7 @@ This project is part of a live public policy debate. The analysis will be scruti
 1. **Cite the source on every chart.** "Data from Streetlight" on every Streetlight visualization. "Source: TIMS/SWITRS" on every collision visualization. The attribution is not optional — WBB has a data contract and the analysis must be traceable.
 1. **Do not make comparative claims the data doesn't support.** The Streetlight data shows volumes by segment and zone. It does not show mode share percentages, it does not show what share of commercial strip customers arrive by car, and it does not show before/after comparisons. Do not manufacture these from what we have.
 1. **Flag data limitations in the UI.** Where the data has known gaps or caveats (ped/bike data is 2022, zone distribution ≠ segment counts, Cedar/Rose are parallel routes not Hopkins), surface that in a visible footnote or info tooltip — not buried in a README.
+1. **StreetLight Volume ≠ StreetLight Index — never mix them.** Per Streetlight's own documentation: "Trip Index values for different modes of travel cannot be compared with each other." If vehicle data uses Volume and ped/bike data uses Index (or vice versa), they cannot appear on the same chart implying comparability. The Prompt 3 data audit will determine which output units are present. If modes use different units, keep them in separate visualizations with separate labels. This is a hard rule.
 1. **When in doubt, show less.** A chart with fewer claims that are all defensible is better than a chart with more claims that require assumptions.
 1. **The `streetlight_summary.json` file was transcribed from screenshots** — not from the raw export. When the full export files land in `data/raw/streetlight/`, recheck every number against them and correct any transcription errors before publishing.
 
@@ -221,7 +232,7 @@ This project is part of a live public policy debate. The analysis will be scruti
 
 - `VITE_MAPBOX_TOKEN` — get from mapbox.com, free tier is fine for this project
 
-**Domain:** https://hopkins-sage-omega.vercel.app/
+**Domain:** TBD — either a subdomain of vargo.city or a standalone domain for the project
 
 -----
 
