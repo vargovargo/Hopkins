@@ -1,0 +1,23 @@
+# Dependencies
+web/node_modules
+
+# Build output
+web/dist
+web/dist-ssr
+
+# Environment variables — never commit secrets
+.env
+.env.local
+web/.env
+web/.env.local
+
+# Raw data — too large, potentially sensitive, not for version control
+data/raw/
+
+# Editor / OS
+.DS_Store
+*.suo
+*.sw?
+.idea
+.vscode/*
+!.vscode/extensions.json
