@@ -1,0 +1,512 @@
+{
+  "_metadata": {
+    "description": "Hopkins Street corridor geometry — Berkeley, CA",
+    "coordinate_warning": "INTERSECTION COORDINATES ARE APPROXIMATE — estimated from geographic knowledge, not pulled from GIS or surveyed. Verify every lat/lon against OpenStreetMap or Google Maps before public use. Segment midpoints were inferred from intersection positions.",
+    "crs": "WGS84 (EPSG:4326)",
+    "geojson_convention": "[longitude, latitude]",
+    "project_corridor": "Sutter Ave to Gilman St (~1 mile)",
+    "sections": {
+      "1": "Sutter Ave to The Alameda",
+      "2": "The Alameda to McGee Ave",
+      "3": "McGee Ave to Gilman St (commercial strip)"
+    },
+    "streetlight_context_segments": "Three Streetlight segments extend west of Gilman (Peralta, San Pablo, Stannage) — included here as context but outside the project corridor boundary.",
+    "parallel_routes": {
+      "note": "Cedar and Rose run east-west south of Hopkins. Order north to south: Hopkins → Rose → Cedar.",
+      "streetlight_coverage": "Streetlight captured Cedar and Rose volumes at Sacramento Ave only."
+    },
+    "sources": [
+      "Bike East Bay corridor description (section definitions)",
+      "City of Berkeley staff report, May 2022",
+      "OpenStreetMap (geometry to be verified)"
+    ]
+  },
+  "type": "FeatureCollection",
+  "features": [
+
+    {
+      "type": "Feature",
+      "id": "corridor_project",
+      "properties": {
+        "type": "corridor",
+        "name": "Hopkins Street — project corridor",
+        "from": "Sutter Ave",
+        "to": "Gilman St",
+        "length_mi": 1.0,
+        "designation": "High-Injury Street (Berkeley Vision Zero Action Plan, 2020)",
+        "approved": "Berkeley City Council, May 2022 (reaffirmed Oct 2022)"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2636, 37.8793],
+          [-122.2668, 37.8793],
+          [-122.2695, 37.8795],
+          [-122.2722, 37.8797],
+          [-122.2780, 37.8800]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "corridor_context_west",
+      "properties": {
+        "type": "corridor_context",
+        "name": "Hopkins Street — Streetlight context only (west of project)",
+        "from": "Gilman St",
+        "to": "Stannage Ave",
+        "note": "Outside project boundary. Streetlight vehicle data available for these segments (2025)."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2780, 37.8800],
+          [-122.2835, 37.8803],
+          [-122.2929, 37.8809],
+          [-122.2965, 37.8811]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "section_1",
+      "properties": {
+        "type": "project_section",
+        "section": 1,
+        "name": "Section 1 — Sutter to The Alameda",
+        "from": "Sutter Ave",
+        "to": "The Alameda"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2636, 37.8793],
+          [-122.2668, 37.8793]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "section_2",
+      "properties": {
+        "type": "project_section",
+        "section": 2,
+        "name": "Section 2 — The Alameda to McGee",
+        "from": "The Alameda",
+        "to": "McGee Ave"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2668, 37.8793],
+          [-122.2695, 37.8795]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "section_3",
+      "properties": {
+        "type": "project_section",
+        "section": 3,
+        "name": "Section 3 — McGee to Gilman (commercial strip)",
+        "from": "McGee Ave",
+        "to": "Gilman St",
+        "note": "Contains commercial strip; highest pedestrian activity; most contested segment"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2695, 37.8795],
+          [-122.2722, 37.8797],
+          [-122.2780, 37.8800]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "seg_alameda_sutter",
+      "properties": {
+        "type": "streetlight_segment",
+        "streetlight_id": "alameda_sutter",
+        "name": "Alameda to Sutter",
+        "section": 1,
+        "in_project_corridor": true,
+        "vehicle_volume_2025": 1625,
+        "vehicle_volume_unit": "estimated daily trips",
+        "vehicle_volume_year": 2025,
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2636, 37.8793],
+          [-122.2668, 37.8793]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "seg_mcgee_alameda",
+      "properties": {
+        "type": "streetlight_segment",
+        "streetlight_id": "mcgee_alameda",
+        "name": "McGee to Alameda",
+        "section": 2,
+        "in_project_corridor": true,
+        "vehicle_volume_2025": 2588,
+        "vehicle_volume_unit": "estimated daily trips",
+        "vehicle_volume_year": 2025,
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2668, 37.8793],
+          [-122.2695, 37.8795]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "seg_sacramento_mcgee",
+      "properties": {
+        "type": "streetlight_segment",
+        "streetlight_id": "sacramento_mcgee",
+        "name": "Sacramento to McGee",
+        "section": 3,
+        "in_project_corridor": true,
+        "commercial_strip": true,
+        "vehicle_volume_2025": 5553,
+        "pedestrian_volume_2022": 1026,
+        "bicycle_volume_2022": 325,
+        "vehicle_volume_unit": "estimated daily trips",
+        "ped_bike_volume_unit": "estimated zone-based trips",
+        "vehicle_volume_year": 2025,
+        "ped_bike_volume_year": 2022,
+        "note": "Highest pedestrian zone on the corridor. Core of the parking controversy.",
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2695, 37.8795],
+          [-122.2722, 37.8797]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "seg_gilman_sacramento",
+      "properties": {
+        "type": "streetlight_segment",
+        "streetlight_id": "gilman_sacramento",
+        "name": "Gilman to Sacramento",
+        "section": 3,
+        "in_project_corridor": true,
+        "commercial_strip": true,
+        "vehicle_volume_2025": 7526,
+        "pedestrian_volume_2022": 769,
+        "bicycle_volume_2022": 560,
+        "vehicle_volume_unit": "estimated daily trips",
+        "ped_bike_volume_unit": "estimated zone-based trips",
+        "vehicle_volume_year": 2025,
+        "ped_bike_volume_year": 2022,
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2722, 37.8797],
+          [-122.2780, 37.8800]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "seg_peralta_gilman",
+      "properties": {
+        "type": "streetlight_segment",
+        "streetlight_id": "peralta_gilman",
+        "name": "Peralta to Gilman",
+        "section": null,
+        "in_project_corridor": false,
+        "note": "West of project corridor. Streetlight context only.",
+        "vehicle_volume_2025": 4021,
+        "pedestrian_volume_2022": 215,
+        "bicycle_volume_2022": 157,
+        "vehicle_volume_unit": "estimated daily trips",
+        "ped_bike_volume_unit": "estimated zone-based trips",
+        "vehicle_volume_year": 2025,
+        "ped_bike_volume_year": 2022,
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2780, 37.8800],
+          [-122.2835, 37.8803]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "seg_sanpablo_peralta",
+      "properties": {
+        "type": "streetlight_segment",
+        "streetlight_id": "sanpablo_peralta",
+        "name": "San Pablo to Peralta",
+        "section": null,
+        "in_project_corridor": false,
+        "note": "West of project corridor. Streetlight context only.",
+        "vehicle_volume_2025": 5549,
+        "pedestrian_volume_2022": 402,
+        "bicycle_volume_2022": 305,
+        "vehicle_volume_unit": "estimated daily trips",
+        "ped_bike_volume_unit": "estimated zone-based trips",
+        "vehicle_volume_year": 2025,
+        "ped_bike_volume_year": 2022,
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2835, 37.8803],
+          [-122.2929, 37.8809]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "seg_stannage_sanpablo",
+      "properties": {
+        "type": "streetlight_segment",
+        "streetlight_id": "stannage_sanpablo",
+        "name": "Stannage to San Pablo",
+        "section": null,
+        "in_project_corridor": false,
+        "note": "West of project corridor. Streetlight context only. Busiest vehicle segment on the full Hopkins dataset.",
+        "vehicle_volume_2025": 11082,
+        "vehicle_volume_unit": "estimated daily trips",
+        "vehicle_volume_year": 2025,
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-122.2929, 37.8809],
+          [-122.2965, 37.8811]
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_sutter",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & Sutter Ave",
+        "cross_street": "Sutter Ave",
+        "role": "eastern_terminus",
+        "section_boundary": [1],
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2636, 37.8793]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_alameda",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & The Alameda",
+        "cross_street": "The Alameda",
+        "role": "section_boundary",
+        "section_boundary": [1, 2],
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2668, 37.8793]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_mcgee",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & McGee Ave",
+        "cross_street": "McGee Ave",
+        "role": "section_boundary",
+        "section_boundary": [2, 3],
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2695, 37.8795]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_sacramento",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & Sacramento Ave",
+        "cross_street": "Sacramento Ave",
+        "role": "segment_boundary",
+        "section_boundary": [],
+        "note": "Within Section 3 commercial strip. Pedestrian hotspot boundary.",
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2722, 37.8797]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_gilman",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & Gilman St",
+        "cross_street": "Gilman St",
+        "role": "western_terminus",
+        "section_boundary": [3],
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2780, 37.8800]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_peralta",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & Peralta Ave",
+        "cross_street": "Peralta Ave",
+        "role": "streetlight_context_only",
+        "in_project_corridor": false,
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2835, 37.8803]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_sanpablo",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & San Pablo Ave",
+        "cross_street": "San Pablo Ave",
+        "role": "streetlight_context_only",
+        "in_project_corridor": false,
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2929, 37.8809]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "intersection_stannage",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & Stannage Ave",
+        "cross_street": "Stannage Ave",
+        "role": "streetlight_context_only",
+        "in_project_corridor": false,
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2965, 37.8811]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "parallel_cedar_sacramento",
+      "properties": {
+        "type": "parallel_route_reference",
+        "route": "Cedar St",
+        "at_cross_street": "Sacramento Ave",
+        "streetlight_id": "cedar_sacramento",
+        "position": "south of Hopkins (Cedar is furthest south; order N→S: Hopkins, Rose, Cedar)",
+        "vehicle_volume_2025": 7355,
+        "bicycle_volume_2022": 266,
+        "pedestrian_volume_2022": 340,
+        "vehicle_volume_unit": "estimated daily trips",
+        "ped_bike_volume_unit": "estimated zone-based trips",
+        "vehicle_volume_year": 2025,
+        "ped_bike_volume_year": 2022,
+        "note": "Cyclist diversion signal — 266 bike trips on Cedar suggests suppressed demand on Hopkins due to lack of protection.",
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2722, 37.8764]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "id": "parallel_rose_sacramento",
+      "properties": {
+        "type": "parallel_route_reference",
+        "route": "Rose St",
+        "at_cross_street": "Sacramento Ave",
+        "streetlight_id": "rose_sacramento",
+        "position": "south of Hopkins, north of Cedar (order N→S: Hopkins, Rose, Cedar)",
+        "vehicle_volume_2025": 2342,
+        "bicycle_volume_2022": 136,
+        "pedestrian_volume_2022": 384,
+        "vehicle_volume_unit": "estimated daily trips",
+        "ped_bike_volume_unit": "estimated zone-based trips",
+        "vehicle_volume_year": 2025,
+        "ped_bike_volume_year": 2022,
+        "data_source": "Data from Streetlight",
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
+        "coordinates_verified": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2722, 37.8782]
+      }
+    }
+
+  ]
+}
