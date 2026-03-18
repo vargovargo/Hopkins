@@ -1,0 +1,124 @@
+/* BackgroundPage.css */
+
+.background-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────── */
+
+.background-page__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.background-page__title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  color: var(--color-text);
+  line-height: 1.05;
+}
+
+.background-page__subtitle {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ── Intro two-column block ──────────────────────────────────────────── */
+
+.background-page__intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .background-page__intro {
+    grid-template-columns: 1fr;
+  }
+}
+
+.background-page__framing {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.background-page__framing p {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+/* At-a-glance stat cards */
+.background-page__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.at-a-glance-stat {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.at-a-glance-stat__number {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 500;
+  color: var(--color-amber);
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.at-a-glance-stat__unit {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 400;
+}
+
+.at-a-glance-stat__label {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* ── Timeline and source library sections ────────────────────────────── */
+
+.background-page__section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.background-page__section-heading {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  color: var(--color-text);
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-border);
+}

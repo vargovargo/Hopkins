@@ -1,0 +1,302 @@
+{
+  "_metadata": {
+    "description": "Hopkins Street corridor project history — timeline and source library",
+    "generated": "2026-03-18",
+    "note": "Timeline events are sourced from public records, journalism, and city documents. Source links point to publicly accessible documents where available."
+  },
+  "timeline": [
+    {
+      "id": "fatality-ped-2017",
+      "date": "2017",
+      "type": "fatality",
+      "title": "Pedestrian killed at Hopkins & Monterey",
+      "description": "A pedestrian was struck and killed at the intersection of Hopkins Street and Monterey Avenue. The fatality, along with a cyclist death the same year, would trigger the first serious city study of the corridor.",
+      "sources": [
+        {
+          "label": "Berkeley City Council budget referral, January 2018",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "fatality-cyclist-2017",
+      "date": "2017",
+      "type": "fatality",
+      "title": "Cyclist killed on Sacramento near Hopkins",
+      "description": "A cyclist was killed on Sacramento Avenue near Hopkins Street. Two fatalities in one year on the same corridor forced the question onto the city's agenda.",
+      "sources": [
+        {
+          "label": "Berkeley City Council budget referral, January 2018",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "council-referral-2018",
+      "date": "January 2018",
+      "type": "process",
+      "title": "City Council budget referral triggers corridor study",
+      "description": "Following the two 2017 fatalities, Berkeley City Council passed a budget referral directing staff to study safety improvements on the Hopkins Street corridor.",
+      "sources": [
+        {
+          "label": "Berkeley City Council meeting minutes, January 2018",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "bikeeastbay-report-2018",
+      "date": "2018",
+      "type": "safety",
+      "title": "Bike East Bay documents 36 collisions on corridor",
+      "description": "Bike East Bay reviewed the collision record for the Hopkins corridor and found 36 collisions between 2015 and 2018, with 36% involving a pedestrian or cyclist. The finding was drawn from city staff data.",
+      "sources": [
+        {
+          "label": "Bike East Bay corridor report (2018), citing city staff data",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "vision-zero-2020",
+      "date": "2020",
+      "type": "policy",
+      "title": "Vision Zero Action Plan designates Hopkins a High-Injury Street",
+      "description": "Berkeley's Vision Zero Action Plan formally designated the Hopkins Street corridor (Sutter to Gilman) as a High-Injury Street — a data-driven classification requiring capital investment. The designation was based on the 2016–2019 collision record.",
+      "sources": [
+        {
+          "label": "Berkeley Vision Zero Action Plan (2020)",
+          "url": "https://berkeleyca.gov/sites/default/files/2021-06/Vision%20Zero%20Action%20Plan.pdf"
+        }
+      ]
+    },
+    {
+      "id": "design-process-2021",
+      "date": "2021",
+      "type": "process",
+      "title": "Design process begins for Hopkins Street Safety Project",
+      "description": "City staff begin developing a design concept for the Hopkins Street corridor, including protected bike lanes and pedestrian improvements. The design would eventually include parking reductions — a detail that would become the center of controversy.",
+      "sources": [
+        {
+          "label": "City of Berkeley Public Works Department",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "council-vote-may-2022",
+      "date": "May 2022",
+      "type": "policy",
+      "title": "Council votes 8–1 to approve Hopkins Street design",
+      "description": "Berkeley City Council approved the Hopkins Street Safety Project design in an 8–1 vote. The staff report cited an initial estimate of 30–35 parking spaces removed. Protected bike lanes, pedestrian improvements, and traffic calming were included in the approved design.",
+      "sources": [
+        {
+          "label": "Berkeley City Council staff report and meeting minutes, May 2022",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "parking-revision-2022",
+      "date": "Summer 2022",
+      "type": "controversy",
+      "title": "Parking removal revised upward to ~60 spaces — not disclosed before vote",
+      "description": "After the Council vote, it emerged that the actual parking removal was approximately 60 spaces — roughly double the figure presented before the vote. This revision was not disclosed to Council or the public prior to the May 2022 approval, and became the central grievance of the opposition.",
+      "sources": [
+        {
+          "label": "Save Hopkins correspondence and public comment record",
+          "url": "https://savehopkins.org"
+        }
+      ]
+    },
+    {
+      "id": "reconsideration-oct-2022",
+      "date": "October 2022",
+      "type": "process",
+      "title": "Reconsideration motion fails — design reaffirmed",
+      "description": "Opposition groups filed a reconsideration motion challenging the May 2022 vote, primarily on the grounds of the undisclosed parking revision. The motion failed; the Council reaffirmed its approval of the Hopkins Street Safety Project design.",
+      "sources": [
+        {
+          "label": "Berkeley City Council meeting minutes, October 2022",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "delays-2022-2024",
+      "date": "2022–2024",
+      "type": "setback",
+      "title": "Implementation stalls despite two Council approvals",
+      "description": "Despite winning two Council votes, the project stalled. Contributing factors included staff turnover, political pressure from the commercial strip opposition, and unresolved design questions for the McGee-to-Gilman segment. No construction date was set.",
+      "sources": [
+        {
+          "label": "Berkeleyside coverage of Hopkins Street project delays",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "measure-ff-2025",
+      "date": "2025",
+      "type": "policy",
+      "title": "Voters pass Measure FF — street safety parcel tax",
+      "description": "Berkeley voters approved Measure FF, a parcel tax dedicated to street safety improvements. The measure passed while a competing measure with weaker bicycle and pedestrian commitments was rejected. The outcome signaled that the political environment was shifting toward safety investment.",
+      "sources": [
+        {
+          "label": "Alameda County election results, 2025",
+          "url": null
+        }
+      ]
+    },
+    {
+      "id": "status-2026",
+      "date": "2026",
+      "type": "setback",
+      "title": "Project remains unbuilt — seven years after the fatalities",
+      "description": "As of early 2026, the Hopkins Street Safety Project has been approved by Council twice and endorsed by seven or more city planning documents, but no construction has begun. The corridor that killed two people in 2017 looks the same as it did then.",
+      "sources": [
+        {
+          "label": "City of Berkeley Public Works Department",
+          "url": null
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "government": [
+      {
+        "id": "vision-zero-2020",
+        "title": "Berkeley Vision Zero Action Plan",
+        "organization": "City of Berkeley",
+        "year": 2020,
+        "summary": "Formal city policy committing to zero traffic fatalities. Designated Hopkins Street (Sutter to Gilman) a High-Injury Street based on the 2016–2019 collision record. Requires capital investment on designated corridors.",
+        "url": "https://berkeleyca.gov/sites/default/files/2021-06/Vision%20Zero%20Action%20Plan.pdf",
+        "key_facts": [
+          "Hopkins corridor designated High-Injury Street",
+          "Data period: 2016–2019 (contested by opposition as anomalous — see full time series in collision analysis)",
+          "Target: zero traffic fatalities by 2028"
+        ]
+      },
+      {
+        "id": "staff-report-may-2022",
+        "title": "Hopkins Street Safety Project — Council Staff Report",
+        "organization": "City of Berkeley Public Works",
+        "year": 2022,
+        "summary": "Staff report recommending Council approval of the Hopkins Street Safety Project design. Included design concept, cost estimate, and the initial parking impact figure of 30–35 spaces.",
+        "url": null,
+        "key_facts": [
+          "8–1 Council approval, May 2022",
+          "Initial parking estimate: 30–35 spaces (later revised to ~60)",
+          "Design includes protected bike lanes, Sutter to Gilman"
+        ]
+      },
+      {
+        "id": "bicycle-plan-2017",
+        "title": "Berkeley Bicycle Plan Update",
+        "organization": "City of Berkeley",
+        "year": 2017,
+        "summary": "Identified Hopkins Street as a priority corridor for bicycle infrastructure investment. Predates the fatalities but establishes the policy foundation for the 2022 project.",
+        "url": null,
+        "key_facts": [
+          "Hopkins identified as priority corridor",
+          "Calls for protected lanes on key east-west routes"
+        ]
+      },
+      {
+        "id": "climate-action-2020",
+        "title": "Berkeley Climate Action Plan",
+        "organization": "City of Berkeley",
+        "year": 2020,
+        "summary": "Sets mode shift targets requiring meaningful increases in walking, cycling, and transit use. Achieving these targets requires redesigning arterial streets like Hopkins to prioritize non-car modes.",
+        "url": null,
+        "key_facts": [
+          "Mode shift targets incompatible with current Hopkins design",
+          "Transportation is Berkeley's largest emissions source"
+        ]
+      },
+      {
+        "id": "pedestrian-plan",
+        "title": "Berkeley Pedestrian Master Plan",
+        "organization": "City of Berkeley",
+        "year": 2010,
+        "summary": "Established the framework for pedestrian safety investment, including a priority system for high-injury streets.",
+        "url": null,
+        "key_facts": []
+      },
+      {
+        "id": "active-transportation-2017",
+        "title": "Berkeley Active Transportation Plan",
+        "organization": "City of Berkeley",
+        "year": 2017,
+        "summary": "Integrated bicycle and pedestrian planning document. Hopkins is noted as a key east-west connection between West Berkeley (transit, employment) and North Berkeley (retail, schools, library).",
+        "url": null,
+        "key_facts": [
+          "Hopkins identified as key east-west active transportation corridor",
+          "Equity dimension: connects historically redlined West Berkeley to North Berkeley amenities"
+        ]
+      }
+    ],
+    "journalism": [
+      {
+        "id": "berkeleyside-general",
+        "title": "Hopkins Street safety project coverage",
+        "organization": "Berkeleyside",
+        "year": null,
+        "summary": "Berkeleyside has covered the Hopkins Street project across multiple articles, including the 2022 Council vote, the parking controversy, and subsequent delays. See berkeleyside.org for the full archive.",
+        "url": "https://www.berkeleyside.org/tag/hopkins-street",
+        "key_facts": []
+      }
+    ],
+    "advocacy": [
+      {
+        "id": "walkbike-berkeley",
+        "title": "Walk Bike Berkeley — Hopkins corridor advocacy",
+        "organization": "Walk Bike Berkeley (WBB)",
+        "year": null,
+        "summary": "Walk Bike Berkeley (WBB) has been the primary advocacy organization for the Hopkins Street project, commissioning the Streetlight data analysis and providing sustained public testimony. WBB signed the data contract for the Streetlight dataset used in this project.",
+        "url": "https://walkbikeberkeley.org",
+        "key_facts": [
+          "Commissioned Streetlight data analysis for this project",
+          "Data contract holder for Streetlight exports"
+        ]
+      },
+      {
+        "id": "bikeeastbay-report",
+        "title": "Hopkins Street corridor collision analysis",
+        "organization": "Bike East Bay",
+        "year": 2018,
+        "summary": "Bike East Bay analyzed the collision record for the Hopkins corridor and found 36 collisions between 2015 and 2018, with 36% involving a pedestrian or cyclist. The analysis cited city staff data and was submitted to Council in support of the safety project.",
+        "url": "https://bikeeastbay.org",
+        "key_facts": [
+          "36 collisions, 2015–2018 (secondary source — pending TIMS verification)",
+          "36% involved pedestrian or cyclist",
+          "Data cited city staff records"
+        ]
+      },
+      {
+        "id": "north-berkeley-now",
+        "title": "North Berkeley Now! — Hopkins corridor support",
+        "organization": "North Berkeley Now!",
+        "year": null,
+        "summary": "North Berkeley Now! has supported the Hopkins Street project and provided community organizing around the Council votes.",
+        "url": null,
+        "key_facts": []
+      }
+    ],
+    "opposition": [
+      {
+        "id": "save-hopkins",
+        "title": "Save Hopkins — opposition materials",
+        "organization": "Save Hopkins",
+        "year": null,
+        "summary": "Save Hopkins is the primary opposition group, formed around the parking removal concern. Their central arguments: (1) the revised parking estimate (60 spaces) was not disclosed before the Council vote; (2) the 2016–2019 designation period was an anomaly; (3) parking loss would harm local businesses and residents who depend on cars, including seniors and people with disabilities. These arguments are taken seriously in this project's analysis — see the collision time series and the data integrity notes for direct responses.",
+        "url": "https://savehopkins.org",
+        "key_facts": [
+          "Core argument: undisclosed parking revision undermines vote legitimacy",
+          "Claims 2016–2019 was an anomalous period — addressed by full TIMS time series",
+          "Raises legitimate concerns about business impact and accessibility for seniors"
+        ]
+      }
+    ]
+  }
+}

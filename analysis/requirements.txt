@@ -1,0 +1,15 @@
+# Hopkins Street Safety — analysis scripts
+# Install with: pip install -r analysis/requirements.txt
+
+# Core data processing
+pandas>=2.0
+geopandas>=0.14
+
+# Spatial geometry (dependency of geopandas)
+shapely>=2.0
+
+# PDF extraction (Prompt 3b — city_counts.py)
+pdfplumber>=0.10
+
+# Optional: faster CSV reading
+# pyarrow>=14.0

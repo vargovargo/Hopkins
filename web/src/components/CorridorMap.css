@@ -1,0 +1,134 @@
+/* CorridorMap.css — styles for the Mapbox corridor map component */
+
+.corridor-map {
+  width: 100%;
+  height: 480px;
+  background: #1a1a18; /* match page background while map tiles load */
+}
+
+@media (max-width: 768px) {
+  .corridor-map {
+    height: 320px;
+  }
+}
+
+/* No-token fallback state */
+.corridor-map--no-token {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #3a3a38;
+  border-radius: 4px;
+  color: #8a9a78;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.corridor-map--no-token code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8em;
+  color: #c4713b;
+  background: rgba(196, 113, 59, 0.1);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+
+/* ── Fatality markers ─────────────────────────────────────────────────── */
+
+.fatality-marker {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Solid amber center dot */
+.fatality-marker::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: #c4713b;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Pulsing amber ring */
+.fatality-marker::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #c4713b;
+  animation: fatality-pulse 2s ease-out infinite;
+  opacity: 0;
+}
+
+@keyframes fatality-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* ── Fatality popup ───────────────────────────────────────────────────── */
+
+/* Override Mapbox popup chrome */
+.fatality-popup-container .mapboxgl-popup-content {
+  background: #252523;
+  border: 1px solid #3a3a38;
+  border-radius: 4px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  min-width: 160px;
+}
+
+.fatality-popup-container .mapboxgl-popup-tip {
+  border-top-color: #252523;
+}
+
+.fatality-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fatality-popup__mode {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #c4713b;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.fatality-popup__year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #e8e4db;
+}
+
+.fatality-popup__location {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #e8e4db;
+  line-height: 1.4;
+}
+
+.fatality-popup__source {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  color: #8a9a78;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+/* Suppress Mapbox's close button (we're using closeButton: false but keep this as safety) */
+.fatality-popup-container .mapboxgl-popup-close-button {
+  display: none;
+}
