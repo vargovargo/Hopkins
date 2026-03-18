@@ -1,0 +1,102 @@
+# Data Integrity Notes — Hopkins Street Safety Project
+
+This file documents data quality issues, cross-source discrepancies, and
+methodological caveats for the Hopkins Street data story. It is updated
+automatically by the processing scripts and manually as issues are discovered.
+
+It may be surfaced in the site's methodology note. Every discrepancy is
+documented here — none are suppressed.
+
+---
+
+## Standing Data Integrity Rules
+
+Per CLAUDE.md (non-negotiable):
+
+1. Only render data that exists in source files — no estimates or illustrative placeholders presented as real.
+2. Never interpolate between data points to fill gaps.
+3. Label every number for what it actually is (zone distribution ≠ segment count).
+4. Show data years prominently — vehicle data is 2025, ped/bike data is 2022.
+5. Cite the source on every chart. "Data from Streetlight" / "Source: TIMS/SWITRS".
+6. StreetLight Volume ≠ StreetLight Index — never mix them on the same axis.
+7. `streetlight_summary.json` was transcribed from screenshots — all values must be verified against raw exports before publication.
+
+---
+
+## Streetlight Data Status
+
+**Status:** UNVERIFIED — pending raw export files in `data/raw/streetlight/`
+
+The `streetlight_summary.json` values were transcribed from screenshots of the
+Streetlight platform, not from the raw CSV exports. All numbers must be verified
+by running `analysis/streetlight.py` against the actual export files before any
+public use.
+
+**Output unit status (from CLAUDE.md):**
+- Vehicle data: StreetLight Volume (confirmed from Analysis.txt)
+- Pedestrian data: UNVERIFIED — must confirm Volume vs Index via audit (Step 1 of streetlight.py)
+- Bicycle data: UNVERIFIED — must confirm Volume vs Index via audit
+
+**Cross-mode comparability:** UNVERIFIED until output units confirmed for ped/bike.
+Per Streetlight documentation: "Trip Index values for different modes of travel
+cannot be compared with each other." If ped/bike use Index while vehicles use
+Volume, they cannot appear on the same chart axis.
+
+**Action required:**
+1. Place Streetlight export CSVs in `data/raw/streetlight/`
+2. Run `python analysis/streetlight.py`
+3. Review Step 1 audit output — confirm output units for all modes
+4. If modes_comparable = false in streetlight_verified.json, update all charts
+   to use separate axes with explicit unit labels
+
+---
+
+## City of Berkeley Traffic Counts Status
+
+**Status:** PENDING — PDFs not yet placed in `data/raw/city_counts/`
+
+Four PDFs from a public records request are expected. Once placed:
+- Run `python analysis/city_counts.py`
+- Review city_counts.json for image-based PDFs requiring manual entry
+- Review counts_comparison.json for divergences > 25%
+- This section will be updated automatically
+
+**Comparison goal:** Validation, not reconciliation. If city counts and
+Streetlight estimates disagree, we document it and explain why. We do not
+average the sources or select the more favorable number.
+
+---
+
+## TIMS Collision Data Status
+
+**Status:** PENDING — data pull from tims.berkeley.edu not yet completed
+
+The 36-collision figure cited by Bike East Bay (2015–2018) is from a secondary
+source (city staff report). This has NOT been independently verified against
+TIMS records yet.
+
+**What we can claim before TIMS pull:**
+- "Bike East Bay reported 36 collisions 2015–2018, citing city staff data"
+- Do NOT present this as independently verified
+
+**What we need from TIMS:**
+- Full time series back to 2010 minimum (to address "anomaly" argument)
+- Query the Hopkins corridor polygon (lat 37.877–37.882, lon -122.304 to -122.272)
+- Once CSV is in `data/raw/tims/`, run `python analysis/collisions.py`
+
+---
+
+## Known Data Gaps
+
+| Gap | Impact | Resolution |
+|-----|--------|------------|
+| Ped/bike output unit unverified (Volume vs Index) | Cannot confirm cross-mode comparability | Run streetlight.py Step 1 audit |
+| No Streetlight data for Monterey Ave segment | Fatality location may not appear in zone data | Fatality coordinates are in corridor.geojson |
+| TIMS data not yet pulled | 36-collision figure is secondary-source only | Pull from tims.berkeley.edu |
+| City count PDFs not yet processed | Cannot validate Streetlight estimates | Place PDFs in data/raw/city_counts/ |
+| Streetlight stannage_sanpablo segment has no ped/bike data | Gap in corridor-wide multimodal picture | Document in chart footnotes |
+
+---
+
+*This file is updated by `analysis/streetlight.py` and `analysis/city_counts.py`.*
+*Manual additions are marked with the date they were added.*
