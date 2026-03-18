@@ -1,0 +1,23 @@
+{
+  "_metadata": {
+    "source": "Secondary source — Bike East Bay (2018) citing Berkeley City Council staff report",
+    "source_status": "SECONDARY_SOURCE",
+    "attribution": "Source: Bike East Bay (2018), citing city staff. Must be cited as secondary source in all public-facing uses.",
+    "pending_verification": "TIMS/SWITRS data pull not yet completed. Annual breakdown and severity breakdown are NOT available from this source. Run analysis/collisions.py when TIMS export is available to replace this file with verified data.",
+    "years_covered": "2015–2018 (city-cited period only — secondary source does not provide full time series)",
+    "generated": "2026-03-18",
+    "ui_note": "Components rendering this data must display a visible banner indicating figures are from a secondary source pending TIMS verification. Do not style as independently verified findings."
+  },
+  "total_collisions": 36,
+  "fatal_collisions": 2,
+  "by_year": {},
+  "by_severity": {},
+  "ped_cyclist_involvement": {
+    "total": 13,
+    "pct_of_all_collisions": 36.0,
+    "pedestrian_involved": null,
+    "bicyclist_involved": null,
+    "note": "36% involvement figure is from Bike East Bay (2018) citing city staff. Breakdown by pedestrian vs. bicyclist is not available from secondary source."
+  },
+  "by_cross_street": {}
+}

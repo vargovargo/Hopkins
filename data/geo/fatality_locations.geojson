@@ -1,0 +1,49 @@
+{
+  "type": "FeatureCollection",
+  "_metadata": {
+    "description": "2017 fatality locations on the Hopkins corridor",
+    "source": "Berkeley City Council budget referral, January 2018",
+    "coordinates_source": "manually verified via Google Maps",
+    "note": "These two fatalities triggered the Hopkins Street corridor study and its eventual designation as a High-Injury Street in Berkeley's Vision Zero Action Plan (2020)."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "fatality_pedestrian_2017",
+      "properties": {
+        "type": "fatality",
+        "mode": "pedestrian",
+        "year": 2017,
+        "intersection": "Hopkins St & Monterey Ave",
+        "description": "Pedestrian struck at Hopkins and Monterey Avenue intersection",
+        "source": "Berkeley City Council budget referral, January 2018",
+        "coordinates_source": "manually verified via Google Maps",
+        "in_project_corridor": false,
+        "note": "East of project corridor boundary (Sutter Ave). Included because it directly motivated the corridor study."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2694, 37.8909]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "fatality_cyclist_2017",
+      "properties": {
+        "type": "fatality",
+        "mode": "cyclist",
+        "year": 2017,
+        "intersection": "Sacramento Ave near Hopkins St",
+        "description": "Cyclist fatality on Sacramento Avenue near Hopkins Street",
+        "source": "Berkeley City Council budget referral, January 2018",
+        "coordinates_source": "manually verified via Google Maps",
+        "in_project_corridor": true,
+        "note": "Within project corridor. Sacramento Ave bisects the commercial strip — the most contested segment."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2833, 37.8810]
+      }
+    }
+  ]
+}
