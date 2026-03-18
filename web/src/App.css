@@ -12,12 +12,13 @@
   background: var(--color-bg);
 }
 
-/* Map panel — sticky left column, desktop */
+/* Map panel — sticky left column, desktop
+   top: 52px accounts for the 52px NavBar */
 .map-panel {
   position: sticky;
-  top: 0;
+  top: 52px;
   width: 55%;
-  height: 100vh;
+  height: calc(100vh - 52px);
   flex-shrink: 0;
   overflow: hidden;
 }
