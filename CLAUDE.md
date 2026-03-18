@@ -221,7 +221,7 @@ This project is part of a live public policy debate. The analysis will be scruti
 
 - `VITE_MAPBOX_TOKEN` — get from mapbox.com, free tier is fine for this project
 
-**Domain:** TBD — either a subdomain of vargo.city or a standalone domain for the project
+**Domain:** https://hopkins-sage-omega.vercel.app/
 
 -----
 
