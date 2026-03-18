@@ -1,0 +1,96 @@
+{
+  "_metadata": {
+    "source": "Streetlight Data — provided via Walk Bike Berkeley",
+    "attribution": "Data from Streetlight. Must be attributed to Streetlight in any public-facing use.",
+    "vehicle_data_year": 2025,
+    "ped_bike_data_year": 2022,
+    "transcription_warning": "VALUES IN THIS FILE WERE TRANSCRIBED FROM SCREENSHOTS — not from raw export files. All numbers must be verified against the raw Streetlight export files in data/raw/streetlight/ before any public use. Do not treat these as authoritative until verified.",
+    "status": "UNVERIFIED — pending raw export confirmation",
+    "notes": [
+      "Vehicle data is full-year 2025 — most recent available.",
+      "Ped and bike data are 2022 — note this in any public display.",
+      "Cedar and Rose data covers San Pablo to Sacramento only.",
+      "Bicycle analysis shows more people using Cedar to Sacramento than Hopkins on that segment — confirms suppressed demand / diversion.",
+      "Hopkins San Pablo to Stannage is busiest vehicle segment on the corridor.",
+      "Large ped and bike volumes persist on lower Hopkins (to Peralta) even in 2022.",
+      "Data captured from Streetlight platform screenshots — raw export files in /data/raw/streetlight/ if available."
+    ],
+    "contact": "Streetlight friend via Walk Bike Berkeley — see WBB Slack"
+  },
+
+  "vehicle_volumes": {
+    "description": "Daily all-vehicle volume by Hopkins corridor segment",
+    "unit": "estimated daily trips",
+    "year": 2025,
+    "segments": [
+      { "id": "stannage_sanpablo", "label": "Stannage to San Pablo", "volume": 11082, "direction": "westbound_from_sutter" },
+      { "id": "gilman_sacramento", "label": "Gilman to Sacramento", "volume": 7526 },
+      { "id": "cedar_sacramento",  "label": "Cedar to Sacramento",  "volume": 7355, "note": "Cedar St parallel route, not Hopkins" },
+      { "id": "sacramento_mcgee",  "label": "Sacramento to McGee",  "volume": 5553 },
+      { "id": "sanpablo_peralta",  "label": "San Pablo to Peralta", "volume": 5549 },
+      { "id": "peralta_gilman",    "label": "Peralta to Gilman",    "volume": 4021 },
+      { "id": "mcgee_alameda",     "label": "McGee to Alameda",     "volume": 2588 },
+      { "id": "rose_sacramento",   "label": "Rose to Sacramento",   "volume": 2342, "note": "Rose St parallel route, not Hopkins" },
+      { "id": "alameda_sutter",    "label": "Alameda to Sutter",    "volume": 1625 }
+    ],
+    "analysis_notes": [
+      "Volumes are highest at the western end (Stannage/San Pablo) — not the commercial strip.",
+      "The commercial strip segment (Sacramento to McGee, 5,553) has moderate vehicle volume — roughly half the western peak.",
+      "Eastern segments (McGee to Alameda: 2,588; Alameda to Sutter: 1,625) are very low — no justification for full road width allocated to cars.",
+      "Cedar and Rose parallel routes carry comparable volumes to some Hopkins segments, suggesting significant diversion already occurring."
+    ]
+  },
+
+  "pedestrian_volumes": {
+    "description": "Pedestrian trip zone distribution — origins/destinations by zone",
+    "unit": "estimated pedestrian trips (zone-based)",
+    "year": 2022,
+    "note": "These are zone distribution values, not segment counts. Represent pedestrian activity concentration by zone.",
+    "zones": [
+      { "id": "sacramento_mcgee", "label": "Sacramento to McGee", "volume": 1026, "commercial_strip": true },
+      { "id": "mcgee_alameda",    "label": "McGee to Alameda",    "volume": 817 },
+      { "id": "gilman_sacramento","label": "Gilman to Sacramento","volume": 769 },
+      { "id": "sanpablo_peralta", "label": "San Pablo to Peralta","volume": 402 },
+      { "id": "rose_sacramento",  "label": "Rose to Sacramento",  "volume": 384 },
+      { "id": "cedar_sacramento", "label": "Cedar to Sacramento", "volume": 340 },
+      { "id": "alameda_sutter",   "label": "Alameda to Sutter",   "volume": 254 },
+      { "id": "peralta_gilman",   "label": "Peralta to Gilman",   "volume": 215 }
+    ],
+    "analysis_notes": [
+      "CRITICAL FINDING: The highest pedestrian zone (Sacramento to McGee, 1,026) is exactly the commercial strip where parking removal is most contested and where street protection is currently absent.",
+      "The top three pedestrian zones are all in the section from Gilman to McGee — the most contentious part of the project.",
+      "Pedestrians are already concentrated where the street is most hostile to them. Infrastructure improvements would serve existing users, not hypothetical future ones."
+    ]
+  },
+
+  "bicycle_volumes": {
+    "description": "Bicycle trip zone distribution — origins/destinations by zone",
+    "unit": "estimated bicycle trips (zone-based)",
+    "year": 2022,
+    "zones": [
+      { "id": "gilman_sacramento", "label": "Gilman to Sacramento", "volume": 560 },
+      { "id": "sacramento_mcgee", "label": "Sacramento to McGee",  "volume": 325 },
+      { "id": "sanpablo_peralta", "label": "San Pablo to Peralta", "volume": 305 },
+      { "id": "cedar_sacramento", "label": "Cedar to Sacramento",  "volume": 266, "parallel_route": true },
+      { "id": "mcgee_alameda",    "label": "McGee to Alameda",     "volume": 199 },
+      { "id": "peralta_gilman",   "label": "Peralta to Gilman",    "volume": 157 },
+      { "id": "alameda_sutter",   "label": "Alameda to Sutter",    "volume": 146 },
+      { "id": "rose_sacramento",  "label": "Rose to Sacramento",   "volume": 136, "parallel_route": true }
+    ],
+    "analysis_notes": [
+      "SUPPRESSED DEMAND FINDING: Cedar Street carries 266 bike trips in the Sacramento segment — comparable to several Hopkins segments. This represents cyclists avoiding Hopkins due to lack of protection, not choosing Cedar for its own merits.",
+      "Gilman to Sacramento is the busiest bike zone at 560 — this segment has existing painted lanes.",
+      "The Sacramento to McGee zone (325) is the commercial strip — cyclists are using it despite zero bike infrastructure.",
+      "Protected lanes would consolidate Cedar/Rose diversion traffic back onto Hopkins, likely increasing overall corridor cycling without adding net new vehicle conflict.",
+      "Streetlight contact confirmed: bicycle analysis shows more people using Cedar to Sacramento. This is the diversion signature."
+    ]
+  },
+
+  "key_arguments": {
+    "parking_vs_pedestrians": "The segment with the most contested parking removal (Sacramento to McGee) is simultaneously the segment with the highest pedestrian activity (1,026 zone trips). The parking debate is literally about the space most used by people not in cars.",
+    "suppressed_bike_demand": "Cedar Street's 266 bike trips on the Sacramento segment demonstrates that cyclists are already routing around Hopkins. Protected lanes would consolidate desire lines, not manufacture new demand.",
+    "vehicle_volume_context": "The commercial strip (Sacramento to McGee) carries 5,553 vehicle trips — significant, but less than half the volume of the western Stannage/San Pablo segment. The street does not need its current allocation of space for vehicles at that location.",
+    "eastern_segment_case": "Eastern Hopkins segments (Alameda to Sutter: 1,625; McGee to Alameda: 2,588) have very low vehicle volumes. The case for reallocation toward bike/ped infrastructure is strongest here and essentially uncontested by the data.",
+    "attribution_required": "All Streetlight data must be attributed: 'Data from Streetlight' in any public display. WBB signed a data contract."
+  }
+}
