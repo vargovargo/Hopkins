@@ -13,7 +13,7 @@ A sequential set of prompts to run in Claude Code after connecting it to the rep
 Run them in order. Each builds on the previous. Don't skip ahead until the prior
 step is confirmed working.
 
------
+---
 
 ## Prompt 1 — Project scaffold
 
@@ -31,7 +31,7 @@ Then scaffold the project structure described in the repo structure section:
 Do not build any components yet. Just the scaffold.
 ```
 
------
+---
 
 ## Prompt 2 — GeoJSON corridor boundary from Streetlight shapefiles
 
@@ -96,7 +96,7 @@ Document:
 Install geopandas if needed: pip install geopandas --break-system-packages
 ```
 
------
+---
 
 ## Prompt 3 — Streetlight data processing script
 
@@ -251,300 +251,203 @@ Print:
 - Any data quality concerns
 ```
 
------
+---
 
 ## Prompt 3b — City of Berkeley traffic count PDFs
 
 ```
 Read CLAUDE.md before starting.
 
-The City of Berkeley provided four PDFs of traffic count data for the Hopkins
-corridor via a public records request. These are independent ground-truth counts
-that can validate the Streetlight estimates.
+The City of Berkeley provided four PDFs of traffic count data via a public
+records request. All dated 2019-09-27. Location: Hopkins St between Stannage
+Ave and Cornell Ave (near 1154 Hopkins). Produced by Traffic Counts Plus.
 
-The PDFs are in data/raw/city_counts/.
+FILE NAMING CONVENTION (confirmed):
+  S_  prefix = speed / motor vehicle counts
+  C_  prefix = cycling counts
+  WB  suffix = westbound
+  EB  suffix = eastbound
 
-STEP 1 — Extract and audit
+Files: S_WB, S_EB, C_WB, C_EB — confirm exact filenames from data/raw/city_counts/
 
-For each PDF:
-- Extract all numeric count data (vehicle counts, turning movements, or
-  pedestrian/bike counts — whatever each PDF contains)
-- Note: location (intersection or segment), count type, date/time of count,
-  count duration, and any methodology notes in the document
-- If the PDF is image-based and text extraction fails, note this and describe
-  what is visually present
+---
 
-Print a summary of what each PDF contains before doing any further processing.
+SPEED FILE STRUCTURE (S_ prefix files)
 
-STEP 2 — Structure the data
+24-hour speed-binned count tables. Layout:
+- Column headers: speed bin lower bounds in mph (1, 9, 11, 13, 15, 17, 19,
+  21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45...)
+  Each pair defines a bin: 1-8 mph, 9-10 mph, 11-12 mph, etc.
+- Leftmost column: hour of day (00:00 through 23:00)
+- Cell values: count of vehicles at that speed during that hour
+- Bottom statistics block: 15th/50th/85th/95th percentile speeds, mean speed,
+  pace speed range, number and percent of vehicles > 25 MPH
 
-Save extracted data to data/processed/city_counts.json:
+IMPORTANT — S_EB FILE HAS TWICE AS MANY PAGES:
+S_EB contains 16 pages total: first 8 labeled "EASTBOUND", second 8 labeled
+"Direction 2". This is a common artifact from bidirectional pneumatic tube
+counters — the tube captures both directions and the counter logs them
+separately. Direction 2 is likely westbound traffic captured by the EB sensor.
+
+Process S_EB as three separate datasets:
+  1. S_WB (from S_WB file) — westbound, primary
+  2. S_EB EASTBOUND (pages 1-8) — eastbound, primary
+  3. S_EB Direction 2 (pages 9-16) — likely westbound, label as
+     "Direction 2 (S_EB counter — direction unconfirmed)"
+
+Cross-check Direction 2 against S_WB:
+- If 85th percentile speeds within 2 mph AND daily totals within 10%:
+  note "Direction 2 consistent with S_WB — likely independent westbound
+  measurement. Agreement strengthens confidence in both."
+- If they diverge significantly: flag without drawing conclusions.
+Do NOT assume or assert Direction 2 = westbound — let the data confirm it.
+
+CONFIRMED VALUES from S_WB screenshot:
+  Total vehicles:      3,815
+  15th percentile:     18 MPH
+  50th percentile:     24 MPH
+  85th percentile:     29 MPH
+  95th percentile:     31 MPH
+  Mean speed:          24 MPH
+  Pace speed:          21-30 MPH (70.1% of vehicles)
+  Vehicles > 25 MPH:   1,881
+  Percent > 25 MPH:    49.3%
+  Peak hour:           08:00 (420 vehicles)
+
+Use confirmed values for S_WB — do not re-extract if they match.
+Extract equivalent statistics from S_EB EASTBOUND and S_EB Direction 2.
+Also extract hourly totals for all three for time-of-day profiling.
+
+PROCESSING:
+1. Parse speed bin columns — reconstruct labels as ranges
+   (e.g. col "9" → "9-10 mph", col "11" → "11-12 mph")
+   For the last column use "[N]+ mph"
+
+2. For each hour compute:
+   - total_vehicles (sum across bins)
+   - vehicles_over_25 (sum where bin lower bound >= 25)
+   - pct_over_25
+
+3. Use the document's statistics block as authoritative for percentiles
+
+Save:
+  data/processed/city_counts_speed_WB.csv
+  data/processed/city_counts_speed_EB.csv
+  data/processed/city_counts_speed_EB_direction2.csv
+  data/processed/city_counts_speed_summary.json
+  (summary includes all three datasets, direction labels, and the
+  WB vs Direction-2 consistency check result)
+
+---
+
+VEHICLE CLASSIFICATION FILE STRUCTURE (C_ prefix files)
+
+NOTE: "C_" stands for Classification, not Cycling. These are vehicle
+classification counts by axle configuration — not bicycle data.
+
+Confirmed column structure (westbound):
+  Motor, Cars & Trailers, 2 Axle Long, Buses, 2 Axle 6-Tire Single,
+  3 Axle Single, 4 Axle Single, <5 Axl Double, 5 Axle Double,
+  >6 Axl Double, <6 Axl Multi, 6 Axle Multi, >6 Axl Multi, Not Classed, Total
+
+Confirmed values from C_WB:
+  Total vehicles: 3,815 (matches S_WB total — confirms same count period)
+  Cars & Trailers: 3,258 (85.4% of traffic)
+  2-Axle Long (trucks/vans): 405 (10.6%)
+  Buses: 15 (0.4%)
+  AM Peak: 08:00, 420 vehicles
+  PM Peak: 17:00, 327 vehicles
+
+PROCESSING for C_ files:
+
+1. Extract hourly totals by vehicle class
+2. Calculate percentage breakdown for the daily total
+3. Identify the "passenger vehicle" share (Motors + Cars & Trailers)
+   vs. "commercial/freight" share (trucks, buses, multi-axle)
+
+Save:
+  data/processed/city_counts_classification_WB.csv
+  data/processed/city_counts_classification_EB.csv
+
+Add to city_counts.json:
+  "classification": {
+    "WB": {
+      "total": 3815,
+      "passenger_vehicles_pct": "[Motors + Cars & Trailers] / total",
+      "commercial_pct": "[all truck/bus classes] / total",
+      "not_classed_pct": 1.6,
+      "am_peak_hour": "08:00",
+      "am_peak_volume": 420,
+      "pm_peak_hour": "17:00",
+      "pm_peak_volume": 327,
+      "hourly": [ ... ]
+    },
+    "EB": { ... }
+  }
+
+IMPORTANT CORRECTION to data_integrity_notes.md:
+  "City count C_ files are vehicle classification counts, not cycling counts.
+   No independent cycling counts are available from the city records request
+   for this location. Bicycle activity data comes from Streetlight 2022 only."
+
+This means the site has no independent validation for bicycle volumes —
+note this limitation clearly wherever bicycle data is displayed.
+
+---
+
+BUILD: data/processed/city_counts.json
+
 {
   "_metadata": {
-    "source": "City of Berkeley public records request",
-    "request_date": "[if shown in documents]",
-    "documents": [
-      {
-        "filename": "[pdf name]",
-        "location": "[intersection or segment]",
-        "count_type": "[vehicle / pedestrian / bike / turning movement]",
-        "count_date": "[date of count if shown]",
-        "count_duration": "[e.g. 24-hour, peak hour]",
-        "notes": "[anything relevant about methodology]"
-      }
-    ]
+    "source": "City of Berkeley — Traffic Counts Plus",
+    "contact": "mietekm@comcast.net",
+    "location": "Hopkins St between Stannage Ave and Cornell Ave (near 1154 Hopkins)",
+    "count_date": "2019-09-27",
+    "coverage_note": "Single location (Stannage-Cornell only). Single 24-hour count. Does not cover full corridor.",
+    "scope_warning": "2019 data. Pre-COVID. Cannot directly validate Streetlight 2022-2025 estimates. Use as historical reference and partial cross-check for Stannage-Cornell segment only.",
+    "file_types": {
+      "S_WB_S_EB": "Speed-binned vehicle counts — speed distribution by hour",
+      "C_WB_C_EB": "Vehicle classification counts — axle/type breakdown by hour. NOTE: C_ = Classification, not Cycling. No bicycle counts in this dataset."
+    },
+    "directions": ["WB", "EB"],
+    "no_bicycle_data": true,
+    "bicycle_data_source": "Streetlight 2022 only — no independent validation available"
   },
-  "counts": [ ... structured count records ... ]
+  "speed": { "WB": { ...stats + hourly... }, "EB": { ... } },
+  "classification": { "WB": { ... }, "EB": { ... } }
 }
 
-STEP 3 — Comparison with Streetlight
-
-Where city count locations overlap with Streetlight zones:
-- Compare the city count volume to Streetlight's estimated volume for the
-  same location and time period (note: they may use different time periods)
-- Calculate the difference as both absolute and percentage
-- Save to data/processed/counts_comparison.json
-- If counts diverge by more than 25%, flag for review and note in
-  data/processed/data_integrity_notes.md — do not suppress discrepancies
-
-The goal is validation, not reconciliation. If the data sources disagree,
-we say so and explain why (different years, different methodologies, etc.).
-Do not average them or pick the more favorable number.
-
-STEP 4 — Document for public transparency
-
-Add a section to data/processed/data_integrity_notes.md:
-"City of Berkeley Traffic Counts — Comparison with Streetlight"
-Summarize: what matched, what diverged, and what the divergence likely means.
-This section may be surfaced in the site's methodology note.
-```
-
------
-
-## Correction Prompts — Data Structure Fixes
-
-*Run these after the initial audit output from Prompt 3. These address structural
-mismatches discovered when the raw data was loaded. Run them in order before
-proceeding to Prompt 4 (TIMS) or Prompt 8 (visualizations).*
-
 ---
 
-## Correction A — Fix Streetlight vehicle data source
+STREETLIGHT COMPARISON — scoped correctly
 
-```
-Read CLAUDE.md before starting.
+The Streetlight network performance data has 85th percentile speed for
+Stannage-to-San Pablo (2025). The city count covers Stannage-to-Cornell
+(a subset of that segment) in 2019.
 
-The Prompt 3 audit revealed a structural mismatch in the Streetlight processing:
+Compare 85th percentile speeds where geographically overlapping:
+  City count WB 2019:  29 MPH
+  Streetlight 2025:    [pull from data/processed/network_performance.csv,
+                        zone "Stannage to San Pablo"]
 
-PROBLEM:
-The original script looks for za_*.csv for vehicle data, but vehicle data is in
-*_network_performance_seg_metrics_*.csv only. No vehicle zone activity file exists.
-Ped and bike data ARE in za_*.csv as expected.
+Document in data/processed/data_integrity_notes.md under
+"Speed Cross-Validation: City Counts vs Streetlight":
+- Geographic note: Stannage-Cornell is within Stannage-San Pablo zone
+- Time gap: 6 years, COVID intervened
+- If within ~5 mph: "broadly consistent across different methodologies and years"
+- If diverges > 5 mph: explain likely reasons, present both with metadata
+- Do not average or reconcile — present both with full provenance
 
-This means the three modes have different file structures:
-  - Vehicles:    *_network_performance_seg_metrics_*.csv (segment-based)
-  - Pedestrian:  za_*.csv (zone activity)
-  - Bicycle:     za_*.csv (zone activity)
+KEY CITABLE FINDING — flag prominently:
+  "49.3% of westbound vehicles exceeded Berkeley's 25 mph Vision Zero target
+   at Hopkins/Stannage-Cornell in a city-commissioned count, September 2019."
+  Source: "City of Berkeley traffic count, Traffic Counts Plus, 2019-09-27"
 
-GOOD NEWS confirmed by audit:
-All three modes use StL Volume (not Index). Cross-mode comparison IS valid —
-but note the structural difference (segment metrics vs zone activity) in all
-metadata and UI labels. They are measuring the same thing differently, not
-different things.
-
-FIXES NEEDED:
-
-1. Update analysis/streetlight.py:
-
-   Vehicle processing:
-   - Read from *_network_performance_seg_metrics_*.csv
-   - Extract: zone_id, zone_name, day_type, day_part,
-              segment_traffic (this is the volume field),
-              avg_speed_mph, free_flow_speed_mph, free_flow_factor, congestion,
-              speed percentile columns (whatever is present — check column names)
-   - Save to data/processed/vehicles_network_performance.csv
-     (rename from vehicles_by_zone_daypart.csv — the old name implied zone
-     activity which is wrong for this data)
-
-   Ped/bike processing: unchanged — za_*.csv is correct
-
-2. Update data/processed/streetlight_verified.json _metadata:
-   - output_units.vehicles: clarify it comes from network performance,
-     not zone activity
-   - Add: "vehicle_file_type": "network_performance_seg_metrics"
-   - Add: "ped_bike_file_type": "zone_activity"
-   - Add: "structural_note": "Vehicle volumes are segment-based (network
-     performance); ped/bike volumes are zone-based (zone activity). Both use
-     StL Volume. Segment and zone boundaries roughly correspond but are not
-     identical — do not treat as precisely equivalent geographic units."
-   - Set modes_comparable: true (confirmed — all StL Volume)
-
-3. Update data/processed/data_integrity_notes.md with a section:
-   "Vehicle vs Ped/Bike File Structure"
-   Document the difference clearly. This should be surfaced as a methodology
-   note in the site UI wherever vehicle and ped/bike data appear together.
-
-4. Rerun the processing and verify output files exist and have expected structure.
-   Print row counts and zone/segment names for each output file.
+This is independent of Streetlight. Cite it separately and specifically.
+Surface it in data_integrity_notes.md for use in the site UI.
 ```
 
 ---
-
-## Correction B — Fix TIMS collision script for relational tables
-
-```
-Read CLAUDE.md before starting.
-
-The TIMS export is three separate relational tables, not the single flat CSV
-the original collisions.py was written for.
-
-FILES in data/raw/tims/:
-  Crashes.csv   — one row per collision event (has CASE_ID, date, location, severity)
-  Parties.csv   — one row per party involved (has CASE_ID, party type, at-fault flag)
-  Victims.csv   — one row per victim (has CASE_ID, victim role, degree of injury)
-
-THE FIX: Rewrite analysis/collisions.py to join the three tables on CASE_ID.
-
-STEP 1 — Load and inspect
-
-For each CSV, print:
-- Column names
-- Row count
-- Sample of 3 rows
-- Unique values in key categorical fields:
-  Crashes: COLLISION_SEVERITY, TYPE_OF_COLLISION, ROAD_SURFACE, LIGHTING
-  Parties: PARTY_TYPE, AT_FAULT, STATEWIDE_VEHICLE_TYPE
-  Victims: VICTIM_ROLE, DEGREE_OF_INJURY
-
-Do not proceed until this is printed and confirmed.
-
-STEP 2 — Build the joined dataset
-
-joined = Crashes.merge(Parties, on='CASE_ID', how='left')
-         then merge Victims on CASE_ID, how='left'
-
-After joining:
-- Filter to corridor bounding box using Crashes lat/lon:
-    Latitude:  37.877 to 37.882
-    Longitude: -122.304 to -122.272
-- Parse COLLISION_DATE to datetime
-- Extract year, month, hour from date/time fields
-
-STEP 3 — Classify mode involvement
-
-A collision "involves a pedestrian" if:
-  ANY party row for that CASE_ID has PARTY_TYPE = 'Pedestrian'
-  OR any victim row has VICTIM_ROLE = 'Pedestrian'
-
-A collision "involves a cyclist" if:
-  ANY party row has PARTY_TYPE = 'Bicycle'
-  OR any victim row has VICTIM_ROLE = 'Bicyclist' (check exact value from audit)
-
-Flag each collision-level record with:
-  involves_pedestrian: bool
-  involves_cyclist: bool
-  involves_ped_or_cyclist: bool
-
-STEP 4 — Severity standardization
-
-Map COLLISION_SEVERITY codes to readable labels. Check exact codes from the
-audit output — SWITRS typically uses:
-  1 → fatal
-  2 → severe_injury
-  3 → other_injury
-  4 → property_damage_only
-
-If codes differ from above, use whatever the audit shows — do not assume.
-
-STEP 5 — Outputs (same as original spec)
-
-  data/processed/collisions_clean.csv — full joined, filtered, classified record
-  data/processed/collisions_summary.json — aggregates:
-    * collisions by year (full time series — all years in the data)
-    * collisions by severity
-    * collisions involving ped or cyclist
-    * collisions by nearest named cross-street
-  data/processed/collisions_geo.geojson — point features, severity + mode as properties
-
-STEP 6 — Print final summary to stdout:
-  Total collisions in corridor
-  Date range (earliest to latest)
-  Severity breakdown
-  Ped/cyclist involvement count and percentage
-  Any CASE_IDs that appear in Parties or Victims but not Crashes (orphaned records)
-  Any collisions missing lat/lon (could not be geo-filtered)
-```
-
----
-
-## Correction C — City count PDF interpretation
-
-```
-Read CLAUDE.md before starting.
-
-The city count PDFs have been identified:
-- All dated 2019-09-27
-- All on Hopkins between Stannage and Cornell
-- Filename convention: C_ = cycling counts, S_ = speed/motor vehicle counts
-- EB/WB suffixes = eastbound/westbound
-
-This is a single-location, single-date count — not a corridor-wide dataset.
-Adjust the processing and framing accordingly.
-
-STEP 1 — Extract data from each PDF
-
-For each PDF in data/raw/city_counts/:
-- Extract all numeric count data
-- Identify: count type (cycling vs speed/volume), direction (EB/WB),
-  time periods covered, count methodology if stated
-- If PDF is image-based, describe what is visible
-
-Print a full summary before any further processing.
-
-STEP 2 — Structure the data
-
-Save to data/processed/city_counts.json as before, but update metadata:
-  "location": "Hopkins Street between Stannage Ave and Cornell Ave"
-  "count_date": "2019-09-27"
-  "coverage_note": "Single location, single date. Does not cover full corridor."
-  "directions": ["EB", "WB"]
-  "count_types": ["cycling", "speed_volume"]  (confirm from actual files)
-
-STEP 3 — Comparison with Streetlight — adjust scope
-
-The city counts are from 2019. Streetlight vehicle data is 2025. Ped/bike is 2022.
-Do not present these as direct validations — the time gap is too large and
-COVID intervened between 2019 and the Streetlight data periods.
-
-Instead, document them as:
-"Independent count data for one Hopkins segment (Stannage to Cornell), September 2019.
-Useful as a reference point but not a direct validation of Streetlight estimates
-due to the difference in data years."
-
-In data/processed/data_integrity_notes.md, add:
-"City Traffic Counts — Scope and Limitations"
-  - Single location (Stannage to Cornell only)
-  - Single date (September 27 2019)
-  - Pre-COVID — travel patterns changed significantly 2020-2022
-  - Streetlight vehicle data is 2025, ped/bike is 2022
-  - These counts inform context but cannot validate Streetlight estimates
-    for different years and locations
-
-Do not run a numerical comparison that implies validation. Present the counts
-as a separate historical data point with clear date labeling.
-```
-
----
-
-*These corrections should be run before Prompt 8 (visualizations).
-After all three corrections are complete, verify:*
-- *data/processed/vehicles_network_performance.csv exists and has speed columns*
-- *data/processed/za_pedestrians.csv and za_bicycles.csv exist*
-- *data/processed/streetlight_verified.json has modes_comparable: true*
-- *data/processed/collisions_clean.csv exists with involves_ped_or_cyclist column*
-- *data/processed/city_counts.json exists with correct scope metadata*
-
------
 
 ## Prompt 4 — TIMS collision data processing script
 
@@ -587,7 +490,7 @@ any specific year range — include everything TIMS returns.
 Include analysis/requirements.txt. Use pandas and geopandas. Write commented code.
 ```
 
------
+---
 
 ## Prompt 5 — Base map component (was Prompt 4)
 
@@ -623,48 +526,91 @@ TECHNICAL:
 Also create web/src/components/CorridorMap.css for any styles that can't be inline.
 ```
 
------
+---
 
-## Prompt 6 — Collision visualization component (was Prompt 5)
+## Prompt 6 — Collision visualization component
 
 ```
 Read CLAUDE.md before starting.
 
 Build web/src/components/CollisionChart.jsx
 
-This component visualizes the TIMS collision data for the Hopkins corridor.
-It should feel like the "cost of doing nothing" section — serious, factual, not sensational.
+This component visualizes TIMS collision data for the Hopkins corridor.
+Serious, factual, not sensational. Data integrity is critical here — the
+opposition has scrutinized this data and will notice inconsistencies.
 
-Use the processed data at data/processed/collisions_summary.json (import directly as JSON).
+DATA: data/processed/collisions_summary.json (import directly)
+
+CRITICAL — THREE DISTINCT COLLISION SUBSETS:
+Three different figures appear in the public record, all correct, all
+measuring different things. The component must distinguish them clearly
+and never mix them.
+
+  1. ALL COLLISIONS (TIMS full dataset):
+     - What: every collision in the corridor bounding box, all severities
+     - Source: TIMS/SWITRS, pulled for this project
+     - Use for: the timeline bar chart (full time series)
+     - Label as: "All collisions including property damage only"
+
+  2. INJURY + FATAL SUBSET (city workshop figures):
+     - What: collisions resulting in injury or death only
+     - Source: SWITRS 2016–2019, cited in Workshop 4.2 and 4.3 (March 2022)
+     - Figures: 18 collisions, 78% involving ped or cyclist
+     - Use for: the "city's cited period" annotation and workshop reference
+     - Label as: "Injury and fatal collisions only, 2016–2019 (city workshop data)"
+
+  3. ALL COLLISIONS CITED BY BIKE EAST BAY (secondary source):
+     - What: all collisions 2015–2018
+     - Source: Bike East Bay citing city staff, 2018
+     - Figures: 36 collisions, 36% involving ped or cyclist
+     - Use for: historical reference only — superseded by TIMS pull
+     - Label as: "All collisions 2015–2018 (Bike East Bay, citing city staff)"
+     - Note: TIMS pull is primary — Bike East Bay figure is secondary source
+
+The heading should reflect TIMS data, not the secondary source.
+Pull the actual total from collisions_summary.json — do not hardcode 36.
+
+---
 
 DESIGN:
-- Dark card background (#252523), subtle 1px border
-- Heading: "36 Collisions. Two Lives Lost." in DM Serif Display
-- Subhead in DM Sans, small, muted: "Hopkins Corridor · 2015–2018 (source: TIMS/SWITRS)"
 
-VISUALIZATIONS (use D3 or Recharts):
+Heading: "[N] Collisions. Two Lives Lost." — N from collisions_summary.json total
+Subhead: "Hopkins Corridor · [date range from data] · Source: TIMS/SWITRS"
 
-1. A timeline bar chart showing collisions by year (2010–present).
-   - Bars in muted sage (#8a9a78) for property damage only
-   - Bars in amber (#c4713b) for injury collisions
-   - Bars in deep red (#8b2c2c) for fatal collisions
-   - X axis: years. Y axis: count. Gridlines barely visible (rgba(255,255,255,0.08))
-   - Annotate the 2015–2018 period with a subtle bracket or shaded region labeled "City's cited period"
-   - This directly addresses the opposition's "anomaly" claim — the full time series context matters
+VISUALIZATION 1 — Timeline bar chart (full TIMS dataset):
+- Stacked bars by year, full time series (all years in data)
+- Stack layers: property_damage_only (sage #8a9a78), other_injury (amber #c4713b),
+  severe_injury (deep amber #a85a2a), fatal (deep red #8b2c2c)
+- Annotate 2015–2018 with subtle shaded region, label:
+  "Bike East Bay cited period (all collisions)"
+- Annotate 2016–2019 with a second subtle bracket, label:
+  "City's cited period (injury/fatal only)"
+- Gridlines rgba(255,255,255,0.08), x-axis years, y-axis count
+- Legend below chart showing all four severity colors
 
-2. A single "big stat" callout row:
-   - "36 collisions" | "36% involved ped or cyclist" | "2 fatalities"
-   - Each stat: large monospace number, small sans-serif label below
-   - Amber color for the numbers
+VISUALIZATION 2 — Stat callout row:
+Pull these from collisions_summary.json — do NOT hardcode:
+  - Total collisions (full TIMS dataset, all years, all severities)
+  - Percent involving ped or cyclist
+  - Total fatalities
+Each stat: large monospace number (#c4713b), small DM Sans label below
+
+FOOTNOTE (required — renders below the chart):
+"Three collision figures appear in public discussion of this corridor:
+(1) [N] total collisions, all severities, [date range] — this chart, source: TIMS/SWITRS.
+(2) 36 collisions, all severities, 2015–2018 — Bike East Bay citing city staff (2018).
+(3) 18 injury and fatal collisions, 2016–2019 — City workshop presentations (March 2022).
+All three figures are correct — they measure different time periods and severity subsets."
+
+This footnote is non-negotiable. It preempts the most likely attack surface.
 
 PROPS:
-- data: the collision summary JSON object (with fallback to import)
-- yearRange: [startYear, endYear] — highlighted range for the "city's cited period" bracket
+- data: collisions_summary.json (with import fallback)
 
 Export as default.
 ```
 
------
+---
 
 ## Prompt 7 — Scrollama page shell (was Prompt 6)
 
@@ -703,7 +649,7 @@ TYPOGRAPHY AND STYLE:
 Also update web/index.html to load Google Fonts: DM Serif Display, DM Sans, JetBrains Mono.
 ```
 
------
+---
 
 ## Prompt 8 — Streetlight data visualizations
 
@@ -791,7 +737,7 @@ Wiring in App.jsx:
 - CedarDiversionChart → Section 2 "The street doesn't match how people use it"
 ```
 
------
+---
 
 ## Prompt 9 — Vercel deployment config (was Prompt 8)
 
@@ -820,9 +766,9 @@ Set up Vercel deployment for the /web directory.
    - Note that data/raw/ is gitignored and must be populated locally before building
 ```
 
------
+---
 
------
+---
 
 ## Prompt 10 — "The Record" background section (was Prompt 9)
 
@@ -939,7 +885,275 @@ FILE LOCATIONS:
 - Update web/src/App.jsx for routing
 ```
 
------
+---
+
+## Prompt 11 — Interactive segment panel on map click
+
+```
+Read CLAUDE.md before starting.
+
+Add click interactivity to the corridor map so that clicking a segment
+surfaces the relevant design proposal and data for that segment.
+
+Also read data/processed/parking_data.json before writing segments.js —
+use the verified parking figures from that file, not values from memory.
+
+---
+
+### DATA
+
+Create web/src/data/segments.js — a structured data file containing
+the per-segment information. This is sourced from the May 2022 city
+staff report and Workshop 4.3 presentation (public documents). Do not
+fabricate any design details — use only what is documented.
+
+export const SEGMENTS = [
+  {
+    id: "sutter-alameda",
+    label: "Sutter St to The Alameda",
+    character: "Residential — single-family homes, North Branch Library",
+    proposed_design: {
+      southside: "Parking-protected bike lane (eastbound/uphill)",
+      northside: "Class II buffered bike lane (westbound/downhill)",
+      parking: "Retained on both sides",
+      intersection_treatment: "Modified Alameda intersection — beveled curbs, rose-colored islands"
+    },
+    parking_impact: "No net loss",
+    parking_spaces_lost: 0,
+    source_page: 3,
+    source_doc: "Hopkins Corridor Project Conceptual Design, May 2022",
+    streetlight: {
+      vehicle_volume_daily: null, // populate from streetlight_verified.json
+      note: "Eastern end — lowest vehicle volumes on corridor"
+    },
+    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
+    intersection_image: null // image of the western intersection treatment
+  },
+  {
+    id: "alameda-mcgee",
+    label: "The Alameda to McGee Ave",
+    character: "Transitional — residential to commercial approach",
+    proposed_design: {
+      southside: "Two-way protected bikeway with buffer zone",
+      parking: "Most on-street parking retained both sides",
+      lane_width: "Narrowed from 11ft to 10.5ft",
+      intersection_treatment: "Bulbouts at Josephine St, raised crosswalk"
+    },
+    parking_impact: "Minimal loss",
+    parking_spaces_lost: null, // exact count requires design map images
+    source_page: 3,
+    source_doc: "Hopkins Corridor Project Conceptual Design, May 2022",
+    streetlight: {
+      vehicle_volume_daily: null,
+      note: null
+    },
+    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
+    intersection_image: null // image of the western intersection treatment
+  },
+  {
+    id: "mcgee-monterey",
+    label: "McGee Ave to Monterey Ave",
+    character: "Commercial strip approach",
+    proposed_design: {
+      southside: "Bi-directional protected bikeway, protected by parked vehicles",
+      parking: "All parking retained on south side except one stall",
+      loading: "Buffer zone for separation and loading"
+    },
+    parking_impact: "One space lost",
+    parking_spaces_lost: 1,
+    source_page: 3,
+    source_doc: "Workshop 4.3, March 14 2022",
+    streetlight: {
+      vehicle_volume_daily: null,
+      note: "Sacramento to McGee — highest pedestrian zone on corridor"
+    },
+    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
+    intersection_image: null // image of the Monterey Ave intersection treatment
+  },
+  {
+    id: "monterey-gilman",
+    label: "Monterey Ave to Gilman St",
+    character: "Commercial strip core — most contested blocks",
+    proposed_design: {
+      southside: "Bi-directional bikeway protected by raised concrete median",
+      parking: "All parking removed both sides",
+      intersection_treatment: "Bulbout at California/Monterey, raised crosswalk across Monterey (fatality location), raised median on northeast corner"
+    },
+    parking_impact: "All on-street parking removed",
+    parking_spaces_lost: null, // exact count requires design map images
+    parking_spaces_retained: 0,
+    fatality_note: "2017 pedestrian fatality at Hopkins/Monterey — raised crosswalk proposed here",
+    source_page: "3-4",
+    source_doc: "Workshop 4.3, March 14 2022",
+    streetlight: {
+      vehicle_volume_daily: null,
+      note: "Site of 2017 pedestrian fatality at Hopkins/Monterey"
+    },
+    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
+    intersection_image: null // image of the Monterey Ave intersection treatment (shared with mcgee-monterey)
+  }
+]
+
+export const SOURCE_DOC = {
+  title: "Hopkins Corridor Project Conceptual Design",
+  organization: "City of Berkeley City Manager's Office",
+  date: "May 10, 2022",
+  url: "https://berkeleyca.gov/sites/default/files/2022-04/2022-05-10%20Item%2033%20Hopkins%20Corridor%20Project.pdf"
+}
+
+Populate vehicle_volume_daily from data/processed/streetlight_verified.json
+where zone names match. Use null where no match. Do not estimate.
+
+---
+
+### COMPONENT: SegmentPanel.jsx
+
+A panel appearing when a map segment is clicked.
+
+TRIGGER: User clicks on a corridor segment line on the map.
+
+LAYOUT (mobile — bottom sheet sliding up from bottom):
+- Drag handle at top
+- Segment label in DM Serif Display
+- Character description in DM Sans muted small
+- "Proposed design" section — two columns: treatment label (muted) + value
+- Parking impact line: amber (#c4713b) if parking removed, green (#4a7c59) if retained
+- If parking_spaces_lost is null: show "Exact count pending — design maps required"
+  in muted text rather than showing nothing or a wrong number
+- If vehicle volume data exists: show as a small inline stat with source label
+- If design_images is non-empty: show images as a horizontal scrollable strip with caption; if only one image, just show it full-width
+- If segment has fatality_note: show amber note with warning icon
+- "Source" row at bottom: document title, date, "View PDF →" link
+- Close button (×) top right
+
+LAYOUT (desktop — right panel, 280px wide, slides in from right):
+- Same content, vertical layout
+- Stays open until user clicks elsewhere or closes
+
+DESIGN:
+- Panel background: #252523
+- 1px border top (mobile) or left (desktop): rgba(255,255,255,0.1)
+- Heading: DM Serif Display 1.1rem
+- Labels: DM Sans small caps letterspaced muted (#8a9a78)
+- Values: DM Sans regular warm white (#e8e4db)
+- Parking removed: amber (#c4713b)
+- Parking retained: forest green (#4a7c59)
+- Source link: slate blue (#6a9bcc)
+- Transition: slide in 200ms ease, slide out 150ms ease
+
+---
+
+### MAP CHANGES: CorridorMap.jsx
+
+1. Split corridor GeoJSON into individual segment features (one per SEGMENTS
+   entry) with id matching SEGMENTS[].id as a GeoJSON property.
+   If already segmented from Prompt 2, verify IDs match.
+
+2. Add transparent hit area layer (lineWidth: 20, opacity: 0) for easier
+   mobile tapping without changing visual appearance.
+
+3. On segment click:
+   - Set selectedSegment state to clicked segment id
+   - Highlight clicked segment (lineColor: brighter green, lineWidth: 6)
+   - Open SegmentPanel with matching SEGMENTS data
+
+4. On map click outside segment: clear selectedSegment, close panel,
+   return to default style
+
+5. "Tap a segment" hint label — appears 3 seconds on first load then fades
+
+---
+
+### WIRING
+
+- selectedSegment state in App.jsx, passed as props
+- scroll-driven highlightSegment and click-selected use different visual
+  treatments (color shift vs color + width) — both can be active
+- File locations:
+  web/src/data/segments.js (new)
+  web/src/components/SegmentPanel.jsx (new)
+  web/src/components/SegmentPanel.css (new)
+  web/src/components/CorridorMap.jsx (updated)
+```
+
+---
+
+## Prompt 12 — Community feedback visualization
+
+```
+Read CLAUDE.md before starting.
+
+Build web/src/components/CommunityFeedbackChart.jsx
+
+This component displays the community priority feedback from Workshop 2
+(March 2021). It belongs in Section 3 "What's actually at stake with parking"
+because it directly addresses the opposition's claim that the community's
+primary concern is parking.
+
+DATA: data/processed/community_feedback_workshop2.json (import directly)
+
+CRITICAL CAVEATS — must be reflected in the UI:
+
+1. APPROXIMATE VALUES: The data was read from a chart image, not a data
+   table. Every display of these numbers must be visually labeled as
+   "approximate" — a small "(approx.)" suffix or a footnote is required.
+   Do not display these as precise counts.
+
+2. TIMING: This feedback is from March 2021 — before specific parking
+   removal numbers were proposed. The opposition's intensity grew later
+   as the design became concrete. The chart shows early-process community
+   priorities, not a settled verdict on parking. A visible note is required.
+
+3. SOURCE: City of Berkeley Workshop 2, March 10 2021. Label clearly.
+
+---
+
+DESIGN:
+
+Heading: "What the community said it wanted"
+Subhead: "Workshop 2 participant feedback · March 2021 · City of Berkeley"
+Small caveat line below subhead: "Values are approximate — estimated from
+city workshop chart. Reflects early-process community input before specific
+design proposals were finalized."
+
+VISUALIZATION — Horizontal bar chart:
+- One bar per feedback item, sorted by total (descending, as in original)
+- Color bars by category:
+    safety: forest green (#4a7c59)
+    parking: amber (#c4713b) — makes parking visually distinct
+    vehicle: muted sage (#8a9a78)
+    placemaking: slate blue (#6a9bcc)
+    transit/other: warm brown (#7a6b5d)
+- Parking Improvement bar gets an additional label: "Ranked 9th"
+- Pedestrian Crossing Safety bar gets label: "Ranked 1st"
+- X axis: approximate count. Y axis: issue labels (left-aligned, DM Sans small)
+- No gridlines — clean, readable
+
+CALLOUT above the chart (amber card):
+"Parking ranked 9th out of 16 community concerns.
+Pedestrian safety, speeding, and cyclist safety ranked 1st, 2nd, and 3rd."
+
+SOURCE + CAVEAT footnote (required):
+"Source: City of Berkeley Hopkins Corridor Workshop 2, March 10 2021.
+Values are approximate counts estimated from the city's published chart —
+not exact figures. Feedback reflects community input from early 2021,
+before specific parking removal numbers were proposed."
+
+Link: "View original city document →" pointing to the PDF URL
+
+---
+
+WIRING:
+- Place in Section 3 "What's actually at stake with parking"
+- Renders after the parking space count visualization
+- The juxtaposition is the argument: here's what spaces are lost,
+  here's what the community said it actually cared about
+
+File: web/src/components/CommunityFeedbackChart.jsx
+Export as default.
+```
+
+---
 
 ## Notes for all sessions
 

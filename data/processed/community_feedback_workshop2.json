@@ -1,0 +1,152 @@
+{
+  "_metadata": {
+    "source": "Hopkins Corridor Traffic and Placemaking Study — Workshop 2 Presentation",
+    "source_url": "https://berkeleyca.gov/sites/default/files/2022-02/Hopkins%20Workshop%202%20Presentation.pdf",
+    "date": "March 10, 2021",
+    "description": "Participant feedback from Workshop 2 small group discussions. Community members identified their top concerns by corridor segment. Values are approximate counts read from the stacked bar chart — not exact figures.",
+    "status": "APPROXIMATE — values estimated from chart visual, not from a data table. Use for illustrative purposes only. Label clearly as approximate in any UI.",
+    "segments_in_chart": [
+      "Sacramento St.",
+      "Gilman St. to McGee Ave.",
+      "McGee Ave. to Sonoma Ave.",
+      "Sonoma Ave. to Sutter St."
+    ],
+    "key_finding": "Pedestrian Crossing Safety, Speeding, and Cyclist Safety were the three most commonly raised concerns — far outranking Parking Improvement, which ranked 9th of 16 issues. This reflects community priorities from the city's own public engagement process.",
+    "caveat": "Parking loss opposition grew significantly after Workshop 2 (March 2021) as the design proposals became more specific. This chart reflects early-process community priorities before parking removal was concretely proposed."
+  },
+
+  "feedback_items": [
+    {
+      "rank": 1,
+      "issue": "Pedestrian Crossing Safety",
+      "total_approximate": 31,
+      "category": "safety"
+    },
+    {
+      "rank": 2,
+      "issue": "Speeding Vehicles / Need for Traffic Calming",
+      "total_approximate": 19,
+      "category": "safety"
+    },
+    {
+      "rank": 3,
+      "issue": "Cyclist Safety / Facilities",
+      "total_approximate": 17,
+      "category": "safety"
+    },
+    {
+      "rank": 4,
+      "issue": "Placemaking",
+      "total_approximate": 15,
+      "category": "placemaking"
+    },
+    {
+      "rank": 5,
+      "issue": "Congestion",
+      "total_approximate": 13,
+      "category": "vehicle"
+    },
+    {
+      "rank": 6,
+      "issue": "Perceived Usefulness of Traffic Calming Features",
+      "total_approximate": 8,
+      "category": "safety"
+    },
+    {
+      "rank": 7,
+      "issue": "Safety Concerns around Traffic Controls",
+      "total_approximate": 5,
+      "category": "safety"
+    },
+    {
+      "rank": 8,
+      "issue": "Cut-Through Traffic",
+      "total_approximate": 5,
+      "category": "vehicle"
+    },
+    {
+      "rank": 9,
+      "issue": "Parking Improvement",
+      "total_approximate": 5,
+      "category": "parking"
+    },
+    {
+      "rank": 10,
+      "issue": "Transit Facility Improvements",
+      "total_approximate": 4,
+      "category": "transit"
+    },
+    {
+      "rank": 11,
+      "issue": "Emergency Vehicle Issues",
+      "total_approximate": 2,
+      "category": "vehicle"
+    },
+    {
+      "rank": 12,
+      "issue": "Air Quality from Traffic",
+      "total_approximate": 2,
+      "category": "environment"
+    },
+    {
+      "rank": 13,
+      "issue": "Sidewalks Too Narrow",
+      "total_approximate": 1,
+      "category": "pedestrian"
+    },
+    {
+      "rank": 14,
+      "issue": "Poor Pavement Quality",
+      "total_approximate": 1,
+      "category": "infrastructure"
+    },
+    {
+      "rank": 15,
+      "issue": "Driver Visibility Concerns",
+      "total_approximate": 1,
+      "category": "safety"
+    },
+    {
+      "rank": 16,
+      "issue": "Conversion to One-Way",
+      "total_approximate": 1,
+      "category": "vehicle"
+    }
+  ],
+
+  "collision_data_workshop2": {
+    "note": "All-collisions figure — includes property damage only. Different from Workshop 4 injury/fatal subset.",
+    "source": "SWITRS 2015-2018",
+    "total_collisions": 36,
+    "pct_involving_ped_or_cyclist": 36,
+    "pct_pedestrian": 11,
+    "pct_cyclist": 25,
+    "pct_vehicle_only": 64,
+    "fatalities": 2,
+    "comparison_note": "Workshop 4 (March 2022) cited 18 injury/fatal collisions with 78% ped/cyclist involvement. Both figures are correct — Workshop 2 includes all collisions; Workshop 4 isolates the injury/fatal subset."
+  },
+
+  "parking_retention_by_option": {
+    "source": "Workshop 2 design option comparison table",
+    "note": "These are the parking retention ranges from the three design options presented at Workshop 2. The final approved design (May 2022) is a hybrid that achieved better parking retention on most segments.",
+    "segments": {
+      "mcgee_to_gilman": {
+        "two_way_separated": "5-10% retained",
+        "one_way_separated": "0% retained",
+        "buffered_lanes": "0% retained",
+        "note": "Most contested segment. Final approved design achieved better retention on McGee-Monterey block."
+      },
+      "sonoma_to_mcgee": {
+        "two_way_separated": "35-40% retained",
+        "one_way_separated": "35-40% retained",
+        "buffered_lanes": "35-40% retained"
+      },
+      "sutter_to_sonoma": {
+        "two_way_separated": "85-90% retained",
+        "one_way_separated": "85-90% retained",
+        "buffered_lanes": "85-90% retained",
+        "note": "Eastern residential segment — minimal parking impact under all options"
+      }
+    }
+  }
+}

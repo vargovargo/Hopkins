@@ -1,0 +1,190 @@
+{
+  "_metadata": {
+    "source": "City of Berkeley — Traffic Counts Plus, mietekm@comcast.net",
+    "location": "Hopkins St between Stannage Ave and Cornell Ave (near 1154 Hopkins)",
+    "count_type": "Pneumatic tube — week-long continuous count",
+    "count_period": "2019-09-26 through 2019-10-03",
+    "date_note": "Filename date 2019-09-27 is the start of the primary WB full-day count; S_EB begins 2019-09-26 at 11:00 (partial day)",
+    "no_bicycle_data": true,
+    "classification_note": "C_ prefix = vehicle Classification (axle-configuration types), NOT cycling. No bicycle counts in this dataset.",
+    "scope_warning": "Single location (Stannage-Cornell), west of project corridor boundary. Pre-COVID 2019 travel patterns. Cannot directly validate Streetlight 2022–2025 estimates.",
+    "data_year": 2019
+  },
+
+  "primary_day": {
+    "date": "2019-09-27",
+    "day_of_week": "Friday",
+    "note": "Confirmed values match city document. Used as primary cited day."
+  },
+
+  "WB": {
+    "primary_day": {
+      "date": "2019-09-27",
+      "day_of_week": "Friday",
+      "total_vehicles": 3815,
+      "p15_mph": 18,
+      "p50_mph": 24,
+      "p85_mph": 29,
+      "p95_mph": 31,
+      "mean_mph": 24,
+      "pace_mph": "21-30",
+      "n_in_pace": 2674,
+      "pct_in_pace": 70.1,
+      "n_over_25mph": 1881,
+      "pct_over_25mph": 49.3,
+      "peak_hour": "08:00",
+      "peak_hour_volume": 420
+    },
+    "week_average": {
+      "weekdays_mon_fri": {
+        "days_included": ["2019-09-30", "2019-10-01", "2019-10-02", "2019-10-03"],
+        "days_note": "Mon–Thu only (Fri 09/27 is available but listed separately as primary day). All are complete days.",
+        "avg_total_vehicles": null,
+        "avg_p85_mph": 29,
+        "avg_mean_mph": 25,
+        "avg_pct_over_25mph": null,
+        "calculation_note": "Per-day weekday averages not calculated — only daily totals and stats from source document. p85 is consistent at 29 mph across all Mon–Thu days."
+      },
+      "all_days": {
+        "days_included": 7,
+        "date_range": "2019-09-27 through 2019-10-03",
+        "grand_total_vehicles": 24741,
+        "p85_mph_range": "29–30 (29 on all weekdays; 30 on Sat and Sun)",
+        "mean_mph_range": "24–26 (24 on Fri; 25 on weekdays; 26 on Sat/Sun)",
+        "pct_over_25mph_range": "49.3–62.7 (lowest Fri 49.3%, highest Sat 62.7%)",
+        "calculation_note": "Week-level averages not in source document. Ranges computed from per-day values above."
+      }
+    },
+    "hourly": [
+      {"hour": "00:00", "total_vehicles": 13},
+      {"hour": "01:00", "total_vehicles": 9},
+      {"hour": "02:00", "total_vehicles": 6},
+      {"hour": "03:00", "total_vehicles": 5},
+      {"hour": "04:00", "total_vehicles": 5},
+      {"hour": "05:00", "total_vehicles": 25},
+      {"hour": "06:00", "total_vehicles": 63},
+      {"hour": "07:00", "total_vehicles": 202},
+      {"hour": "08:00", "total_vehicles": 420},
+      {"hour": "09:00", "total_vehicles": 280},
+      {"hour": "10:00", "total_vehicles": 222},
+      {"hour": "11:00", "total_vehicles": 254},
+      {"hour": "12:00", "total_vehicles": 238},
+      {"hour": "13:00", "total_vehicles": 233},
+      {"hour": "14:00", "total_vehicles": 235},
+      {"hour": "15:00", "total_vehicles": 326},
+      {"hour": "16:00", "total_vehicles": 312},
+      {"hour": "17:00", "total_vehicles": 327},
+      {"hour": "18:00", "total_vehicles": 263},
+      {"hour": "19:00", "total_vehicles": 149},
+      {"hour": "20:00", "total_vehicles": 101},
+      {"hour": "21:00", "total_vehicles": 55},
+      {"hour": "22:00", "total_vehicles": 52},
+      {"hour": "23:00", "total_vehicles": 41}
+    ],
+    "hourly_date": "2019-09-27",
+    "hourly_note": "Hourly breakdown available for primary day (09/27/19) only. Other days' hourly data is in raw PDFs."
+  },
+
+  "EB": {
+    "primary_day": {
+      "date": "2019-09-27",
+      "day_of_week": "Friday",
+      "total_vehicles": 3643,
+      "p15_mph": 20,
+      "p50_mph": 25,
+      "p85_mph": 29,
+      "p95_mph": 32,
+      "mean_mph": 25,
+      "n_over_25mph": 1891,
+      "pct_over_25mph": 51.9,
+      "pace_mph": null,
+      "n_in_pace": null,
+      "pct_in_pace": null,
+      "pace_note": "Pace band not extracted from EB source document",
+      "peak_hour": null,
+      "peak_hour_volume": null,
+      "peak_note": "Peak hour not extracted from S_EB document for 09/27"
+    },
+    "week_average": {
+      "weekdays_mon_fri": {
+        "days_included": ["2019-09-30", "2019-10-01", "2019-10-02"],
+        "days_note": "Mon–Wed only complete EB weekdays (Thu 09/26 starts at 11:00, Fri 09/27 is primary day, Thu 10/03 ends at 13:00). All Mon–Wed days are complete.",
+        "avg_total_vehicles": null,
+        "avg_p85_mph": 29,
+        "avg_mean_mph": 25,
+        "avg_pct_over_25mph": null,
+        "calculation_note": "Per-day weekday averages not calculated — only daily totals and stats from source document. p85 consistent at 29 mph across Mon–Wed complete weekdays."
+      },
+      "all_days": {
+        "days_in_file": 8,
+        "partial_days": 2,
+        "partial_day_note": "09/26 starts 11:00; 10/03 ends 13:00",
+        "grand_total_vehicles": 24002,
+        "p85_mph_range": "29–30 (29 on weekdays; 30 on Sat/Sun)",
+        "mean_mph_range": "25–27 (25 on weekdays; 26 Sat; 27 Sun)",
+        "pct_over_25mph_range": "51.9–65.4 (lowest Fri 51.9%, highest Sun 65.4%)",
+        "calculation_note": "Week-level averages not in source document. Ranges computed from per-day values above."
+      }
+    },
+    "hourly": [
+      {"hour": "00:00", "total_vehicles": 23},
+      {"hour": "01:00", "total_vehicles": 6},
+      {"hour": "02:00", "total_vehicles": 4},
+      {"hour": "03:00", "total_vehicles": 7},
+      {"hour": "04:00", "total_vehicles": 1},
+      {"hour": "05:00", "total_vehicles": 11},
+      {"hour": "06:00", "total_vehicles": 28},
+      {"hour": "07:00", "total_vehicles": 164},
+      {"hour": "08:00", "total_vehicles": 276},
+      {"hour": "09:00", "total_vehicles": 193},
+      {"hour": "10:00", "total_vehicles": 194},
+      {"hour": "11:00", "total_vehicles": 194},
+      {"hour": "12:00", "total_vehicles": 233},
+      {"hour": "13:00", "total_vehicles": 243},
+      {"hour": "14:00", "total_vehicles": 289},
+      {"hour": "15:00", "total_vehicles": 305},
+      {"hour": "16:00", "total_vehicles": 315},
+      {"hour": "17:00", "total_vehicles": 334},
+      {"hour": "18:00", "total_vehicles": 263},
+      {"hour": "19:00", "total_vehicles": 182},
+      {"hour": "20:00", "total_vehicles": 134},
+      {"hour": "21:00", "total_vehicles": 117},
+      {"hour": "22:00", "total_vehicles": 80},
+      {"hour": "23:00", "total_vehicles": 47}
+    ],
+    "hourly_date": "2019-09-27",
+    "hourly_note": "Hourly breakdown available for primary day (09/27/19) only. Other days' hourly data is in raw PDFs."
+  },
+
+  "direction_2": {
+    "conclusion": "SENSOR_ARTIFACT — NOT valid traffic measurement",
+    "evidence": "Grand total 220 vehicles over 8 days vs. 24,741 WB vehicles. 85th percentile is 4–8 mph (walking speed) on all days except one day at 19 mph. 93%+ of vehicles are in the 1–8 mph speed bin. Volumes are 100x lower than S_WB and speeds are at walking pace.",
+    "grand_total_week": 220,
+    "vs_WB_grand_total": 24741,
+    "volume_ratio": "0.9%",
+    "median_speed_mph": "4–8 across all days",
+    "cross_check_result": "FAILS — volumes 100x lower than S_WB, speeds at walking pace",
+    "excluded_from_all_analysis": true
+  },
+
+  "key_finding": {
+    "flag": "KEY CITABLE FINDING — INDEPENDENT OF STREETLIGHT",
+    "statement": "49.3% of westbound vehicles exceeded Berkeley's 25 mph Vision Zero target at Hopkins/Stannage-Cornell in a city-commissioned count, September 2019.",
+    "WB_p85_mph": 29,
+    "EB_p85_mph": 29,
+    "vision_zero_target_mph": 25,
+    "excess_above_target_mph": 4,
+    "WB_pct_over_25mph_primary_day": 49.3,
+    "EB_pct_over_25mph_primary_day": 51.9,
+    "source": "City of Berkeley traffic count, Traffic Counts Plus, 2019-09-27",
+    "independence_note": "Independent of Streetlight data. Cite separately and specifically."
+  },
+
+  "streetlight_comparison": {
+    "status": "PENDING",
+    "note": "Streetlight network_performance.csv not yet processed. Compare stannage_sanpablo zone 85th percentile speed (2025) against city count WB 85th = 29 MPH (2019) when available.",
+    "geographic_note": "Stannage-Cornell is within Stannage-San Pablo zone",
+    "time_gap_note": "6 years, COVID intervened — not a direct validation. Present both with full provenance when Streetlight is processed.",
+    "do_not_present_as_direct_validation": true
+  }
+}

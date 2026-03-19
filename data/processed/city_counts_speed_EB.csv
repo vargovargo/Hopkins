@@ -1,0 +1,32 @@
+# Source: City of Berkeley — Traffic Counts Plus, mietekm@comcast.net
+# Location: Hopkins St between Stannage Ave and Cornell Ave (near 1154 Hopkins)
+# Direction: Eastbound (EB)
+# primary_day_only: 2019-09-27 — other days' hourly data is in raw PDFs
+# Count period: 2019-09-26 through 2019-10-03 (8 days; 09/26 starts 11:00; 10/03 ends 13:00; only 09/27 extracted hourly)
+# Direction 2 excluded: S_EB Direction 2 pages are sensor artifact (220 vehicles/week, 85th pct 4-8 mph) — not valid traffic
+# No bicycle data: C_ files are vehicle Classification (axle type), NOT cycling
+date,day_of_week,hour,total_vehicles,note
+2019-09-27,Friday,00:00,23,primary_day_only
+2019-09-27,Friday,01:00,6,primary_day_only
+2019-09-27,Friday,02:00,4,primary_day_only
+2019-09-27,Friday,03:00,7,primary_day_only
+2019-09-27,Friday,04:00,1,primary_day_only
+2019-09-27,Friday,05:00,11,primary_day_only
+2019-09-27,Friday,06:00,28,primary_day_only
+2019-09-27,Friday,07:00,164,primary_day_only
+2019-09-27,Friday,08:00,276,primary_day_only
+2019-09-27,Friday,09:00,193,primary_day_only
+2019-09-27,Friday,10:00,194,primary_day_only
+2019-09-27,Friday,11:00,194,primary_day_only
+2019-09-27,Friday,12:00,233,primary_day_only
+2019-09-27,Friday,13:00,243,primary_day_only
+2019-09-27,Friday,14:00,289,primary_day_only
+2019-09-27,Friday,15:00,305,primary_day_only
+2019-09-27,Friday,16:00,315,primary_day_only
+2019-09-27,Friday,17:00,334,primary_day_only
+2019-09-27,Friday,18:00,263,primary_day_only
+2019-09-27,Friday,19:00,182,primary_day_only
+2019-09-27,Friday,20:00,134,primary_day_only
+2019-09-27,Friday,21:00,117,primary_day_only
+2019-09-27,Friday,22:00,80,primary_day_only
+2019-09-27,Friday,23:00,47,primary_day_only

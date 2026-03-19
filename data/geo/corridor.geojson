@@ -5,22 +5,19 @@
     "crs": "WGS84 (EPSG:4326)",
     "geojson_convention": "[longitude, latitude]",
     "project_corridor": "Sutter Ave to Gilman St (~1 mile)",
-    "east_to_west_order": "Sutter → The Alameda → McGee → Sacramento → Gilman → Peralta → Stannage → San Pablo",
-    "sections": {
-      "1": "Sutter Ave to The Alameda",
-      "2": "The Alameda to McGee Ave",
-      "3": "McGee Ave to Gilman St (commercial strip)"
-    },
-    "streetlight_context_segments": "Three Streetlight segments extend west of Gilman (Gilman→Peralta, Peralta→Stannage, Stannage→San Pablo) — included here as context but outside the project corridor boundary. San Pablo Ave is the western terminus of the Streetlight dataset.",
+    "east_to_west_order": "Sutter → The Alameda → McGee → Monterey → Sacramento → Gilman → Peralta → Stannage → San Pablo",
+    "segment_id_note": "Project corridor segment IDs match web/src/data/segments.js exactly. The click handler in CorridorMap.jsx uses feature.id to look up segment data.",
+    "streetlight_alignment_note": "Streetlight zones split the commercial strip at Sacramento Ave. Design segments split it at Monterey Ave. These boundaries do not coincide — mcgee-monterey and monterey-gilman each partially overlap Streetlight zone sacramento_mcgee. See streetlight_zones property on each segment feature.",
     "parallel_routes": {
       "note": "Cedar and Rose run east-west south of Hopkins. Order north to south: Hopkins → Rose → Cedar.",
       "streetlight_coverage": "Streetlight captured Cedar and Rose volumes at Sacramento Ave only."
     },
-    "segment_geometry_note": "Streetlight segment 'sanpablo_peralta' (San Pablo to Peralta) is rendered as the Peralta→Stannage block; 'stannage_sanpablo' (Stannage to San Pablo) is the Stannage→San Pablo block. Together they cover Peralta to San Pablo without overlap.",
+    "segment_geometry_note": "Context segments west of Gilman (peralta-gilman, sanpablo-peralta, stannage-sanpablo) retain Streetlight naming and are outside the project corridor. They are displayed for data context but are not clickable design segments.",
     "sources": [
       "Bike East Bay corridor description (section definitions)",
       "City of Berkeley staff report, May 2022",
-      "Intersection coordinates verified via Google Maps, March 2026"
+      "Intersection coordinates verified via Google Maps, March 2026",
+      "Hopkins & Monterey coordinate: manually verified via Google Maps, corrected March 2026 (commit b5cf46f)"
     ]
   },
   "type": "FeatureCollection",
@@ -28,122 +25,27 @@
 
     {
       "type": "Feature",
-      "id": "corridor_project",
+      "id": "sutter-alameda",
       "properties": {
-        "type": "corridor",
-        "name": "Hopkins Street — project corridor",
+        "segment_id": "sutter-alameda",
+        "type": "project_segment",
+        "label": "Sutter St to The Alameda",
         "from": "Sutter Ave",
-        "to": "Gilman St",
-        "length_mi": 1.0,
-        "designation": "High-Injury Street (Berkeley Vision Zero Action Plan, 2020)",
-        "approved": "Berkeley City Council, May 2022 (reaffirmed Oct 2022)"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [-122.272499, 37.888476],
-          [-122.274940, 37.885431],
-          [-122.281199, 37.882053],
-          [-122.283280, 37.880967],
-          [-122.284829, 37.880179]
-        ]
-      }
-    },
-
-    {
-      "type": "Feature",
-      "id": "corridor_context_west",
-      "properties": {
-        "type": "corridor_context",
-        "name": "Hopkins Street — Streetlight context only (west of project)",
-        "from": "Gilman St",
-        "to": "San Pablo Ave",
-        "note": "Outside project boundary. Streetlight vehicle data available for these segments (2025). San Pablo Ave is the western terminus of the Streetlight dataset."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [-122.284829, 37.880179],
-          [-122.288742, 37.878074],
-          [-122.292509, 37.876041],
-          [-122.294095, 37.875223]
-        ]
-      }
-    },
-
-    {
-      "type": "Feature",
-      "id": "section_1",
-      "properties": {
-        "type": "project_section",
-        "section": 1,
-        "name": "Section 1 — Sutter to The Alameda",
-        "from": "Sutter Ave",
-        "to": "The Alameda"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [-122.272499, 37.888476],
-          [-122.274940, 37.885431]
-        ]
-      }
-    },
-
-    {
-      "type": "Feature",
-      "id": "section_2",
-      "properties": {
-        "type": "project_section",
-        "section": 2,
-        "name": "Section 2 — The Alameda to McGee",
-        "from": "The Alameda",
-        "to": "McGee Ave"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [-122.274940, 37.885431],
-          [-122.281199, 37.882053]
-        ]
-      }
-    },
-
-    {
-      "type": "Feature",
-      "id": "section_3",
-      "properties": {
-        "type": "project_section",
-        "section": 3,
-        "name": "Section 3 — McGee to Gilman (commercial strip)",
-        "from": "McGee Ave",
-        "to": "Gilman St",
-        "note": "Contains commercial strip; highest pedestrian activity; most contested segment"
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [-122.281199, 37.882053],
-          [-122.283280, 37.880967],
-          [-122.284829, 37.880179]
-        ]
-      }
-    },
-
-    {
-      "type": "Feature",
-      "id": "seg_alameda_sutter",
-      "properties": {
-        "type": "streetlight_segment",
-        "streetlight_id": "alameda_sutter",
-        "name": "Alameda to Sutter",
-        "section": 1,
+        "to": "The Alameda",
         "in_project_corridor": true,
+        "streetlight_zones": ["alameda_sutter"],
+        "streetlight_zone_note": "One-to-one match with Streetlight zone alameda_sutter.",
         "vehicle_volume_2025": 1625,
         "vehicle_volume_unit": "estimated daily trips",
         "vehicle_volume_year": 2025,
         "data_source": "Data from Streetlight",
-        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
+        "design_images": [
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900318/Screenshot_2026-03-18_at_11.05.13_PM_qpmwwv.png",
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900383/Screenshot_2026-03-18_at_11.06.18_PM_v5f0qf.png",
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900338/Screenshot_2026-03-18_at_11.05.32_PM_gsvc2a.png"
+        ],
+        "intersection_image": "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900352/Screenshot_2026-03-18_at_11.05.47_PM_wqxd3q.png"
       },
       "geometry": {
         "type": "LineString",
@@ -156,18 +58,28 @@
 
     {
       "type": "Feature",
-      "id": "seg_mcgee_alameda",
+      "id": "alameda-mcgee",
       "properties": {
-        "type": "streetlight_segment",
-        "streetlight_id": "mcgee_alameda",
-        "name": "McGee to Alameda",
-        "section": 2,
+        "segment_id": "alameda-mcgee",
+        "type": "project_segment",
+        "label": "The Alameda to McGee Ave",
+        "from": "The Alameda",
+        "to": "McGee Ave",
         "in_project_corridor": true,
+        "streetlight_zones": ["mcgee_alameda"],
+        "streetlight_zone_note": "One-to-one match with Streetlight zone mcgee_alameda.",
         "vehicle_volume_2025": 2588,
         "vehicle_volume_unit": "estimated daily trips",
         "vehicle_volume_year": 2025,
         "data_source": "Data from Streetlight",
-        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
+        "design_images": [
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900403/Screenshot_2026-03-18_at_11.06.38_PM_dpjpzr.png",
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900538/Screenshot_2026-03-18_at_11.08.52_PM_n78nbz.png",
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900556/Screenshot_2026-03-18_at_11.09.07_PM_ynbmw0.png",
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900640/Screenshot_2026-03-18_at_11.10.33_PM_l48s86.png"
+        ],
+        "intersection_image": "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900696/Screenshot_2026-03-18_at_11.11.29_PM_qiak0s.png"
       },
       "geometry": {
         "type": "LineString",
@@ -180,14 +92,17 @@
 
     {
       "type": "Feature",
-      "id": "seg_sacramento_mcgee",
+      "id": "mcgee-monterey",
       "properties": {
-        "type": "streetlight_segment",
-        "streetlight_id": "sacramento_mcgee",
-        "name": "Sacramento to McGee",
-        "section": 3,
+        "segment_id": "mcgee-monterey",
+        "type": "project_segment",
+        "label": "McGee Ave to Monterey Ave",
+        "from": "McGee Ave",
+        "to": "Monterey Ave",
         "in_project_corridor": true,
         "commercial_strip": true,
+        "streetlight_zones": ["sacramento_mcgee"],
+        "streetlight_zone_note": "Partially overlaps Streetlight zone sacramento_mcgee (McGee to Sacramento). Monterey Ave is between McGee and Sacramento — no exact zone boundary here. Volume shown is for the full sacramento_mcgee zone.",
         "vehicle_volume_2025": 5553,
         "pedestrian_volume_2022": 1026,
         "bicycle_volume_2022": 325,
@@ -195,29 +110,38 @@
         "ped_bike_volume_unit": "estimated zone-based trips",
         "vehicle_volume_year": 2025,
         "ped_bike_volume_year": 2022,
-        "note": "Highest pedestrian zone on the corridor. Core of the parking controversy.",
+        "streetlight_volume_caveat": "Zone volumes reflect the full sacramento_mcgee zone (McGee to Sacramento), not this segment alone.",
         "data_source": "Data from Streetlight",
-        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
+        "design_images": [
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900994/Screenshot_2026-03-18_at_11.16.30_PM_myzi1s.png"
+        ],
+        "intersection_image": "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901058/Screenshot_2026-03-18_at_11.17.34_PM_wzs74d.png",
+        "design_images_note": "First of three commercial strip images assigned to this sub-segment by east-to-west order."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [-122.281199, 37.882053],
-          [-122.283280, 37.880967]
+          [-122.2818, 37.8818]
         ]
       }
     },
 
     {
       "type": "Feature",
-      "id": "seg_gilman_sacramento",
+      "id": "monterey-gilman",
       "properties": {
-        "type": "streetlight_segment",
-        "streetlight_id": "gilman_sacramento",
-        "name": "Gilman to Sacramento",
-        "section": 3,
+        "segment_id": "monterey-gilman",
+        "type": "project_segment",
+        "label": "Monterey Ave to Gilman St",
+        "from": "Monterey Ave",
+        "to": "Gilman St",
         "in_project_corridor": true,
         "commercial_strip": true,
+        "fatality_note": "2017 pedestrian fatality at Hopkins/Monterey — raised crosswalk proposed here",
+        "streetlight_zones": ["sacramento_mcgee", "gilman_sacramento"],
+        "streetlight_zone_note": "Spans two Streetlight zones: the western portion of sacramento_mcgee (Monterey to Sacramento) and all of gilman_sacramento (Sacramento to Gilman). Volume shown is gilman_sacramento only — the dominant zone for this segment.",
         "vehicle_volume_2025": 7526,
         "pedestrian_volume_2022": 769,
         "bicycle_volume_2022": 560,
@@ -225,12 +149,20 @@
         "ped_bike_volume_unit": "estimated zone-based trips",
         "vehicle_volume_year": 2025,
         "ped_bike_volume_year": 2022,
+        "streetlight_volume_caveat": "Zone volumes reflect gilman_sacramento (Sacramento to Gilman). A portion of sacramento_mcgee zone also falls within this design segment (Monterey to Sacramento).",
         "data_source": "Data from Streetlight",
-        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation"
+        "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
+        "design_images": [
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901018/Screenshot_2026-03-18_at_11.16.54_PM_o9bbkb.png",
+          "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901038/Screenshot_2026-03-18_at_11.17.14_PM_wyiecm.png"
+        ],
+        "intersection_image": "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901058/Screenshot_2026-03-18_at_11.17.34_PM_wzs74d.png",
+        "design_images_note": "Later two of three commercial strip images assigned to this sub-segment by east-to-west order. Monterey intersection image shared with mcgee-monterey."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
+          [-122.2818, 37.8818],
           [-122.283280, 37.880967],
           [-122.284829, 37.880179]
         ]
@@ -241,10 +173,9 @@
       "type": "Feature",
       "id": "seg_peralta_gilman",
       "properties": {
-        "type": "streetlight_segment",
+        "type": "streetlight_context_segment",
         "streetlight_id": "peralta_gilman",
         "name": "Peralta to Gilman",
-        "section": null,
         "in_project_corridor": false,
         "note": "West of project corridor. Streetlight context only.",
         "vehicle_volume_2025": 4021,
@@ -270,10 +201,9 @@
       "type": "Feature",
       "id": "seg_sanpablo_peralta",
       "properties": {
-        "type": "streetlight_segment",
+        "type": "streetlight_context_segment",
         "streetlight_id": "sanpablo_peralta",
         "name": "San Pablo to Peralta",
-        "section": null,
         "in_project_corridor": false,
         "note": "West of project corridor. Streetlight context only. Geometry rendered as Peralta→Stannage block to avoid overlap with stannage_sanpablo.",
         "vehicle_volume_2025": 5549,
@@ -299,10 +229,9 @@
       "type": "Feature",
       "id": "seg_stannage_sanpablo",
       "properties": {
-        "type": "streetlight_segment",
+        "type": "streetlight_context_segment",
         "streetlight_id": "stannage_sanpablo",
         "name": "Stannage to San Pablo",
-        "section": null,
         "in_project_corridor": false,
         "note": "West of project corridor. Streetlight context only. Busiest vehicle segment on the full Hopkins dataset. San Pablo Ave is the western terminus.",
         "vehicle_volume_2025": 11082,
@@ -328,7 +257,6 @@
         "name": "Hopkins & Sutter Ave",
         "cross_street": "Sutter Ave",
         "role": "eastern_terminus",
-        "section_boundary": [1],
         "coordinates_verified": true
       },
       "geometry": {
@@ -344,8 +272,8 @@
         "type": "intersection",
         "name": "Hopkins & The Alameda",
         "cross_street": "The Alameda",
-        "role": "section_boundary",
-        "section_boundary": [1, 2],
+        "role": "segment_boundary",
+        "segment_boundary": ["sutter-alameda", "alameda-mcgee"],
         "coordinates_verified": true
       },
       "geometry": {
@@ -361,8 +289,8 @@
         "type": "intersection",
         "name": "Hopkins & McGee Ave",
         "cross_street": "McGee Ave",
-        "role": "section_boundary",
-        "section_boundary": [2, 3],
+        "role": "segment_boundary",
+        "segment_boundary": ["alameda-mcgee", "mcgee-monterey"],
         "coordinates_verified": true
       },
       "geometry": {
@@ -373,14 +301,33 @@
 
     {
       "type": "Feature",
+      "id": "intersection_monterey",
+      "properties": {
+        "type": "intersection",
+        "name": "Hopkins & Monterey Ave",
+        "cross_street": "Monterey Ave",
+        "role": "segment_boundary",
+        "segment_boundary": ["mcgee-monterey", "monterey-gilman"],
+        "fatality_2017": true,
+        "fatality_note": "2017 pedestrian fatality — see fatality_locations.geojson",
+        "coordinates_verified": true,
+        "coordinates_source": "manually verified via Google Maps, corrected March 2026 (commit b5cf46f)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2818, 37.8818]
+      }
+    },
+
+    {
+      "type": "Feature",
       "id": "intersection_sacramento",
       "properties": {
         "type": "intersection",
         "name": "Hopkins & Sacramento Ave",
         "cross_street": "Sacramento Ave",
-        "role": "segment_boundary",
-        "section_boundary": [],
-        "note": "Within Section 3 commercial strip. Boundary between the two highest-pedestrian segments.",
+        "role": "streetlight_zone_boundary",
+        "note": "Streetlight zone boundary within the monterey-gilman design segment. Not a design segment boundary.",
         "coordinates_verified": true
       },
       "geometry": {
@@ -397,7 +344,7 @@
         "name": "Hopkins & Gilman St",
         "cross_street": "Gilman St",
         "role": "western_project_terminus",
-        "section_boundary": [3],
+        "segment_boundary": ["monterey-gilman"],
         "coordinates_verified": true
       },
       "geometry": {
