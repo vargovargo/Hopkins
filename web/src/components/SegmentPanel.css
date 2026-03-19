@@ -17,21 +17,21 @@
 
 /* ── Panel shell ─────────────────────────────────────────────────────── */
 .segment-panel {
-  position: fixed;
   background: #252523;
-  z-index: 200;
+  z-index: 10;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
 }
 
-/* Mobile: bottom sheet */
+/* Mobile: fixed bottom sheet */
 @media (max-width: 767px) {
   .segment-panel-backdrop {
     display: block;
   }
 
   .segment-panel {
+    position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
@@ -59,21 +59,22 @@
   }
 }
 
-/* Desktop: right panel */
+/* Desktop: absolute bottom of the map panel */
 @media (min-width: 768px) {
   .segment-panel {
-    top: 52px;
+    position: absolute;
+    left: 0;
     right: 0;
     bottom: 0;
-    width: 280px;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.5rem 1.25rem;
-    transform: translateX(100%);
-    transition: transform 200ms ease;
+    max-height: 52%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.25rem 1.5rem 1.5rem;
+    transform: translateY(100%);
+    transition: transform 220ms ease;
   }
 
   .segment-panel--open {
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
