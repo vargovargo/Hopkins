@@ -356,9 +356,15 @@ def build_summary_json(df):
 
     by_year = {}
     if "year" in df.columns:
-        for yr, count in df.groupby("year").size().sort_index().items():
+        for yr, grp in df.groupby("year"):
             if pd.notna(yr):
-                by_year[int(yr)] = int(count)
+                sev = grp["severity"].value_counts().to_dict()
+                by_year[int(yr)] = {
+                    "fatal":                int(sev.get("fatal", 0)),
+                    "severe_injury":        int(sev.get("severe_injury", 0)),
+                    "other_injury":         int(sev.get("other_injury", 0)),
+                    "property_damage_only": int(sev.get("property_damage_only", 0)),
+                }
 
     by_severity = {k: int(v) for k, v in df["severity"].value_counts().items()}
 

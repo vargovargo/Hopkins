@@ -2,7 +2,7 @@
   "_metadata": {
     "source": "TIMS/SWITRS \u2014 tims.berkeley.edu",
     "attribution": "Source: TIMS/SWITRS. Must be cited in all public-facing visualizations.",
-    "generated": "2026-03-19T01:36:00.843660Z",
+    "generated": "2026-03-19T07:09:43.259910Z",
     "processing_script": "analysis/collisions.py",
     "join_method": "Three relational tables joined: Crashes + Parties on CASE_ID; Parties + Victims on CASE_ID + PARTY_NUMBER. Mode flags aggregated to collision level before output.",
     "bounding_box": {
@@ -21,18 +21,78 @@
   "total_collisions": 51,
   "fatal_collisions": 2,
   "by_year": {
-    "2014": 2,
-    "2015": 5,
-    "2016": 7,
-    "2017": 5,
-    "2018": 3,
-    "2019": 3,
-    "2020": 2,
-    "2021": 2,
-    "2022": 5,
-    "2023": 2,
-    "2024": 5,
-    "2025": 10
+    "2014": {
+      "fatal": 0,
+      "severe_injury": 0,
+      "other_injury": 0,
+      "property_damage_only": 2
+    },
+    "2015": {
+      "fatal": 0,
+      "severe_injury": 0,
+      "other_injury": 2,
+      "property_damage_only": 3
+    },
+    "2016": {
+      "fatal": 0,
+      "severe_injury": 0,
+      "other_injury": 3,
+      "property_damage_only": 4
+    },
+    "2017": {
+      "fatal": 1,
+      "severe_injury": 1,
+      "other_injury": 1,
+      "property_damage_only": 2
+    },
+    "2018": {
+      "fatal": 0,
+      "severe_injury": 0,
+      "other_injury": 3,
+      "property_damage_only": 0
+    },
+    "2019": {
+      "fatal": 0,
+      "severe_injury": 0,
+      "other_injury": 3,
+      "property_damage_only": 0
+    },
+    "2020": {
+      "fatal": 0,
+      "severe_injury": 0,
+      "other_injury": 2,
+      "property_damage_only": 0
+    },
+    "2021": {
+      "fatal": 0,
+      "severe_injury": 1,
+      "other_injury": 1,
+      "property_damage_only": 0
+    },
+    "2022": {
+      "fatal": 0,
+      "severe_injury": 1,
+      "other_injury": 4,
+      "property_damage_only": 0
+    },
+    "2023": {
+      "fatal": 0,
+      "severe_injury": 1,
+      "other_injury": 1,
+      "property_damage_only": 0
+    },
+    "2024": {
+      "fatal": 0,
+      "severe_injury": 1,
+      "other_injury": 4,
+      "property_damage_only": 0
+    },
+    "2025": {
+      "fatal": 1,
+      "severe_injury": 0,
+      "other_injury": 6,
+      "property_damage_only": 3
+    }
   },
   "by_severity": {
     "other_injury": 30,
