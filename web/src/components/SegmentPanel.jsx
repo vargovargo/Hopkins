@@ -39,6 +39,12 @@ export default function SegmentPanel({ segment, onClose }) {
     return () => document.removeEventListener('keydown', handleKey)
   }, [segment, onClose])
 
+  // Lock body scroll while panel is open so wheel events stay in the panel
+  useEffect(() => {
+    document.body.style.overflow = segment ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [segment])
+
   const isOpen = Boolean(segment)
 
   return (

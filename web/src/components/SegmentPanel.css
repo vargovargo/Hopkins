@@ -62,7 +62,7 @@
 /* Desktop: right panel */
 @media (min-width: 768px) {
   .segment-panel {
-    top: 0;
+    top: 52px;
     right: 0;
     bottom: 0;
     width: 280px;
