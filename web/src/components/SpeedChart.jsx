@@ -119,8 +119,10 @@ export default function SpeedChart() {
                 color: dayType === label ? COLORS.text : COLORS.muted,
                 fontFamily: "'DM Sans', sans-serif",
                 fontSize: '0.7rem',
-                padding: '3px 8px',
+                padding: '10px 12px',
                 cursor: 'pointer',
+                touchAction: 'manipulation',
+                minHeight: 44,
               }}
             >
               {label}

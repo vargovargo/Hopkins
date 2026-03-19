@@ -39,6 +39,14 @@
   border-bottom: 3px solid transparent;
   transition: color 150ms ease, border-color 150ms ease;
   display: block;
+  touch-action: manipulation;
+}
+
+/* Larger tap target on mobile — minimum 44px height */
+@media (max-width: 768px) {
+  .navbar__link {
+    padding: 0.85rem 0.75rem;
+  }
 }
 
 .navbar__link:hover {
