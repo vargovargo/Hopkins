@@ -1,0 +1,199 @@
+/* CommunityFeedbackChart.css — Prompt 12 */
+
+/* ── Shell ───────────────────────────────────────────────────────────── */
+.community-chart {
+  padding: 1.5rem 0;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────── */
+.community-chart__heading {
+  font-family: 'DM Serif Display', 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #e8e4db;
+  margin: 0 0 0.25rem;
+  line-height: 1.25;
+}
+
+.community-chart__subhead {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.82rem;
+  color: #8a9a78;
+  margin: 0 0 0.35rem;
+}
+
+.community-chart__caveat-header {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #8a9a78;
+  font-style: italic;
+  margin: 0 0 1.25rem;
+  line-height: 1.5;
+}
+
+/* ── Callout card ────────────────────────────────────────────────────── */
+.community-chart__callout {
+  background: rgba(196, 113, 59, 0.1);
+  border: 1px solid rgba(196, 113, 59, 0.3);
+  border-left: 3px solid #c4713b;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.88rem;
+  color: #e8e4db;
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}
+
+.community-chart__callout strong {
+  color: #c4713b;
+}
+
+/* ── Bar chart rows ──────────────────────────────────────────────────── */
+.community-chart__bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 0.75rem;
+}
+
+.community-chart__row {
+  display: grid;
+  grid-template-columns: 11rem 1fr 3.5rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Parking row: subtle amber tint behind entire row */
+.community-chart__row--parking {
+  background: rgba(196, 113, 59, 0.05);
+  border-radius: 3px;
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem;
+}
+
+.community-chart__label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #e8e4db;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.community-chart__bar-track {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.community-chart__bar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 400ms ease;
+}
+
+.community-chart__value {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #8a9a78;
+  text-align: right;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
+/* ── Rank labels ─────────────────────────────────────────────────────── */
+.community-chart__rank-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 1px 4px;
+  border-radius: 2px;
+  white-space: nowrap;
+  margin-left: 0.25rem;
+}
+
+.community-chart__rank-label--first {
+  color: #4a7c59;
+  background: rgba(74, 124, 89, 0.15);
+  border: 1px solid rgba(74, 124, 89, 0.3);
+}
+
+.community-chart__rank-label--parking {
+  color: #c4713b;
+  background: rgba(196, 113, 59, 0.15);
+  border: 1px solid rgba(196, 113, 59, 0.3);
+}
+
+/* ── Approximate note ────────────────────────────────────────────────── */
+.community-chart__approx-note {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.68rem;
+  color: #8a9a78;
+  font-style: italic;
+  margin: 0.25rem 0 1rem;
+  line-height: 1.5;
+}
+
+/* ── Legend ──────────────────────────────────────────────────────────── */
+.community-chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.community-chart__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #8a9a78;
+}
+
+.community-chart__legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* ── Source footnote ─────────────────────────────────────────────────── */
+.community-chart__footnote {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.community-chart__footnote p {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #8a9a78;
+  line-height: 1.6;
+  margin: 0 0 0.4rem;
+}
+
+.community-chart__source-link {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #6a9bcc;
+  text-decoration: none;
+}
+
+.community-chart__source-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Responsive: narrow screens ──────────────────────────────────────── */
+@media (max-width: 480px) {
+  .community-chart__row {
+    grid-template-columns: 8rem 1fr 3rem;
+  }
+}
