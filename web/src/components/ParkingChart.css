@@ -1,0 +1,334 @@
+/* ParkingChart.css — Prompt 13 */
+
+.parking-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ── Section wrapper ─────────────────────────────────────────────────── */
+.parking-chart__section {
+  background: #252523;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 4px;
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+.parking-chart__section-heading {
+  font-family: 'DM Serif Display', 'Playfair Display', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: #e8e4db;
+  margin: 0 0 1rem;
+  line-height: 1.3;
+}
+
+/* ── Callout cards ───────────────────────────────────────────────────── */
+.parking-chart__callout {
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: #e8e4db;
+  margin-bottom: 1.25rem;
+}
+
+.parking-chart__callout--green {
+  background: rgba(74, 124, 89, 0.1);
+  border: 1px solid rgba(74, 124, 89, 0.25);
+  border-left: 3px solid #4a7c59;
+}
+
+.parking-chart__callout--green strong {
+  color: #4a7c59;
+}
+
+.parking-chart__callout--amber {
+  background: rgba(196, 113, 59, 0.1);
+  border: 1px solid rgba(196, 113, 59, 0.25);
+  border-left: 3px solid #c4713b;
+}
+
+.parking-chart__callout--amber strong {
+  color: #c4713b;
+}
+
+/* ── Segment rows ────────────────────────────────────────────────────── */
+.parking-chart__segment-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.parking-chart__row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.parking-chart__row--indented {
+  padding-left: 1rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.06);
+  margin-left: 0.5rem;
+}
+
+.parking-chart__row-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.82rem;
+  color: #e8e4db;
+}
+
+.parking-chart__row-treatment {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #8a9a78;
+  max-width: 16rem;
+  line-height: 1.4;
+}
+
+/* Group header for McGee–Gilman */
+.parking-chart__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.parking-chart__group-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #8a9a78;
+  padding: 0.4rem 0 0.15rem;
+}
+
+/* ── Pills ───────────────────────────────────────────────────────────── */
+.parking-chart__pill {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+  white-space: nowrap;
+  color: #e8e4db;
+}
+
+.parking-chart__pill--green {
+  background: #4a7c59;
+}
+
+.parking-chart__pill--amber {
+  background: #c4713b;
+}
+
+.parking-chart__pill--red {
+  background: #8b2c2c;
+}
+
+/* ── Source note ─────────────────────────────────────────────────────── */
+.parking-chart__source-note {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.7rem;
+  color: #8a9a78;
+  font-style: italic;
+  margin: 0.5rem 0 0;
+  line-height: 1.5;
+}
+
+/* ── Two-estimates display ───────────────────────────────────────────── */
+.parking-chart__estimates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.parking-chart__estimate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 4px;
+}
+
+.parking-chart__estimate--revised {
+  border-color: rgba(196, 113, 59, 0.3);
+  background: rgba(196, 113, 59, 0.05);
+}
+
+.parking-chart__estimate-number {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 2rem;
+  color: #e8e4db;
+  line-height: 1;
+}
+
+.parking-chart__estimate--revised .parking-chart__estimate-number {
+  color: #c4713b;
+}
+
+.parking-chart__estimate-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #8a9a78;
+  margin-bottom: 0.35rem;
+}
+
+.parking-chart__estimate-desc {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #e8e4db;
+}
+
+.parking-chart__estimate-timing {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #8a9a78;
+  line-height: 1.45;
+}
+
+.parking-chart__estimate-note {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.78rem;
+  color: #8a9a78;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.parking-chart__record-link {
+  color: #6a9bcc;
+  text-decoration: none;
+}
+
+.parking-chart__record-link:hover {
+  text-decoration: underline;
+}
+
+/* ── Occupancy bar ───────────────────────────────────────────────────── */
+.parking-chart__occupancy {
+  margin-bottom: 1.25rem;
+}
+
+.parking-chart__occupancy-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.78rem;
+  color: #8a9a78;
+  margin-bottom: 0.4rem;
+}
+
+.parking-chart__occupancy-track {
+  position: relative;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.parking-chart__occupancy-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #4a7c59;
+  opacity: 0.7;
+  border-radius: 2px 0 0 2px;
+}
+
+.parking-chart__occupancy-pct {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #e8e4db;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+/* ── Extension options table ─────────────────────────────────────────── */
+.parking-chart__options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.85rem;
+}
+
+.parking-chart__option-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.8rem;
+}
+
+.parking-chart__option-label {
+  color: #e8e4db;
+}
+
+.parking-chart__option-distance {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #8a9a78;
+  white-space: nowrap;
+}
+
+.parking-chart__option-removed {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #c4713b;
+  white-space: nowrap;
+}
+
+.parking-chart__option-displaced {
+  grid-column: 1 / -1;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #8a9a78;
+  padding-left: 0.5rem;
+  font-style: italic;
+}
+
+/* ── Design caveat ───────────────────────────────────────────────────── */
+.parking-chart__design-caveat {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #8a9a78;
+  font-style: italic;
+  margin: 0;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  line-height: 1.55;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .parking-chart__estimates {
+    grid-template-columns: 1fr;
+  }
+
+  .parking-chart__row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .parking-chart__row-treatment {
+    display: none;
+  }
+
+  .parking-chart__option-row {
+    grid-template-columns: 1fr auto;
+  }
+}
