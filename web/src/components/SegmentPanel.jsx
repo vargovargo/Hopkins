@@ -10,7 +10,7 @@
  */
 
 import { useEffect, useRef } from 'react'
-import { SOURCE_DOC } from '@data/segments'
+import { SOURCE_DOC } from '../data/segments'
 import './SegmentPanel.css'
 
 const IMAGE_CAVEAT =
