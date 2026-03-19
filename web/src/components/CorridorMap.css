@@ -1,5 +1,34 @@
 /* CorridorMap.css — styles for the Mapbox corridor map component */
 
+/* Wrapper needed for the hint label overlay */
+.corridor-map-wrapper {
+  position: relative;
+}
+
+/* "Tap a segment" hint — fades after 3 seconds */
+.corridor-map-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(37, 37, 35, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 0.35rem 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  color: #e8e4db;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 1;
+  transition: opacity 350ms ease;
+}
+
+.corridor-map-hint--fading {
+  opacity: 0;
+}
+
 .corridor-map {
   width: 100%;
   height: 480px;

@@ -1,0 +1,339 @@
+/* SegmentPanel.css — Prompt 11 */
+
+/* ── Backdrop (mobile only) ─────────────────────────────────────────── */
+.segment-panel-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 199;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.segment-panel-backdrop--visible {
+  opacity: 1;
+}
+
+/* ── Panel shell ─────────────────────────────────────────────────────── */
+.segment-panel {
+  position: fixed;
+  background: #252523;
+  z-index: 200;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile: bottom sheet */
+@media (max-width: 767px) {
+  .segment-panel-backdrop {
+    display: block;
+  }
+
+  .segment-panel {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-height: 75vh;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px 8px 0 0;
+    padding: 0 1.25rem 1.5rem;
+    transform: translateY(100%);
+    transition: transform 200ms ease;
+  }
+
+  .segment-panel--open {
+    transform: translateY(0);
+  }
+
+  /* Drag handle */
+  .segment-panel::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+    margin: 0.75rem auto 0.5rem;
+  }
+}
+
+/* Desktop: right panel */
+@media (min-width: 768px) {
+  .segment-panel {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 280px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem 1.25rem;
+    transform: translateX(100%);
+    transition: transform 200ms ease;
+  }
+
+  .segment-panel--open {
+    transform: translateX(0);
+  }
+}
+
+/* ── Header ──────────────────────────────────────────────────────────── */
+.segment-panel__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.segment-panel__label {
+  font-family: 'DM Serif Display', 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #e8e4db;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.segment-panel__close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: #8a9a78;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.1rem 0.25rem;
+  margin-top: -0.1rem;
+  transition: color 120ms ease;
+}
+
+.segment-panel__close:hover {
+  color: #e8e4db;
+}
+
+.segment-panel__character {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.8rem;
+  color: #8a9a78;
+  margin: 0 0 1rem;
+  line-height: 1.5;
+}
+
+/* ── Section ─────────────────────────────────────────────────────────── */
+.segment-panel__section {
+  margin-bottom: 1rem;
+}
+
+.segment-panel__section-heading {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a9a78;
+  margin: 0 0 0.5rem;
+}
+
+/* ── Design list ─────────────────────────────────────────────────────── */
+.segment-panel__design-list {
+  margin: 0;
+  display: grid;
+  row-gap: 0.5rem;
+}
+
+.segment-panel__design-row {
+  display: grid;
+  grid-template-columns: 5.5rem 1fr;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.segment-panel__design-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a9a78;
+}
+
+.segment-panel__design-value {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.82rem;
+  color: #e8e4db;
+  line-height: 1.45;
+}
+
+/* ── Parking impact ──────────────────────────────────────────────────── */
+.segment-panel__parking {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.82rem;
+  margin-bottom: 0.85rem;
+  line-height: 1.4;
+}
+
+.segment-panel__parking--amber {
+  color: #c4713b;
+}
+
+.segment-panel__parking--green {
+  color: #4a7c59;
+}
+
+.segment-panel__parking-icon {
+  font-size: 0.6rem;
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+}
+
+/* ── Vehicle volume stat ─────────────────────────────────────────────── */
+.segment-panel__stat {
+  margin-bottom: 0.85rem;
+}
+
+.segment-panel__stat-number {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 1.4rem;
+  color: #c4713b;
+  display: block;
+  line-height: 1.1;
+}
+
+.segment-panel__stat-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #8a9a78;
+  display: block;
+  margin-top: 0.1rem;
+}
+
+.segment-panel__stat-caveat {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.7rem;
+  color: #8a9a78;
+  margin: 0.3rem 0 0;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ── Fatality note ───────────────────────────────────────────────────── */
+.segment-panel__fatality {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.8rem;
+  color: #c4713b;
+  background: rgba(196, 113, 59, 0.08);
+  border: 1px solid rgba(196, 113, 59, 0.25);
+  border-radius: 4px;
+  padding: 0.5rem 0.6rem;
+  margin-bottom: 0.85rem;
+  line-height: 1.45;
+}
+
+.segment-panel__fatality-icon {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  margin-top: 0.05rem;
+}
+
+/* ── Design images ───────────────────────────────────────────────────── */
+.segment-panel__image-strip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 0.5rem;
+}
+
+.segment-panel__image {
+  flex-shrink: 0;
+  width: 200px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 3px;
+  scroll-snap-align: start;
+  display: block;
+}
+
+.segment-panel__image--full {
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+}
+
+.segment-panel__image--intersection {
+  width: 100%;
+  height: auto;
+  max-height: 130px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.segment-panel__image-caveat {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.7rem;
+  color: #8a9a78;
+  line-height: 1.5;
+  margin: 0.4rem 0 0.2rem;
+  font-style: italic;
+}
+
+.segment-panel__image-caption {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.68rem;
+  color: #8a9a78;
+  line-height: 1.45;
+  margin: 0;
+  opacity: 0.75;
+}
+
+/* ── Source ──────────────────────────────────────────────────────────── */
+.segment-panel__source {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 0.5rem;
+}
+
+.segment-panel__source-label {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a9a78;
+}
+
+.segment-panel__source-doc {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #e8e4db;
+  line-height: 1.4;
+}
+
+.segment-panel__source-link {
+  font-family: 'DM Sans', 'IBM Plex Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #6a9bcc;
+  text-decoration: none;
+  margin-top: 0.1rem;
+}
+
+.segment-panel__source-link:hover {
+  text-decoration: underline;
+}
