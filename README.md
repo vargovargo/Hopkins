@@ -2,7 +2,7 @@
 
 A public-facing data story making the case for protected bike lanes and pedestrian improvements on the Hopkins Street corridor in Berkeley, CA. Using mode-specific volume data (Streetlight), collision records (TIMS/SWITRS), and official city planning documents, the project makes visible what the street already is: a route used by far more people on foot and bike than the parking-focused opposition acknowledges. Deployed at [hopkins-sage-omega.vercel.app](https://hopkins-sage-omega.vercel.app/).
 
-## Setup
+## Setup 
 
 ```bash
 # 1. Install web dependencies
