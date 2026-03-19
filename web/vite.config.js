@@ -4,7 +4,18 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    // Treat .geojson files as JSON modules
+    {
+      name: 'geojson',
+      transform(src, id) {
+        if (id.endsWith('.geojson')) {
+          return { code: `export default ${src}`, map: null }
+        }
+      },
+    },
+  ],
   resolve: {
     alias: {
       // Allows importing from data/ outside the web/ root:

@@ -6,8 +6,11 @@
 import { useState, useEffect, useRef } from 'react'
 import scrollama from 'scrollama'
 
-import CorridorMap    from './components/CorridorMap'
-import CollisionChart from './components/CollisionChart'
+import CorridorMap          from './components/CorridorMap'
+import CollisionChart       from './components/CollisionChart'
+import SegmentVolumeChart   from './components/SegmentVolumeChart'
+import SpeedChart           from './components/SpeedChart'
+import CedarDiversionChart  from './components/CedarDiversionChart'
 
 import './App.css'
 
@@ -71,16 +74,7 @@ export default function DataStory() {
               people arriving on Hopkins Street are not in cars. Pedestrians and
               cyclists use this corridor today — despite the risks.
             </p>
-            <div className="placeholder-viz" role="status">
-              <span className="placeholder-viz__label">
-                Mode split visualization — awaiting Streetlight data verification
-              </span>
-              <p className="placeholder-viz__note">
-                Data source: Streetlight 2022 (ped/bike) · 2025 (vehicles) ·
-                pending output unit verification. See{' '}
-                <code>analysis/streetlight.py</code>.
-              </p>
-            </div>
+            <SegmentVolumeChart />
           </div>
         </section>
 
@@ -97,16 +91,7 @@ export default function DataStory() {
               offers no protection. The people most exposed to the current
               design are concentrated exactly where the infrastructure is worst.
             </p>
-            <div className="placeholder-viz" role="status">
-              <span className="placeholder-viz__label">
-                Infrastructure gap map layer + cyclist diversion chart —
-                awaiting Streetlight data verification
-              </span>
-              <p className="placeholder-viz__note">
-                Data source: Streetlight 2022 (bike) · Cedar/Rose parallel
-                routes at Sacramento Ave · pending unit verification.
-              </p>
-            </div>
+            <CedarDiversionChart />
           </div>
         </section>
 
@@ -151,6 +136,7 @@ export default function DataStory() {
               it is how long to wait.
             </p>
             <CollisionChart yearRange={[2015, 2018]} />
+            <SpeedChart />
           </div>
         </section>
 

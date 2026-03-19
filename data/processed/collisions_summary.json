@@ -1,23 +1,56 @@
 {
   "_metadata": {
-    "source": "Secondary source — Bike East Bay (2018) citing Berkeley City Council staff report",
-    "source_status": "SECONDARY_SOURCE",
-    "attribution": "Source: Bike East Bay (2018), citing city staff. Must be cited as secondary source in all public-facing uses.",
-    "pending_verification": "TIMS/SWITRS data pull not yet completed. Annual breakdown and severity breakdown are NOT available from this source. Run analysis/collisions.py when TIMS export is available to replace this file with verified data.",
-    "years_covered": "2015–2018 (city-cited period only — secondary source does not provide full time series)",
-    "generated": "2026-03-18",
-    "ui_note": "Components rendering this data must display a visible banner indicating figures are from a secondary source pending TIMS verification. Do not style as independently verified findings."
+    "source": "TIMS/SWITRS \u2014 tims.berkeley.edu",
+    "attribution": "Source: TIMS/SWITRS. Must be cited in all public-facing visualizations.",
+    "generated": "2026-03-19T01:36:00.843660Z",
+    "processing_script": "analysis/collisions.py",
+    "join_method": "Three relational tables joined: Crashes + Parties on CASE_ID; Parties + Victims on CASE_ID + PARTY_NUMBER. Mode flags aggregated to collision level before output.",
+    "bounding_box": {
+      "lat_min": 37.877,
+      "lat_max": 37.882,
+      "lon_min": -122.304,
+      "lon_max": -122.272
+    },
+    "date_range": {
+      "min": "2014-02-12",
+      "max": "2025-11-20"
+    },
+    "total_records": 51,
+    "note": "Full time series retained \u2014 no minimum year filter. The 2015\u20132018 period cited by Bike East Bay and city staff is highlighted in the UI but the full dataset is preserved for context."
   },
-  "total_collisions": 36,
+  "total_collisions": 51,
   "fatal_collisions": 2,
-  "by_year": {},
-  "by_severity": {},
-  "ped_cyclist_involvement": {
-    "total": 13,
-    "pct_of_all_collisions": 36.0,
-    "pedestrian_involved": null,
-    "bicyclist_involved": null,
-    "note": "36% involvement figure is from Bike East Bay (2018) citing city staff. Breakdown by pedestrian vs. bicyclist is not available from secondary source."
+  "by_year": {
+    "2014": 2,
+    "2015": 5,
+    "2016": 7,
+    "2017": 5,
+    "2018": 3,
+    "2019": 3,
+    "2020": 2,
+    "2021": 2,
+    "2022": 5,
+    "2023": 2,
+    "2024": 5,
+    "2025": 10
   },
-  "by_cross_street": {}
+  "by_severity": {
+    "other_injury": 30,
+    "property_damage_only": 14,
+    "severe_injury": 5,
+    "fatal": 2
+  },
+  "ped_cyclist_involvement": {
+    "total": 40,
+    "pct_of_all_collisions": 78.4,
+    "pedestrian_involved": 20,
+    "bicyclist_involved": 20,
+    "note": "A collision is counted if a pedestrian or cyclist was any party (Parties table, PARTY_TYPE) or any victim (Victims table, VICTIM_ROLE)."
+  },
+  "by_cross_street": {
+    "McGee": 4,
+    "Sacramento": 3,
+    "Gilman": 3,
+    "Monterey": 2
+  }
 }

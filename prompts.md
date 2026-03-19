@@ -321,6 +321,231 @@ This section may be surfaced in the site's methodology note.
 
 -----
 
+## Correction Prompts — Data Structure Fixes
+
+*Run these after the initial audit output from Prompt 3. These address structural
+mismatches discovered when the raw data was loaded. Run them in order before
+proceeding to Prompt 4 (TIMS) or Prompt 8 (visualizations).*
+
+---
+
+## Correction A — Fix Streetlight vehicle data source
+
+```
+Read CLAUDE.md before starting.
+
+The Prompt 3 audit revealed a structural mismatch in the Streetlight processing:
+
+PROBLEM:
+The original script looks for za_*.csv for vehicle data, but vehicle data is in
+*_network_performance_seg_metrics_*.csv only. No vehicle zone activity file exists.
+Ped and bike data ARE in za_*.csv as expected.
+
+This means the three modes have different file structures:
+  - Vehicles:    *_network_performance_seg_metrics_*.csv (segment-based)
+  - Pedestrian:  za_*.csv (zone activity)
+  - Bicycle:     za_*.csv (zone activity)
+
+GOOD NEWS confirmed by audit:
+All three modes use StL Volume (not Index). Cross-mode comparison IS valid —
+but note the structural difference (segment metrics vs zone activity) in all
+metadata and UI labels. They are measuring the same thing differently, not
+different things.
+
+FIXES NEEDED:
+
+1. Update analysis/streetlight.py:
+
+   Vehicle processing:
+   - Read from *_network_performance_seg_metrics_*.csv
+   - Extract: zone_id, zone_name, day_type, day_part,
+              segment_traffic (this is the volume field),
+              avg_speed_mph, free_flow_speed_mph, free_flow_factor, congestion,
+              speed percentile columns (whatever is present — check column names)
+   - Save to data/processed/vehicles_network_performance.csv
+     (rename from vehicles_by_zone_daypart.csv — the old name implied zone
+     activity which is wrong for this data)
+
+   Ped/bike processing: unchanged — za_*.csv is correct
+
+2. Update data/processed/streetlight_verified.json _metadata:
+   - output_units.vehicles: clarify it comes from network performance,
+     not zone activity
+   - Add: "vehicle_file_type": "network_performance_seg_metrics"
+   - Add: "ped_bike_file_type": "zone_activity"
+   - Add: "structural_note": "Vehicle volumes are segment-based (network
+     performance); ped/bike volumes are zone-based (zone activity). Both use
+     StL Volume. Segment and zone boundaries roughly correspond but are not
+     identical — do not treat as precisely equivalent geographic units."
+   - Set modes_comparable: true (confirmed — all StL Volume)
+
+3. Update data/processed/data_integrity_notes.md with a section:
+   "Vehicle vs Ped/Bike File Structure"
+   Document the difference clearly. This should be surfaced as a methodology
+   note in the site UI wherever vehicle and ped/bike data appear together.
+
+4. Rerun the processing and verify output files exist and have expected structure.
+   Print row counts and zone/segment names for each output file.
+```
+
+---
+
+## Correction B — Fix TIMS collision script for relational tables
+
+```
+Read CLAUDE.md before starting.
+
+The TIMS export is three separate relational tables, not the single flat CSV
+the original collisions.py was written for.
+
+FILES in data/raw/tims/:
+  Crashes.csv   — one row per collision event (has CASE_ID, date, location, severity)
+  Parties.csv   — one row per party involved (has CASE_ID, party type, at-fault flag)
+  Victims.csv   — one row per victim (has CASE_ID, victim role, degree of injury)
+
+THE FIX: Rewrite analysis/collisions.py to join the three tables on CASE_ID.
+
+STEP 1 — Load and inspect
+
+For each CSV, print:
+- Column names
+- Row count
+- Sample of 3 rows
+- Unique values in key categorical fields:
+  Crashes: COLLISION_SEVERITY, TYPE_OF_COLLISION, ROAD_SURFACE, LIGHTING
+  Parties: PARTY_TYPE, AT_FAULT, STATEWIDE_VEHICLE_TYPE
+  Victims: VICTIM_ROLE, DEGREE_OF_INJURY
+
+Do not proceed until this is printed and confirmed.
+
+STEP 2 — Build the joined dataset
+
+joined = Crashes.merge(Parties, on='CASE_ID', how='left')
+         then merge Victims on CASE_ID, how='left'
+
+After joining:
+- Filter to corridor bounding box using Crashes lat/lon:
+    Latitude:  37.877 to 37.882
+    Longitude: -122.304 to -122.272
+- Parse COLLISION_DATE to datetime
+- Extract year, month, hour from date/time fields
+
+STEP 3 — Classify mode involvement
+
+A collision "involves a pedestrian" if:
+  ANY party row for that CASE_ID has PARTY_TYPE = 'Pedestrian'
+  OR any victim row has VICTIM_ROLE = 'Pedestrian'
+
+A collision "involves a cyclist" if:
+  ANY party row has PARTY_TYPE = 'Bicycle'
+  OR any victim row has VICTIM_ROLE = 'Bicyclist' (check exact value from audit)
+
+Flag each collision-level record with:
+  involves_pedestrian: bool
+  involves_cyclist: bool
+  involves_ped_or_cyclist: bool
+
+STEP 4 — Severity standardization
+
+Map COLLISION_SEVERITY codes to readable labels. Check exact codes from the
+audit output — SWITRS typically uses:
+  1 → fatal
+  2 → severe_injury
+  3 → other_injury
+  4 → property_damage_only
+
+If codes differ from above, use whatever the audit shows — do not assume.
+
+STEP 5 — Outputs (same as original spec)
+
+  data/processed/collisions_clean.csv — full joined, filtered, classified record
+  data/processed/collisions_summary.json — aggregates:
+    * collisions by year (full time series — all years in the data)
+    * collisions by severity
+    * collisions involving ped or cyclist
+    * collisions by nearest named cross-street
+  data/processed/collisions_geo.geojson — point features, severity + mode as properties
+
+STEP 6 — Print final summary to stdout:
+  Total collisions in corridor
+  Date range (earliest to latest)
+  Severity breakdown
+  Ped/cyclist involvement count and percentage
+  Any CASE_IDs that appear in Parties or Victims but not Crashes (orphaned records)
+  Any collisions missing lat/lon (could not be geo-filtered)
+```
+
+---
+
+## Correction C — City count PDF interpretation
+
+```
+Read CLAUDE.md before starting.
+
+The city count PDFs have been identified:
+- All dated 2019-09-27
+- All on Hopkins between Stannage and Cornell
+- Filename convention: C_ = cycling counts, S_ = speed/motor vehicle counts
+- EB/WB suffixes = eastbound/westbound
+
+This is a single-location, single-date count — not a corridor-wide dataset.
+Adjust the processing and framing accordingly.
+
+STEP 1 — Extract data from each PDF
+
+For each PDF in data/raw/city_counts/:
+- Extract all numeric count data
+- Identify: count type (cycling vs speed/volume), direction (EB/WB),
+  time periods covered, count methodology if stated
+- If PDF is image-based, describe what is visible
+
+Print a full summary before any further processing.
+
+STEP 2 — Structure the data
+
+Save to data/processed/city_counts.json as before, but update metadata:
+  "location": "Hopkins Street between Stannage Ave and Cornell Ave"
+  "count_date": "2019-09-27"
+  "coverage_note": "Single location, single date. Does not cover full corridor."
+  "directions": ["EB", "WB"]
+  "count_types": ["cycling", "speed_volume"]  (confirm from actual files)
+
+STEP 3 — Comparison with Streetlight — adjust scope
+
+The city counts are from 2019. Streetlight vehicle data is 2025. Ped/bike is 2022.
+Do not present these as direct validations — the time gap is too large and
+COVID intervened between 2019 and the Streetlight data periods.
+
+Instead, document them as:
+"Independent count data for one Hopkins segment (Stannage to Cornell), September 2019.
+Useful as a reference point but not a direct validation of Streetlight estimates
+due to the difference in data years."
+
+In data/processed/data_integrity_notes.md, add:
+"City Traffic Counts — Scope and Limitations"
+  - Single location (Stannage to Cornell only)
+  - Single date (September 27 2019)
+  - Pre-COVID — travel patterns changed significantly 2020-2022
+  - Streetlight vehicle data is 2025, ped/bike is 2022
+  - These counts inform context but cannot validate Streetlight estimates
+    for different years and locations
+
+Do not run a numerical comparison that implies validation. Present the counts
+as a separate historical data point with clear date labeling.
+```
+
+---
+
+*These corrections should be run before Prompt 8 (visualizations).
+After all three corrections are complete, verify:*
+- *data/processed/vehicles_network_performance.csv exists and has speed columns*
+- *data/processed/za_pedestrians.csv and za_bicycles.csv exist*
+- *data/processed/streetlight_verified.json has modes_comparable: true*
+- *data/processed/collisions_clean.csv exists with involves_ped_or_cyclist column*
+- *data/processed/city_counts.json exists with correct scope metadata*
+
+-----
+
 ## Prompt 4 — TIMS collision data processing script
 
 ```

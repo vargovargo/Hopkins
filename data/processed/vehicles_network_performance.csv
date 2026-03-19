@@ -1,0 +1,163 @@
+zone_id,zone_name,data_periods,day_type,day_part,segment_traffic,avg_speed_mph,free_flow_speed_mph,free_flow_factor,inferred_volume,speed_p5,speed_p15,speed_p85,speed_p95
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),1625,23,43.131,0.541,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),25,23,43.131,0.539,False,6.0,14.0,32.0,38.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),266,23,43.131,0.543,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),577,23,43.131,0.542,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),562,23,43.131,0.537,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),195,24,43.131,0.546,False,6.0,15.0,30.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),1752,23,43.131,0.54,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),22,23,43.131,0.533,False,8.0,14.0,32.0,48.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),328,23,43.131,0.545,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),587,23,43.131,0.543,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),617,23,43.131,0.534,False,6.0,14.0,30.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),199,24,43.131,0.545,False,6.0,15.0,30.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),1261,23,43.131,0.543,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),30,24,43.131,0.548,False,4.0,14.0,32.0,38.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),118,23,43.131,0.539,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),532,23,43.131,0.541,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),420,23,43.131,0.545,False,6.0,14.0,31.0,34.0
+,Alameda to Sutter,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),161,24,43.131,0.547,False,6.0,14.0,30.0,34.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),7355,20,30.328,0.668,False,9.0,13.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),119,23,30.328,0.773,False,12.0,16.0,29.0,33.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),1188,20,30.328,0.662,False,8.0,13.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),2678,20,30.328,0.668,False,9.0,13.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),2297,20,30.328,0.649,False,9.0,12.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),1073,21,30.328,0.703,False,11.0,15.0,27.0,31.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),7591,20,30.328,0.664,False,9.0,13.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),103,24,30.328,0.776,False,12.0,16.0,30.0,33.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),1470,20,30.328,0.653,False,8.0,12.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),2624,20,30.328,0.672,False,9.0,13.0,27.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),2328,19,30.328,0.639,False,8.0,12.0,26.0,29.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),1067,21,30.328,0.699,False,11.0,15.0,27.0,31.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),6376,21,30.328,0.682,False,10.0,14.0,27.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),152,23,30.328,0.769,False,12.0,16.0,29.0,33.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),539,22,30.328,0.713,False,11.0,15.0,28.0,32.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),2660,20,30.328,0.664,False,9.0,13.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),2083,20,30.328,0.675,False,10.0,14.0,26.0,30.0
+,Cedar to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),942,22,30.328,0.712,False,12.0,16.0,27.0,31.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),7526,16,23.919,0.665,False,5.0,9.0,21.0,24.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),127,20,23.919,0.843,False,10.0,14.0,24.0,29.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),1236,17,23.919,0.691,False,5.0,10.0,22.0,25.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),2687,16,23.919,0.67,False,5.0,10.0,21.0,24.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),2538,14,23.919,0.606,False,4.0,7.0,20.0,23.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),938,18,23.919,0.752,False,8.0,12.0,23.0,26.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),7858,16,23.919,0.658,False,4.0,9.0,21.0,24.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),117,21,23.919,0.863,False,10.0,14.0,25.0,30.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),1490,16,23.919,0.683,False,5.0,9.0,22.0,25.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),2599,16,23.919,0.677,False,5.0,10.0,21.0,24.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),2705,14,23.919,0.586,False,3.0,7.0,20.0,23.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),946,18,23.919,0.751,False,8.0,12.0,23.0,26.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),6406,17,23.919,0.692,False,6.0,10.0,22.0,25.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),147,19,23.919,0.809,False,8.0,14.0,24.0,28.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),628,18,23.919,0.753,False,7.0,12.0,23.0,27.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),2764,16,23.919,0.665,False,5.0,10.0,21.0,24.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),2057,16,23.919,0.675,False,5.0,10.0,21.0,24.0
+,Gilman to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),809,18,23.919,0.759,False,8.0,12.0,23.0,26.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),2588,20,31.672,0.627,False,8.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),39,22,31.672,0.69,False,10.0,14.0,28.0,32.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),451,20,31.672,0.622,False,7.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),910,20,31.672,0.626,False,8.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),881,19,31.672,0.612,False,7.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),306,21,31.672,0.674,False,10.0,14.0,28.0,31.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),2817,20,31.672,0.624,False,7.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),37,22,31.672,0.679,False,10.0,15.0,28.0,32.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),557,20,31.672,0.618,False,7.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),923,20,31.672,0.631,False,8.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),982,19,31.672,0.605,False,7.0,11.0,26.0,29.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),318,21,31.672,0.668,False,10.0,14.0,27.0,31.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),1937,20,31.672,0.635,False,8.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),44,22,31.672,0.706,False,8.0,14.0,28.0,32.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),195,20,31.672,0.642,False,8.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),847,20,31.672,0.616,False,8.0,12.0,26.0,29.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),617,20,31.672,0.635,False,8.0,12.0,26.0,30.0
+,McGee to Alameda,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),235,22,31.672,0.685,False,10.0,14.0,28.0,32.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),4021,21,31.428,0.668,False,10.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),81,23,31.428,0.727,False,12.0,16.0,29.0,34.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),744,21,31.428,0.671,False,10.0,14.0,28.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),1454,21,31.428,0.667,False,11.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),1205,21,31.428,0.653,False,10.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),537,22,31.428,0.694,False,12.0,16.0,28.0,32.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),4306,21,31.428,0.668,False,10.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),78,23,31.428,0.734,False,13.0,16.0,30.0,34.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),927,21,31.428,0.668,False,10.0,14.0,28.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),1465,21,31.428,0.672,False,11.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),1279,20,31.428,0.648,False,9.0,13.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),558,22,31.428,0.693,False,12.0,16.0,27.0,32.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),3172,21,31.428,0.674,False,11.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),89,23,31.428,0.721,False,12.0,16.0,28.0,32.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),304,22,31.428,0.695,False,12.0,15.0,28.0,32.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),1367,21,31.428,0.663,False,10.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),996,21,31.428,0.669,False,11.0,14.0,27.0,31.0
+,Peralta to Gilman,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),415,22,31.428,0.696,False,12.0,16.0,28.0,32.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),2342,20,30.45,0.657,False,7.0,13.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),34,22,30.45,0.723,False,10.0,16.0,28.0,32.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),437,20,30.45,0.643,False,6.0,12.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),780,20,30.45,0.666,False,9.0,14.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),757,19,30.45,0.635,False,7.0,13.0,25.0,29.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),334,21,30.45,0.696,False,10.0,15.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),2515,20,30.45,0.65,False,7.0,13.0,26.0,29.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),31,22,30.45,0.723,False,10.0,16.0,28.0,32.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),547,19,30.45,0.635,False,5.0,12.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),764,20,30.45,0.667,False,8.0,14.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),832,19,30.45,0.623,False,7.0,12.0,25.0,28.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),342,21,30.45,0.693,False,10.0,15.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),1756,21,30.45,0.676,False,9.0,14.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),43,22,30.45,0.72,False,9.0,16.0,28.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),165,21,30.45,0.698,False,9.0,14.0,27.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),767,20,30.45,0.665,False,9.0,14.0,26.0,29.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),521,20,30.45,0.671,False,9.0,14.0,26.0,30.0
+,Rose to Sacramento,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),261,21,30.45,0.701,False,10.0,16.0,27.0,30.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),5553,13,23.16,0.554,False,2.0,5.0,19.0,22.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),89,18,23.16,0.786,False,8.0,12.0,24.0,28.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),959,14,23.16,0.586,False,2.0,6.0,20.0,23.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),2023,12,23.16,0.532,False,2.0,5.0,18.0,21.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),1810,12,23.16,0.498,False,2.0,4.0,18.0,21.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),672,16,23.16,0.698,False,6.0,10.0,22.0,25.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),5850,13,23.16,0.553,False,2.0,5.0,19.0,22.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),86,19,23.16,0.803,False,9.0,14.0,24.0,28.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),1172,13,23.16,0.576,False,2.0,6.0,20.0,23.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),1983,13,23.16,0.545,False,2.0,5.0,19.0,22.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),1927,11,23.16,0.485,False,2.0,4.0,17.0,20.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),683,16,23.16,0.697,False,6.0,10.0,22.0,25.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),4603,13,23.16,0.57,False,3.0,6.0,19.0,23.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),98,18,23.16,0.76,False,6.0,12.0,24.0,26.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),456,15,23.16,0.65,False,4.0,8.0,21.0,24.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),2022,12,23.16,0.52,False,2.0,5.0,18.0,21.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),1470,13,23.16,0.548,False,2.0,5.0,19.0,22.0
+,Sacramento to McGee,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),556,16,23.16,0.709,False,6.0,10.0,22.0,25.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),5549,23,29.5,0.784,False,12.0,16.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),108,25,29.5,0.863,False,14.0,19.0,31.0,35.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),1033,23,29.5,0.795,False,12.0,16.0,29.0,33.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),1970,23,29.5,0.786,False,12.0,16.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),1726,22,29.5,0.762,False,11.0,15.0,28.0,31.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),712,24,29.5,0.803,False,13.0,17.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),5808,23,29.5,0.783,False,11.0,16.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),97,26,29.5,0.875,False,14.0,20.0,32.0,36.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),1277,23,29.5,0.791,False,12.0,16.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),1914,23,29.5,0.791,False,12.0,16.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),1805,22,29.5,0.755,False,11.0,15.0,28.0,31.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),714,24,29.5,0.801,False,13.0,17.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),4662,23,29.5,0.79,False,12.0,16.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),131,25,29.5,0.845,False,12.0,18.0,30.0,34.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),451,24,29.5,0.828,False,13.0,17.0,30.0,33.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),2010,23,29.5,0.778,False,12.0,16.0,29.0,31.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),1455,23,29.5,0.783,False,12.0,16.0,29.0,32.0
+,San Pablo to Peralta,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),615,24,29.5,0.807,False,13.0,17.0,29.0,32.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),0: All Day (12am-12am),11082,18,29.128,0.616,False,2.0,7.0,26.0,29.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),1: Early AM (12am-6am),215,22,29.128,0.752,False,6.0,12.0,28.0,32.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),2: Peak AM (6am-10am),1975,19,29.128,0.645,False,2.0,8.0,27.0,30.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),3: Mid-Day (10am-3pm),3963,18,29.128,0.603,False,2.0,6.0,26.0,29.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),4: Peak PM (3pm-7pm),3478,17,29.128,0.58,False,2.0,5.0,25.0,28.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",0: All Days (M-Su),5: Late PM (7pm-12am),1451,20,29.128,0.679,False,3.0,10.0,27.0,30.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),0: All Day (12am-12am),11697,18,29.128,0.613,False,2.0,6.0,26.0,29.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),1: Early AM (12am-6am),199,22,29.128,0.755,False,6.0,12.0,28.0,32.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),2: Peak AM (6am-10am),2429,19,29.128,0.635,False,2.0,7.0,26.0,30.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),3: Mid-Day (10am-3pm),3884,18,29.128,0.611,False,2.0,6.0,26.0,29.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),4: Peak PM (3pm-7pm),3701,17,29.128,0.57,False,2.0,5.0,25.0,28.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",1: Weekday (M-Th),5: Late PM (7pm-12am),1483,20,29.128,0.674,False,3.0,9.0,26.0,30.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),0: All Day (12am-12am),8967,18,29.128,0.635,False,2.0,7.0,26.0,29.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),1: Early AM (12am-6am),249,22,29.128,0.747,False,7.0,12.0,28.0,32.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),2: Peak AM (6am-10am),894,20,29.128,0.694,False,3.0,9.0,28.0,31.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),3: Mid-Day (10am-3pm),3906,17,29.128,0.599,False,2.0,5.0,26.0,29.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),4: Peak PM (3pm-7pm),2730,18,29.128,0.631,False,2.0,7.0,26.0,29.0
+,Stannage to San Pablo,"Jan 01, 2025 - Dec 31, 2025",2: Weekend (Sa-Su),5: Late PM (7pm-12am),1188,20,29.128,0.695,False,4.0,10.0,27.0,30.0
