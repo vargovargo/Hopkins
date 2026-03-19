@@ -9,7 +9,8 @@
  *   onClose    function — called when user closes the panel
  */
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { SOURCE_DOC } from '../data/segments'
 import './SegmentPanel.css'
 
@@ -64,6 +65,21 @@ export default function SegmentPanel({ segment, onClose }) {
 }
 
 function PanelContent({ segment, onClose }) {
+  const [lightboxSrc, setLightboxSrc] = useState(null)
+
+  // Close lightbox on Escape (separate from panel Escape)
+  useEffect(() => {
+    if (!lightboxSrc) return
+    const handleKey = (e) => { if (e.key === 'Escape') setLightboxSrc(null) }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [lightboxSrc])
+
+  const allImages = [
+    ...(segment.design_images ?? []),
+    ...(segment.intersection_image ? [segment.intersection_image] : []),
+  ]
+
   const hasParkingRemoved =
     segment.parking_spaces_lost > 0 ||
     segment.parking_spaces_retained === 0
@@ -145,43 +161,60 @@ function PanelContent({ segment, onClose }) {
       )}
 
       {/* ── Design images ──────────────────────────────────────────── */}
-      {segment.design_images?.length > 0 && (
+      {allImages.length > 0 && (
         <section className="segment-panel__section">
-          <h3 className="segment-panel__section-heading">Conceptual design</h3>
-          {segment.design_images.length === 1 ? (
-            <img
-              className="segment-panel__image segment-panel__image--full"
-              src={segment.design_images[0]}
-              alt={`Proposed design for ${segment.label}`}
-              loading="lazy"
-            />
-          ) : (
-            <div className="segment-panel__image-strip" role="list">
-              {segment.design_images.map((url, i) => (
+          <h3 className="segment-panel__section-heading">
+            Conceptual design — tap to enlarge
+          </h3>
+          <div className="segment-panel__image-strip" role="list">
+            {allImages.map((url, i) => (
+              <button
+                key={url}
+                className="segment-panel__image-btn"
+                onClick={() => setLightboxSrc(url)}
+                aria-label={`Enlarge design image ${i + 1} of ${allImages.length}`}
+                role="listitem"
+              >
                 <img
-                  key={url}
                   className="segment-panel__image"
                   src={url}
-                  alt={`Proposed design for ${segment.label}, view ${i + 1} of ${segment.design_images.length}`}
+                  alt={`Design view ${i + 1} of ${allImages.length} for ${segment.label}`}
                   loading="lazy"
-                  role="listitem"
                 />
-              ))}
-            </div>
-          )}
-          {segment.intersection_image && (
-            <img
-              className="segment-panel__image segment-panel__image--intersection"
-              src={segment.intersection_image}
-              alt={`Intersection treatment at western end of ${segment.label}`}
-              loading="lazy"
-            />
-          )}
+              </button>
+            ))}
+          </div>
           <p className="segment-panel__image-caveat">{IMAGE_CAVEAT}</p>
           {segment.design_images_caption && (
             <p className="segment-panel__image-caption">{segment.design_images_caption}</p>
           )}
         </section>
+      )}
+
+      {/* ── Lightbox ────────────────────────────────────────────────── */}
+      {lightboxSrc && createPortal(
+        <div
+          className="segment-lightbox"
+          onClick={() => setLightboxSrc(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Design image enlarged"
+        >
+          <img
+            className="segment-lightbox__img"
+            src={lightboxSrc}
+            alt="Conceptual design, enlarged"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className="segment-lightbox__close"
+            onClick={() => setLightboxSrc(null)}
+            aria-label="Close enlarged image"
+          >
+            ×
+          </button>
+        </div>,
+        document.body,
       )}
 
       {/* ── Source ─────────────────────────────────────────────────── */}
