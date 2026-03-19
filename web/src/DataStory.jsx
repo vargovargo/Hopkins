@@ -69,11 +69,12 @@ export default function DataStory() {
           selectedSegment={selectedSegmentId}
           onSegmentClick={setSelectedSegmentId}
         />
-        <SegmentPanel
-          segment={selectedSegment}
-          onClose={() => setSelectedSegmentId(null)}
-        />
       </div>
+
+      <SegmentPanel
+        segment={selectedSegment}
+        onClose={() => setSelectedSegmentId(null)}
+      />
 
       <div className="narrative-panel">
 
