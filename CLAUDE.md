@@ -15,7 +15,7 @@ Primary audiences: City Council members, general public and neighbors, press.
 - The Hopkins Corridor project has been approved by Berkeley City Council **twice** (May 2022, then again after a reconsideration motion failed in October 2022), but has faced repeated delays due to staffing, political pressure, and unresolved design questions on the commercial strip (McGee to Gilman).
 - The core opposition argument centers on **parking loss** — originally estimated at 30–35 spaces, later revised to 60, which was not disclosed before the vote.
 - The corridor (Sutter to Gilman, ~1 mile) was formally designated a **high-injury street** in Berkeley's Vision Zero Action Plan (2020).
-- Two fatalities occurred in 2017 — one pedestrian at Hopkins/Monterey, one cyclist on Sacramento near Hopkins — which triggered the study.
+- Two fatalities occurred in 2017 — one pedestrian at Hopkins/Monterey, one cyclist on Sacramento near Hopkins — which triggered the study. A third fatal collision occurred one block south of Hopkins (California St & Ada) in January 2025, after the project had already been approved and shelved.
 - Bike East Bay found **36 collisions from 2015–2018**, 36% involving a pedestrian or cyclist.
 - One opposition researcher disputed the "high injury" designation, calling the cited period (2016–2019) an anomaly — our data work should address this directly with a longer time series.
 - As of 2025–2026, political winds have shifted: voters passed Measure FF (street safety parcel tax) while rejecting a competing measure with weaker bike/ped commitments.
@@ -238,14 +238,36 @@ This project is part of a live public policy debate. The analysis will be scruti
 
 ## Current status
 
-- [ ] TIMS data pull — needs account + corridor polygon query
-- [ ] GeoJSON corridor boundary created
-- [ ] City staff report and Vision Zero plan PDFs saved to `/docs`
-- [ ] Web scaffold created (React + Vite + Scrollama)
-- [ ] Collision analysis script written
-- [ ] Map component built (Mapbox, dark basemap)
-- [ ] Mode split section stubbed (awaiting Streetlight data)
-- [ ] Streetlight data received and processed
+- [x] TIMS data pull — Hopkins Street polygon (Sutter to Gilman), 39 collisions 2014–2025
+- [x] GeoJSON corridor boundary created — `data/geo/corridor.geojson`
+- [x] City staff report and Vision Zero plan PDFs saved to `/docs`
+- [x] Web scaffold created (React + Vite + Scrollama)
+- [x] Collision analysis script written — `analysis/collisions.py`
+- [x] Map component built — `CorridorMap.jsx`, Mapbox dark basemap, segment click → SegmentPanel
+- [x] Mode split section built — `SegmentVolumeChart.jsx` (vehicles 2025) + `CedarDiversionChart.jsx` (bicycle 2022)
+- [x] Streetlight data received and processed — `data/processed/streetlight_verified.json`
+- [x] Speed chart built — `SpeedChart.jsx`, 85th percentile by segment vs 25 mph Vision Zero target
+- [x] Parking chart built — `ParkingChart.jsx`, original vs revised estimates, segment-level breakdown
+- [x] Community feedback chart built — `CommunityFeedbackChart.jsx`, Workshop 2 (2021), parking ranked 9th
+- [x] The Record page built — `BackgroundPage.jsx` with `ProjectTimeline.jsx` + `SourceLibrary.jsx`
+- [x] Project history data — `data/processed/project_history.json`, 14 timeline events through 2026
+- [ ] Streetlight volume estimates validated against independent Berkeley traffic counts (city PDFs in hand)
+- [ ] Parking spaces lost vs. nearest replacement distance (city docs — in record, not yet visualized)
+
+### TIMS data notes
+
+- **Polygon:** Hopkins Street only, Sutter to Gilman. Rose, Cedar, and San Pablo excluded.
+- **39 collisions, 0 fatal as coded.** The 2017 fatalities (pedestrian at Hopkins/Monterey; cyclist on Sacramento) are coded to cross-street coordinates in TIMS and fall outside the Hopkins polygon. They are documented in city staff records and cited in the timeline from those sources.
+- **2025 corridor-area fatality:** A fatal collision occurred at California St & Ada (one block south of Hopkins) on January 26, 2025. It is in the timeline as a corridor-area event but is NOT in the Hopkins TIMS polygon count.
+- **Script:** `analysis/collisions.py` — re-run whenever raw TIMS files are replaced. BBOX in script is set wide enough to pass all TIMS results through; filtering is done by the TIMS polygon at query time.
+
+### Collision figures in public record (all correct, different subsets)
+
+| Figure | Source | Period | Scope |
+|--------|--------|--------|-------|
+| 39 collisions | TIMS/SWITRS (this project) | 2014–2025 | Hopkins polygon, all severities |
+| 36 collisions | Bike East Bay (2018), citing city staff | 2015–2018 | Broader corridor area, all severities |
+| 18 injury/fatal | City workshop presentations (March 2022) | 2016–2019 | Corridor, injury + fatal only |
 
 -----
 

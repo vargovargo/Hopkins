@@ -56,9 +56,9 @@ export default function CommunityFeedbackChart({ data = defaultData }) {
     <div className="community-chart">
 
       {/* ── Header ─────────────────────────────────────────────────── */}
-      <h2 className="community-chart__heading">What the community said it wanted</h2>
+      <h2 className="community-chart__heading">What the community said it wanted <span className="community-chart__heading-year">(2021)</span></h2>
       <p className="community-chart__subhead">
-        Workshop 2 participant feedback · March 2021 · City of Berkeley
+        Workshop 2 participant feedback · March 10, 2021 · City of Berkeley
       </p>
       <p className="community-chart__caveat-header">
         Values are approximate — estimated from city workshop chart. Reflects

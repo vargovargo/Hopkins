@@ -101,7 +101,7 @@ export default function SegmentVolumeChart() {
         Vehicle Volume by Segment
       </h3>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: COLORS.muted, margin: '0 0 1rem' }}>
-        Average daily vehicle count · All days · 95% confidence interval shown
+        Estimated daily zone activity (Streetlight Volume) · All vehicles · All days · 95% CI shown
       </p>
 
       <svg

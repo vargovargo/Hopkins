@@ -2,115 +2,108 @@
   "_metadata": {
     "source": "TIMS/SWITRS \u2014 tims.berkeley.edu",
     "attribution": "Source: TIMS/SWITRS. Must be cited in all public-facing visualizations.",
-    "generated": "2026-03-19T07:09:43.259910Z",
+    "generated": "2026-03-19T14:58:07.380141Z",
     "processing_script": "analysis/collisions.py",
     "join_method": "Three relational tables joined: Crashes + Parties on CASE_ID; Parties + Victims on CASE_ID + PARTY_NUMBER. Mode flags aggregated to collision level before output.",
     "bounding_box": {
-      "lat_min": 37.877,
-      "lat_max": 37.882,
-      "lon_min": -122.304,
-      "lon_max": -122.272
+      "lat_min": 37.875,
+      "lat_max": 37.892,
+      "lon_min": -122.3,
+      "lon_max": -122.27
     },
     "date_range": {
-      "min": "2014-02-12",
-      "max": "2025-11-20"
+      "min": "2014-04-12",
+      "max": "2025-12-12"
     },
-    "total_records": 51,
+    "total_records": 39,
     "note": "Full time series retained \u2014 no minimum year filter. The 2015\u20132018 period cited by Bike East Bay and city staff is highlighted in the UI but the full dataset is preserved for context."
   },
-  "total_collisions": 51,
-  "fatal_collisions": 2,
+  "total_collisions": 39,
+  "fatal_collisions": 0,
   "by_year": {
     "2014": {
       "fatal": 0,
       "severe_injury": 0,
       "other_injury": 0,
-      "property_damage_only": 2
+      "property_damage_only": 1
     },
     "2015": {
       "fatal": 0,
       "severe_injury": 0,
-      "other_injury": 2,
-      "property_damage_only": 3
+      "other_injury": 3,
+      "property_damage_only": 1
     },
     "2016": {
       "fatal": 0,
-      "severe_injury": 0,
-      "other_injury": 3,
-      "property_damage_only": 4
+      "severe_injury": 1,
+      "other_injury": 2,
+      "property_damage_only": 1
     },
     "2017": {
-      "fatal": 1,
+      "fatal": 0,
       "severe_injury": 1,
-      "other_injury": 1,
-      "property_damage_only": 2
+      "other_injury": 0,
+      "property_damage_only": 4
     },
     "2018": {
       "fatal": 0,
-      "severe_injury": 0,
-      "other_injury": 3,
-      "property_damage_only": 0
+      "severe_injury": 1,
+      "other_injury": 0,
+      "property_damage_only": 3
     },
     "2019": {
       "fatal": 0,
       "severe_injury": 0,
-      "other_injury": 3,
-      "property_damage_only": 0
+      "other_injury": 0,
+      "property_damage_only": 1
     },
     "2020": {
       "fatal": 0,
       "severe_injury": 0,
-      "other_injury": 2,
-      "property_damage_only": 0
-    },
-    "2021": {
-      "fatal": 0,
-      "severe_injury": 1,
-      "other_injury": 1,
+      "other_injury": 3,
       "property_damage_only": 0
     },
     "2022": {
       "fatal": 0,
-      "severe_injury": 1,
-      "other_injury": 4,
-      "property_damage_only": 0
+      "severe_injury": 0,
+      "other_injury": 2,
+      "property_damage_only": 1
     },
     "2023": {
       "fatal": 0,
       "severe_injury": 1,
-      "other_injury": 1,
+      "other_injury": 2,
       "property_damage_only": 0
     },
     "2024": {
       "fatal": 0,
-      "severe_injury": 1,
-      "other_injury": 4,
+      "severe_injury": 0,
+      "other_injury": 3,
       "property_damage_only": 0
     },
     "2025": {
-      "fatal": 1,
+      "fatal": 0,
       "severe_injury": 0,
-      "other_injury": 6,
+      "other_injury": 5,
       "property_damage_only": 3
     }
   },
   "by_severity": {
-    "other_injury": 30,
-    "property_damage_only": 14,
-    "severe_injury": 5,
-    "fatal": 2
+    "other_injury": 20,
+    "property_damage_only": 15,
+    "severe_injury": 4
   },
   "ped_cyclist_involvement": {
-    "total": 40,
-    "pct_of_all_collisions": 78.4,
-    "pedestrian_involved": 20,
-    "bicyclist_involved": 20,
+    "total": 25,
+    "pct_of_all_collisions": 64.1,
+    "pedestrian_involved": 14,
+    "bicyclist_involved": 12,
     "note": "A collision is counted if a pedestrian or cyclist was any party (Parties table, PARTY_TYPE) or any victim (Victims table, VICTIM_ROLE)."
   },
   "by_cross_street": {
-    "McGee": 4,
-    "Sacramento": 3,
-    "Gilman": 3,
-    "Monterey": 2
+    "Alameda": 5,
+    "Monterey": 2,
+    "Sutter": 2,
+    "Sacramento": 1
   }
 }

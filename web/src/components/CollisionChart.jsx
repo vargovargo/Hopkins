@@ -217,10 +217,11 @@ export default function CollisionChart({ data = defaultData }) {
 
       {/* ── Header ───────────────────────────────────────────────────── */}
       <h2 className="collision-chart__heading">
-        {total != null ? `${total} Collisions.` : '— Collisions.'} Two Lives Lost.
+        {total != null ? `${total} Collisions.` : '— Collisions.'}{' '}
+        {pedCyclistPct != null ? `${pedCyclistPct}% Involved a Pedestrian or Cyclist.` : ''}
       </h2>
       <p className="collision-chart__subhead">
-        Hopkins Corridor · {dateRangeLabel}
+        Hopkins Street · Sutter to Gilman · {dateRangeLabel}
         <span className="collision-chart__source"> · Source: TIMS/SWITRS</span>
       </p>
 
@@ -272,19 +273,22 @@ export default function CollisionChart({ data = defaultData }) {
           <span className="collision-chart__stat-label">involved ped or cyclist</span>
         </div>
         <div className="collision-chart__stat">
-          <span className="collision-chart__stat-number">{fatals ?? '—'}</span>
-          <span className="collision-chart__stat-label">fatalities</span>
+          <span className="collision-chart__stat-number">
+            {data?.by_severity?.severe_injury ?? '—'}
+          </span>
+          <span className="collision-chart__stat-label">severe injuries</span>
         </div>
       </div>
 
-      {/* ── Mandatory three-subset footnote ───────────────────────────── */}
+      {/* ── Footnote on collision figures ─────────────────────────────── */}
       <p className="collision-chart__footnote">
-        Three collision figures appear in public discussion of this corridor:{' '}
-        (1) {total ?? '—'} total collisions, all severities, {dateRangeLabel} — this chart,
-        source: TIMS/SWITRS.{' '}
-        (2) 36 collisions, all severities, 2015–2018 — Bike East Bay citing city staff (2018).{' '}
-        (3) 18 injury and fatal collisions, 2016–2019 — city workshop presentations (March 2022).{' '}
-        All three figures are correct — they measure different time periods and severity subsets.
+        This chart shows <strong>0 fatal collisions</strong> — not because none occurred, but because
+        the two 2017 fatalities (a pedestrian at Hopkins &amp; Monterey; a cyclist on Sacramento near
+        Hopkins) are coded to cross-street coordinates in TIMS and fall outside this Hopkins-only
+        polygon extract. Both deaths are documented in city staff records; see the project timeline.{' '}
+        Multiple collision figures appear in public discussion: this chart covers {total ?? '—'} collisions,
+        all severities, {dateRangeLabel} (TIMS/SWITRS, Hopkins polygon). City workshop presentations
+        (March 2022) separately document 18 injury and fatal collisions, 2016–2019, on the corridor.
       </p>
 
       {/* ── Source attribution ────────────────────────────────────────── */}

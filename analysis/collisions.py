@@ -50,10 +50,10 @@ PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
 # ---------------------------------------------------------------------------
 
 BBOX = {
-    "lat_min": 37.877,
-    "lat_max": 37.882,
-    "lon_min": -122.304,
-    "lon_max": -122.272,
+    "lat_min": 37.875,
+    "lat_max": 37.892,
+    "lon_min": -122.300,
+    "lon_max": -122.270,
 }
 
 # Named cross-streets to flag in summary

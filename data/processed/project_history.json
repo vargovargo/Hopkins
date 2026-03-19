@@ -217,11 +217,24 @@
       ]
     },
     {
+      "id": "fatality-2025",
+      "date": "January 2025",
+      "type": "fatality",
+      "title": "Fatal collision on California Street near Hopkins",
+      "description": "A fatal collision occurred at California Street and Ada Street \u2014 one block south of Hopkins \u2014 in January 2025, eight years after the two 2017 fatalities that triggered the corridor study, and nearly three years after the Council voted to redesign the street. The Hopkins corridor safety project remained unbuilt at the time.",
+      "sources": [
+        {
+          "label": "TIMS/SWITRS \u2014 Hopkins corridor area collision extract",
+          "url": "https://tims.berkeley.edu"
+        }
+      ]
+    },
+    {
       "id": "status-2026",
       "date": "2026",
       "type": "setback",
       "title": "Project remains unbuilt \u2014 nine years after the fatalities",
-      "description": "As of early 2026, the Hopkins Street Safety Project has been approved by Council twice and endorsed by ten or more city planning documents, but no construction has begun. The corridor that killed two people in 2017 remains unchanged.",
+      "description": "As of early 2026, the Hopkins Street Safety Project has been approved by Council twice and endorsed by ten or more city planning documents, but no construction has begun. Two people died in 2017. A fatal collision occurred one block south of Hopkins in January 2025. The street remains unchanged.",
       "sources": [
         {
           "label": "City of Berkeley project status page",

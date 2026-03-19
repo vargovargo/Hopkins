@@ -16,7 +16,7 @@ import './BackgroundPage.css'
 
 const AT_A_GLANCE = [
   {
-    number: '7',
+    number: '9',
     unit: 'years',
     label: 'From the 2017 fatalities to today — still unbuilt',
   },

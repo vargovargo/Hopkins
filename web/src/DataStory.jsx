@@ -138,8 +138,10 @@ export default function DataStory() {
             </h2>
             <p className="section-body">
               The corridor's current design has a documented history of failure.
-              Two people died in 2017. The question is not whether to act —
-              it is how long to wait.
+              Two people died in 2017 — a pedestrian at Hopkins and Monterey,
+              a cyclist on Sacramento near Hopkins — and the street remains
+              unchanged. The question is not whether to act. It is how long
+              to wait.
             </p>
             <CollisionChart yearRange={[2015, 2018]} />
             <SpeedChart />

@@ -97,7 +97,7 @@ export default function CedarDiversionChart() {
         Where Cyclists Are Going
       </h3>
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: COLORS.muted, margin: '0 0 1rem' }}>
-        Estimated daily zone activity · All days · Bicycle
+        Estimated daily zone activity (Streetlight Volume) · Bicycle · All days
       </p>
 
       <svg
