@@ -533,20 +533,6 @@ Also create web/src/components/CorridorMap.css for any styles that can't be inli
 ```
 Read CLAUDE.md before starting.
 
-DESIGN RATIONALE (read before building):
-Three different collision figures appear in the public record — 51 total (TIMS
-full dataset), 36 (Bike East Bay citing city staff, 2015–2018), and 18
-(city workshop presentations, injury/fatal only, 2016–2019). All three are
-correct; they measure different time periods and severity subsets. The
-opposition has scrutinized this data and will notice if the chart conflates
-them. The heading must pull the TIMS total (51) — hardcoding 36 would be
-wrong and attributable to the wrong source. The four-stack bar chart
-(including property-damage-only as a distinct layer) makes clear the chart
-is showing all severities, not just the injury/fatal subset the city cited.
-The two period annotations mark the different date ranges used in each
-secondary source. The mandatory footnote is the primary defense against
-misuse — do not remove or shorten it.
-
 Build web/src/components/CollisionChart.jsx
 
 This component visualizes TIMS collision data for the Hopkins corridor.
@@ -916,10 +902,12 @@ use the verified parking figures from that file, not values from memory.
 
 ### DATA
 
-Create web/src/data/segments.js — a structured data file containing
-the per-segment information. This is sourced from the May 2022 city
-staff report and Workshop 4.3 presentation (public documents). Do not
-fabricate any design details — use only what is documented.
+Create web/src/data/segments.js — sourced from parking_data.json and the
+May 2022 staff report. Three segments matching the PDF design sections.
+Do not fabricate any design details.
+
+Read data/processed/parking_data.json before writing this file —
+use its image URLs and parking figures directly.
 
 export const SEGMENTS = [
   {
@@ -934,77 +922,75 @@ export const SEGMENTS = [
     },
     parking_impact: "No net loss",
     parking_spaces_lost: 0,
-    source_page: 3,
     source_doc: "Hopkins Corridor Project Conceptual Design, May 2022",
+    source_url: "https://berkeleyca.gov/sites/default/files/2022-04/2022-05-10%20Item%2033%20Hopkins%20Corridor%20Project.pdf",
+    design_images: [
+      { label: "Cross-section A (east end)", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900318/Screenshot_2026-03-18_at_11.05.13_PM_qpmwkv.png" },
+      { label: "Cross-section B", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900383/Screenshot_2026-03-18_at_11.06.18_PM_v5f0qf.png" },
+      { label: "Cross-section C", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900338/Screenshot_2026-03-18_at_11.05.32_PM_gsvc2a.png" },
+      { label: "The Alameda intersection", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900352/Screenshot_2026-03-18_at_11.05.47_PM_wqxd3q.png" }
+    ],
     streetlight: {
-      vehicle_volume_daily: null, // populate from streetlight_verified.json
+      vehicle_volume_daily: null,
       note: "Eastern end — lowest vehicle volumes on corridor"
-    },
-    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
-    intersection_image: null // image of the western intersection treatment
+    }
   },
   {
     id: "alameda-mcgee",
     label: "The Alameda to McGee Ave",
     character: "Transitional — residential to commercial approach",
     proposed_design: {
-      southside: "Two-way protected bikeway with buffer zone",
+      southside: "Two-way protected bikeway against curb",
       parking: "Most on-street parking retained both sides",
       lane_width: "Narrowed from 11ft to 10.5ft",
+      loading: "Buffer zone provides separation and loading area",
       intersection_treatment: "Bulbouts at Josephine St, raised crosswalk"
     },
     parking_impact: "Minimal loss",
-    parking_spaces_lost: null, // exact count requires design map images
-    source_page: 3,
+    parking_spaces_lost: null,
+    parking_spaces_lost_note: "Exact count requires design map annotation",
     source_doc: "Hopkins Corridor Project Conceptual Design, May 2022",
+    source_url: "https://berkeleyca.gov/sites/default/files/2022-04/2022-05-10%20Item%2033%20Hopkins%20Corridor%20Project.pdf",
+    design_images: [
+      { label: "Cross-section A (east end)", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900403/Screenshot_2026-03-18_at_11.06.38_PM_dpjpzr.png" },
+      { label: "Cross-section B", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900538/Screenshot_2026-03-18_at_11.08.52_PM_n78nbz.png" },
+      { label: "Cross-section C", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900556/Screenshot_2026-03-18_at_11.09.07_PM_ynbmw0.png" },
+      { label: "Cross-section D (west end)", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900640/Screenshot_2026-03-18_at_11.10.33_PM_l48s86.png" },
+      { label: "The Alameda intersection detail", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900696/Screenshot_2026-03-18_at_11.11.29_PM_qiak0s.png" }
+    ],
     streetlight: {
       vehicle_volume_daily: null,
       note: null
-    },
-    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
-    intersection_image: null // image of the western intersection treatment
+    }
   },
   {
-    id: "mcgee-monterey",
-    label: "McGee Ave to Monterey Ave",
-    character: "Commercial strip approach",
+    id: "mcgee-gilman",
+    label: "McGee Ave to Gilman St",
+    character: "Commercial strip — most contested segment",
     proposed_design: {
-      southside: "Bi-directional protected bikeway, protected by parked vehicles",
-      parking: "All parking retained on south side except one stall",
-      loading: "Buffer zone for separation and loading"
+      southside: "Bi-directional protected bikeway full length",
+      mcgee_to_monterey: "Bikeway protected by parked vehicles — most parking retained on south side (one stall lost)",
+      monterey_to_gilman: "Bikeway protected by raised concrete median — all parking removed both sides",
+      intersection_treatment: "Bulbout at California/Monterey, raised crosswalk across Monterey, raised median on northeast corner"
     },
-    parking_impact: "One space lost",
-    parking_spaces_lost: 1,
-    source_page: 3,
-    source_doc: "Workshop 4.3, March 14 2022",
+    parking_impact: "Mixed — most retained McGee-Monterey, all removed Monterey-Gilman",
+    parking_spaces_lost_mcgee_monterey: 1,
+    parking_spaces_retained_monterey_gilman: 0,
+    parking_spaces_lost_monterey_gilman: null,
+    parking_spaces_lost_note: "Exact count for Monterey-Gilman requires design map annotation",
+    fatality_note: "2017 pedestrian fatality at Hopkins/Monterey intersection — raised crosswalk proposed here",
+    source_doc: "Workshop 4.3 — McGee to Gilman, March 14 2022",
+    source_url: "https://berkeleyca.gov/sites/default/files/documents/Hopkins%20Workshop%204.3%20Presentation_20220314.pdf",
+    design_images: [
+      { label: "McGee to Monterey", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900994/Screenshot_2026-03-18_at_11.16.30_PM_myzi1s.png" },
+      { label: "Monterey to Sacramento", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901018/Screenshot_2026-03-18_at_11.16.54_PM_o9bbkb.png" },
+      { label: "Sacramento to Gilman", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901038/Screenshot_2026-03-18_at_11.17.14_PM_wyiecm.png" },
+      { label: "Hopkins/Monterey/California intersection", url: "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901058/Screenshot_2026-03-18_at_11.17.34_PM_wzs74d.png" }
+    ],
     streetlight: {
       vehicle_volume_daily: null,
-      note: "Sacramento to McGee — highest pedestrian zone on corridor"
-    },
-    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
-    intersection_image: null // image of the Monterey Ave intersection treatment
-  },
-  {
-    id: "monterey-gilman",
-    label: "Monterey Ave to Gilman St",
-    character: "Commercial strip core — most contested blocks",
-    proposed_design: {
-      southside: "Bi-directional bikeway protected by raised concrete median",
-      parking: "All parking removed both sides",
-      intersection_treatment: "Bulbout at California/Monterey, raised crosswalk across Monterey (fatality location), raised median on northeast corner"
-    },
-    parking_impact: "All on-street parking removed",
-    parking_spaces_lost: null, // exact count requires design map images
-    parking_spaces_retained: 0,
-    fatality_note: "2017 pedestrian fatality at Hopkins/Monterey — raised crosswalk proposed here",
-    source_page: "3-4",
-    source_doc: "Workshop 4.3, March 14 2022",
-    streetlight: {
-      vehicle_volume_daily: null,
-      note: "Site of 2017 pedestrian fatality at Hopkins/Monterey"
-    },
-    design_images: [], // array of Cloudinary URLs, east to west — populated in data/processed/parking_data.json and data/geo/corridor.geojson
-    intersection_image: null // image of the Monterey Ave intersection treatment (shared with mcgee-monterey)
+      note: "Sacramento to McGee zone — highest pedestrian activity on corridor"
+    }
   }
 ]
 
@@ -1031,17 +1017,21 @@ LAYOUT (mobile — bottom sheet sliding up from bottom):
 - Segment label in DM Serif Display
 - Character description in DM Sans muted small
 - "Proposed design" section — two columns: treatment label (muted) + value
-- Parking impact line: amber (#c4713b) if parking removed, green (#4a7c59) if retained
-- If parking_spaces_lost is null: show "Exact count pending — design maps required"
-  in muted text rather than showing nothing or a wrong number
-- If vehicle volume data exists: show as a small inline stat with source label
-- If design_images is non-empty: show images as a horizontal scrollable strip with caption; if only one image, just show it full-width. Below the images (or below the single image), show a visible caveat in muted text: "These drawings show the 2022 conceptual design approved by City Council. Detailed engineering design is ongoing — final designs may differ. Source: City of Berkeley, May 2022."
-- If segment has fatality_note: show amber note with warning icon
+- For mcgee-gilman: show two sub-rows (McGee-Monterey and Monterey-Gilman)
+  with different parking treatments clearly distinguished
+- Parking impact line: amber (#c4713b) if any parking removed, green (#4a7c59) if retained
+- If parking_spaces_lost is null: show "Exact count pending" in muted text
+- If vehicle_volume_daily exists: show as small inline stat with source label
+- If fatality_note exists: amber warning note with warning icon
+- IMAGE GALLERY: if design_images array is non-empty, render a horizontally
+  scrollable image strip below the design details. Each image has a small
+  caption label below it. Tap to expand to full-width lightbox.
 - "Source" row at bottom: document title, date, "View PDF →" link
 - Close button (×) top right
 
-LAYOUT (desktop — right panel, 280px wide, slides in from right):
+LAYOUT (desktop — right panel, 320px wide, slides in from right):
 - Same content, vertical layout
+- Image gallery stacks vertically — each image full panel width
 - Stays open until user clicks elsewhere or closes
 
 DESIGN:
@@ -1053,6 +1043,7 @@ DESIGN:
 - Parking removed: amber (#c4713b)
 - Parking retained: forest green (#4a7c59)
 - Source link: slate blue (#6a9bcc)
+- Image captions: JetBrains Mono 0.7rem muted
 - Transition: slide in 200ms ease, slide out 150ms ease
 
 ---
@@ -1164,6 +1155,116 @@ WIRING:
   here's what the community said it actually cared about
 
 File: web/src/components/CommunityFeedbackChart.jsx
+Export as default.
+```
+
+---
+
+## Prompt 13 — Parking section visualization
+
+```
+Read CLAUDE.md before starting.
+
+Build web/src/components/ParkingChart.jsx
+
+This component lives in Section 3 "What's actually at stake with parking."
+It makes the parking argument concrete and honest — showing what is actually
+being lost, where, and in what context.
+
+DATA: data/processed/parking_data.json (import directly)
+
+The JSON has two main sections to use:
+  east_of_gilman.segments — per-segment parking treatment and loss counts
+  west_of_gilman — western extension options with inventory and occupancy data
+
+---
+
+VISUALIZATION 1 — East of Gilman segment summary
+
+A simple visual showing parking impact by segment — three rows, one per
+design section, reading east to west.
+
+DESIGN:
+- Three rows: Sutter–Alameda | Alameda–McGee | McGee–Gilman
+- Each row shows:
+    Left: segment label (DM Sans)
+    Center: a short plain-language parking treatment description
+    Right: parking impact indicator
+      Green pill: "No loss" or "1 space lost"
+      Amber pill: "Most retained" (for Alameda-McGee where count is null)
+      Red pill: "All removed" (for Monterey-Gilman sub-segment)
+- For McGee–Gilman, show two sub-rows indented:
+    McGee to Monterey → green "1 space lost"
+    Monterey to Gilman → red "All removed"
+- Where spaces_lost is null, show the treatment description only —
+  do NOT show a number. Do not fabricate a count.
+- Source note: "Source: City of Berkeley staff report, May 2022;
+  Workshop 4.3, March 14 2022"
+
+CALLOUT above this visualization:
+"Most of the corridor loses little or no parking.
+The contested removal is concentrated on two blocks:
+Monterey Avenue to Gilman Street."
+
+---
+
+VISUALIZATION 2 — The two estimates
+
+A simple side-by-side stat display showing the two public estimates:
+
+  30–35 spaces          60 spaces
+  Original estimate     Revised estimate
+  (before May 2022      (not disclosed
+  Council vote)         before vote)
+
+- Both numbers in monospace, large
+- Label each clearly with its source and timing
+- Add a small note: "The revision was not disclosed to Council or the
+  public before the May 2022 vote — see The Record for full context"
+  with a link to /the-record
+- Do not editorialize beyond stating the facts
+
+---
+
+VISUALIZATION 3 — West of Gilman occupancy context
+
+Only render this if west_of_gilman data is present in the JSON.
+
+Show the 60% peak occupancy finding as a visual — a simple fill diagram
+or proportional bar:
+
+  [████████████░░░░░░░░] 60% occupied at peak
+
+Below it, show the three western extension options as a compact table:
+  Option 1: 250 ft | 13 spaces removed
+  Option 2: 1,400 ft | 76 spaces removed
+  Option 3: 3,000 ft | 129–132 spaces removed | ~70 vehicles displaced at peak
+
+Source note: "City parking survey, December 2022 community meeting"
+
+CALLOUT: "At peak, 40% of spaces west of Gilman are empty.
+Even the largest extension option would displace ~70 vehicles
+against a backdrop of 62 empty spaces at that same moment."
+
+---
+
+DESIGN (all visualizations):
+- Dark card background (#252523), subtle 1px border
+- Headings: DM Serif Display
+- Body: DM Sans
+- Numbers: JetBrains Mono
+- Green pills: #4a7c59 background, warm white text
+- Amber pills: #c4713b background, warm white text
+- Red pills: #8b2c2c background, warm white text
+- All source attributions visible, not hidden in tooltips
+
+IMPORTANT: The 2022 conceptual design caveat must appear somewhere
+in this section:
+"These figures reflect the 2022 conceptual design approved by Council.
+Detailed engineering is ongoing — final figures may differ."
+
+Wire into App.jsx Section 3, replacing the current placeholder.
+File: web/src/components/ParkingChart.jsx
 Export as default.
 ```
 
