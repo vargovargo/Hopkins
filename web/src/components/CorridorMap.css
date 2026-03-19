@@ -3,6 +3,7 @@
 /* Wrapper needed for the hint label overlay */
 .corridor-map-wrapper {
   position: relative;
+  height: 100%;
 }
 
 /* "Tap a segment" hint — fades after 3 seconds */
