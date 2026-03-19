@@ -533,6 +533,20 @@ Also create web/src/components/CorridorMap.css for any styles that can't be inli
 ```
 Read CLAUDE.md before starting.
 
+DESIGN RATIONALE (read before building):
+Three different collision figures appear in the public record — 51 total (TIMS
+full dataset), 36 (Bike East Bay citing city staff, 2015–2018), and 18
+(city workshop presentations, injury/fatal only, 2016–2019). All three are
+correct; they measure different time periods and severity subsets. The
+opposition has scrutinized this data and will notice if the chart conflates
+them. The heading must pull the TIMS total (51) — hardcoding 36 would be
+wrong and attributable to the wrong source. The four-stack bar chart
+(including property-damage-only as a distinct layer) makes clear the chart
+is showing all severities, not just the injury/fatal subset the city cited.
+The two period annotations mark the different date ranges used in each
+secondary source. The mandatory footnote is the primary defense against
+misuse — do not remove or shorten it.
+
 Build web/src/components/CollisionChart.jsx
 
 This component visualizes TIMS collision data for the Hopkins corridor.
@@ -1021,7 +1035,7 @@ LAYOUT (mobile — bottom sheet sliding up from bottom):
 - If parking_spaces_lost is null: show "Exact count pending — design maps required"
   in muted text rather than showing nothing or a wrong number
 - If vehicle volume data exists: show as a small inline stat with source label
-- If design_images is non-empty: show images as a horizontal scrollable strip with caption; if only one image, just show it full-width
+- If design_images is non-empty: show images as a horizontal scrollable strip with caption; if only one image, just show it full-width. Below the images (or below the single image), show a visible caveat in muted text: "These drawings show the 2022 conceptual design approved by City Council. Detailed engineering design is ongoing — final designs may differ. Source: City of Berkeley, May 2022."
 - If segment has fatality_note: show amber note with warning icon
 - "Source" row at bottom: document title, date, "View PDF →" link
 - Close button (×) top right
