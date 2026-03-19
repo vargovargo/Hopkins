@@ -6,18 +6,22 @@
 import { useState, useEffect, useRef } from 'react'
 import scrollama from 'scrollama'
 
-import CorridorMap          from './components/CorridorMap'
-import CollisionChart       from './components/CollisionChart'
-import SegmentVolumeChart   from './components/SegmentVolumeChart'
-import SpeedChart           from './components/SpeedChart'
-import CedarDiversionChart  from './components/CedarDiversionChart'
+import CorridorMap             from './components/CorridorMap'
+import SegmentPanel            from './components/SegmentPanel'
+import CollisionChart          from './components/CollisionChart'
+import SegmentVolumeChart      from './components/SegmentVolumeChart'
+import SpeedChart              from './components/SpeedChart'
+import CedarDiversionChart     from './components/CedarDiversionChart'
+import ParkingChart            from './components/ParkingChart'
+import CommunityFeedbackChart  from './components/CommunityFeedbackChart'
+import { SEGMENTS_BY_ID }      from './data/segments'
 
 import './App.css'
 
 const SECTION_HIGHLIGHT = {
   0: null,
   1: 'alameda-mcgee',
-  2: 'mcgee-gilman',
+  2: 'monterey-gilman',  // contested commercial strip
   3: null,
   4: null,
 }
@@ -32,10 +36,12 @@ const POLICY_DOCS = [
 ]
 
 export default function DataStory() {
-  const [activeSection, setActiveSection] = useState(0)
+  const [activeSection, setActiveSection]     = useState(0)
+  const [selectedSegmentId, setSelectedSegmentId] = useState(null)
   const scrollerRef = useRef(null)
 
   const highlightSegment = SECTION_HIGHLIGHT[activeSection] ?? null
+  const selectedSegment  = selectedSegmentId ? SEGMENTS_BY_ID[selectedSegmentId] : null
 
   useEffect(() => {
     const scroller = scrollama()
@@ -58,7 +64,15 @@ export default function DataStory() {
   return (
     <div className="app">
       <div className="map-panel" aria-label="Hopkins Street corridor map">
-        <CorridorMap highlightSegment={highlightSegment} />
+        <CorridorMap
+          highlightSegment={highlightSegment}
+          selectedSegment={selectedSegmentId}
+          onSegmentClick={setSelectedSegmentId}
+        />
+        <SegmentPanel
+          segment={selectedSegment}
+          onClose={() => setSelectedSegmentId(null)}
+        />
       </div>
 
       <div className="narrative-panel">
@@ -109,16 +123,8 @@ export default function DataStory() {
               does that compare to the number of people who arrive by modes
               other than driving?
             </p>
-            <div className="placeholder-viz" role="status">
-              <span className="placeholder-viz__label">
-                Parking count visualization — awaiting city staff report data
-                integration
-              </span>
-              <p className="placeholder-viz__note">
-                Data source: Berkeley City Council staff report, May 2022 ·
-                parking space count pending structured data entry.
-              </p>
-            </div>
+            <ParkingChart />
+            <CommunityFeedbackChart />
           </div>
         </section>
 
