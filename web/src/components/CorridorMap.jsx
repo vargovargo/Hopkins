@@ -47,8 +47,9 @@ export default function CorridorMap({
   const mapRef        = useRef(null)
   const loadedRef     = useRef(false)
   const markersRef    = useRef([])
-  const [showHint, setShowHint]   = useState(true)
+  const [showHint, setShowHint]     = useState(true)
   const [hintFading, setHintFading] = useState(false)
+  const [hoveredSegment, setHoveredSegment] = useState(null)
 
   // Fade out hint after 3 seconds
   useEffect(() => {
@@ -101,16 +102,29 @@ export default function CorridorMap({
         },
       })
 
-      // Main project corridor — base line, all segments
+      // Main project corridor — base line, per-segment color + weight
+      // Eastern residential segments: green. Western commercial: amber (contested + fatality location)
       map.addLayer({
         id: 'layer-corridor-line',
         type: 'line',
         source: 'corridor',
         filter: ['==', ['get', 'type'], 'project_segment'],
         paint: {
-          'line-color': '#4a7c59',
-          'line-width': 4,
-          'line-opacity': 0.85,
+          'line-color': ['match', ['get', 'segment_id'],
+            'sutter-alameda',  '#4a7c59',
+            'alameda-mcgee',   '#4a7c59',
+            'mcgee-monterey',  '#a85a2a',
+            'monterey-gilman', '#c4713b',
+            '#4a7c59',
+          ],
+          'line-width': ['match', ['get', 'segment_id'],
+            'sutter-alameda',  3,
+            'alameda-mcgee',   3.5,
+            'mcgee-monterey',  5,
+            'monterey-gilman', 5.5,
+            4,
+          ],
+          'line-opacity': 0.8,
         },
       })
 
@@ -140,15 +154,54 @@ export default function CorridorMap({
         },
       })
 
-      // Click-selected segment — color shift + wider
+      // Click-selected: glow halo + bright crisp line
+      map.addLayer({
+        id: 'layer-segment-selected-glow',
+        type: 'line',
+        source: 'corridor',
+        filter: ['literal', false],
+        paint: {
+          'line-color': '#72b98a',
+          'line-width': 22,
+          'line-opacity': 0.25,
+          'line-blur': 8,
+        },
+      })
+
       map.addLayer({
         id: 'layer-segment-selected',
         type: 'line',
         source: 'corridor',
         filter: ['literal', false],
         paint: {
+          'line-color': '#d4f0df',
+          'line-width': 10,
+          'line-opacity': 1,
+        },
+      })
+
+      // Hover: glow halo + bright crisp line (renders above selected)
+      map.addLayer({
+        id: 'layer-segment-hover-glow',
+        type: 'line',
+        source: 'corridor',
+        filter: ['literal', false],
+        paint: {
           'line-color': '#72b98a',
-          'line-width': 6,
+          'line-width': 22,
+          'line-opacity': 0.2,
+          'line-blur': 8,
+        },
+      })
+
+      map.addLayer({
+        id: 'layer-segment-hover',
+        type: 'line',
+        source: 'corridor',
+        filter: ['literal', false],
+        paint: {
+          'line-color': '#d4f0df',
+          'line-width': 9,
           'line-opacity': 1,
         },
       })
@@ -193,25 +246,26 @@ export default function CorridorMap({
         const [lng, lat] = feature.geometry.coordinates
         const p = feature.properties
 
+        const isRecent = p.year >= 2025
         const el = document.createElement('div')
-        el.className = 'fatality-marker'
+        el.className = `fatality-marker${isRecent ? ' fatality-marker--recent' : ''}`
         el.setAttribute('role', 'img')
         el.setAttribute(
           'aria-label',
-          `${p.mode === 'pedestrian' ? 'Pedestrian' : 'Cyclist'} fatality, 2017`,
+          `${p.mode === 'pedestrian' ? 'Pedestrian' : 'Cyclist'} fatality, ${p.year}`,
         )
 
+        const modeLabel = p.mode === 'pedestrian' ? 'Pedestrian' : p.mode === 'cyclist' ? 'Cyclist' : 'Fatal collision'
         const popup = new mapboxgl.Popup({
           offset: 16,
           closeButton: false,
           className: 'fatality-popup-container',
         }).setHTML(
-          `<div class="fatality-popup">
-            <span class="fatality-popup__mode">${
-              p.mode === 'pedestrian' ? 'Pedestrian' : 'Cyclist'
-            } fatality</span>
+          `<div class="fatality-popup${isRecent ? ' fatality-popup--recent' : ''}">
+            <span class="fatality-popup__mode">${modeLabel} fatality</span>
             <span class="fatality-popup__year">${p.year}</span>
             <span class="fatality-popup__location">${p.intersection}</span>
+            ${p.context ? `<span class="fatality-popup__context">${p.context}</span>` : ''}
             <cite class="fatality-popup__source">${p.source}</cite>
           </div>`,
         )
@@ -245,18 +299,22 @@ export default function CorridorMap({
         }
       })
 
-      // Pointer cursor on hover
-      map.on('mouseenter', 'layer-corridor-hit', () => {
+      // Pointer cursor + per-segment hover highlight
+      map.on('mousemove', 'layer-corridor-hit', (e) => {
         map.getCanvas().style.cursor = 'pointer'
+        const id = e.features?.[0]?.properties?.segment_id ?? null
+        setHoveredSegment(id)
       })
       map.on('mouseleave', 'layer-corridor-hit', () => {
         map.getCanvas().style.cursor = ''
+        setHoveredSegment(null)
       })
 
       loadedRef.current = true
 
       // Apply initial filter state (props may have arrived before load)
       map.setFilter('layer-segment-highlight', segmentFilter(highlightSegment))
+      map.setFilter('layer-segment-selected-glow', segmentFilter(selectedSegment))
       map.setFilter('layer-segment-selected', segmentFilter(selectedSegment))
     })
 
@@ -282,9 +340,23 @@ export default function CorridorMap({
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
-    const apply = () => map.setFilter('layer-segment-selected', segmentFilter(selectedSegment))
+    const apply = () => {
+      map.setFilter('layer-segment-selected-glow', segmentFilter(selectedSegment))
+      map.setFilter('layer-segment-selected', segmentFilter(selectedSegment))
+    }
     loadedRef.current ? apply() : map.once('load', apply)
   }, [selectedSegment])
+
+  // ── Respond to hoveredSegment state changes ───────────────────────────
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    const apply = () => {
+      map.setFilter('layer-segment-hover-glow', segmentFilter(hoveredSegment))
+      map.setFilter('layer-segment-hover', segmentFilter(hoveredSegment))
+    }
+    loadedRef.current ? apply() : map.once('load', apply)
+  }, [hoveredSegment])
 
   // ── No-token fallback ─────────────────────────────────────────────────
   if (!import.meta.env.VITE_MAPBOX_TOKEN) {

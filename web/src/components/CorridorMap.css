@@ -106,6 +106,16 @@
   }
 }
 
+/* 2025 marker — same amber but dimmer pulse to distinguish from the 2017 founding events */
+.fatality-marker--recent::after {
+  background: rgba(196, 113, 59, 0.7);
+}
+
+.fatality-marker--recent::before {
+  animation-duration: 3s;
+  opacity: 0;
+}
+
 /* ── Fatality popup ───────────────────────────────────────────────────── */
 
 /* Override Mapbox popup chrome */
@@ -156,6 +166,15 @@
   color: #8a9a78;
   font-style: italic;
   margin-top: 4px;
+}
+
+.fatality-popup__context {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  color: #c4713b;
+  font-style: italic;
+  margin-top: 2px;
+  line-height: 1.4;
 }
 
 /* Suppress Mapbox's close button (we're using closeButton: false but keep this as safety) */

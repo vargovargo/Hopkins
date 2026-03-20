@@ -1,15 +1,13 @@
 /* SegmentPanel.css — Prompt 11 */
 
-/* ── Backdrop (mobile only) ─────────────────────────────────────────── */
+/* ── Backdrop ────────────────────────────────────────────────────────── */
 .segment-panel-backdrop {
   display: none;
-  position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 199;
   opacity: 0;
+  background: rgba(0, 0, 0, 0.55);
+  transition: opacity 220ms ease;
   pointer-events: none;
-  transition: opacity 200ms ease;
 }
 
 .segment-panel-backdrop--visible {
@@ -20,7 +18,6 @@
 /* ── Panel shell ─────────────────────────────────────────────────────── */
 .segment-panel {
   background: #252523;
-  z-index: 10;
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
@@ -30,6 +27,8 @@
 @media (max-width: 767px) {
   .segment-panel-backdrop {
     display: block;
+    position: fixed;
+    z-index: 199;
   }
 
   .segment-panel {
@@ -38,6 +37,7 @@
     right: 0;
     bottom: 0;
     max-height: 75vh;
+    z-index: 200; /* must be above backdrop */
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px 8px 0 0;
     padding: 0 1.25rem 1.5rem;
@@ -61,22 +61,34 @@
   }
 }
 
-/* Desktop: absolute bottom of the map panel */
+/* Desktop: modal over the map panel */
 @media (min-width: 768px) {
+  .segment-panel-backdrop {
+    display: block;
+    position: absolute;
+    z-index: 8;
+  }
+
   .segment-panel {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    max-height: 52%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 1.25rem 1.5rem 1.5rem;
-    transform: translateY(100%);
-    transition: transform 220ms ease;
+    top: 4%;
+    left: 3%;
+    right: 3%;
+    bottom: 3%;
+    z-index: 10;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 1.5rem 1.75rem 1.5rem;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 220ms ease, transform 220ms ease;
+    pointer-events: none;
   }
 
   .segment-panel--open {
+    opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
   }
 }
 

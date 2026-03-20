@@ -282,13 +282,15 @@ export default function CollisionChart({ data = defaultData }) {
 
       {/* ── Footnote on collision figures ─────────────────────────────── */}
       <p className="collision-chart__footnote">
-        This chart shows <strong>0 fatal collisions</strong> — not because none occurred, but because
-        the two 2017 fatalities (a pedestrian at Hopkins &amp; Monterey; a cyclist on Sacramento near
-        Hopkins) are coded to cross-street coordinates in TIMS and fall outside this Hopkins-only
-        polygon extract. Both deaths are documented in city staff records; see the project timeline.{' '}
-        Multiple collision figures appear in public discussion: this chart covers {total ?? '—'} collisions,
-        all severities, {dateRangeLabel} (TIMS/SWITRS, Hopkins polygon). City workshop presentations
-        (March 2022) separately document 18 injury and fatal collisions, 2016–2019, on the corridor.
+        Polygon covers Hopkins Street and one block north and south (Sutter to Gilman).
+        Three deaths have occurred on or near this corridor: a pedestrian at Hopkins &amp; Monterey
+        (2017), a cyclist on Sacramento near Hopkins (2017), and a pedestrian at California St &amp; Ada
+        (January 2025, one block south). The 2017 pedestrian fatality falls just outside this
+        polygon boundary; all three are documented in city staff records and the project timeline,
+        and are plotted as markers on the map above.{' '}
+        Multiple figures appear in public discussion: this chart covers {total ?? '—'} collisions,
+        all severities, {dateRangeLabel} (TIMS/SWITRS). City workshop presentations (March 2022)
+        separately document 18 injury and fatal collisions, 2016–2019, on the corridor.
       </p>
 
       {/* ── Source attribution ────────────────────────────────────────── */}

@@ -1,10 +1,10 @@
 {
   "type": "FeatureCollection",
   "_metadata": {
-    "description": "2017 fatality locations on the Hopkins corridor",
-    "source": "Berkeley City Council budget referral, January 2018",
-    "coordinates_source": "manually verified via Google Maps",
-    "note": "These two fatalities triggered the Hopkins Street corridor study and its eventual designation as a High-Injury Street in Berkeley's Vision Zero Action Plan (2020)."
+    "description": "Fatality locations on and near the Hopkins Street corridor, 2017 and 2025",
+    "source_2017": "Berkeley City Council budget referral, January 2018",
+    "source_2025": "TIMS/SWITRS, Case 9866852",
+    "note": "The two 2017 fatalities triggered the Hopkins Street corridor study and its designation as a High-Injury Street in Berkeley's Vision Zero Action Plan (2020). The 2025 fatality occurred after City Council approval of the project, while construction had not yet begun."
   },
   "features": [
     {
@@ -18,8 +18,8 @@
         "description": "Pedestrian struck at Hopkins and Monterey Avenue intersection",
         "source": "Berkeley City Council budget referral, January 2018",
         "coordinates_source": "manually verified via Google Maps",
-        "in_project_corridor": false,
-        "note": "East of project corridor boundary (Sutter Ave). Included because it directly motivated the corridor study."
+        "context": "Triggered the corridor study",
+        "in_project_corridor": false
       },
       "geometry": {
         "type": "Point",
@@ -37,12 +37,31 @@
         "description": "Cyclist fatality on Sacramento Avenue near Hopkins Street",
         "source": "Berkeley City Council budget referral, January 2018",
         "coordinates_source": "manually verified via Google Maps",
-        "in_project_corridor": true,
-        "note": "Within project corridor. Sacramento Ave bisects the commercial strip — the most contested segment."
+        "context": "Triggered the corridor study",
+        "in_project_corridor": true
       },
       "geometry": {
         "type": "Point",
         "coordinates": [-122.2833, 37.8810]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "fatality_pedestrian_2025",
+      "properties": {
+        "type": "fatality",
+        "mode": "pedestrian",
+        "year": 2025,
+        "intersection": "California St & Ada St",
+        "description": "Pedestrian fatality one block south of Hopkins Street",
+        "source": "TIMS/SWITRS, Case 9866852",
+        "coordinates_source": "TIMS/SWITRS",
+        "context": "Occurred after City Council approval, before construction",
+        "in_project_corridor": false
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.281532, 37.880695]
       }
     }
   ]

@@ -10,6 +10,8 @@
  *   4. <SourceLibrary /> — full width
  */
 
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import ProjectTimeline from './ProjectTimeline'
 import SourceLibrary   from './SourceLibrary'
 import './BackgroundPage.css'
@@ -33,6 +35,15 @@ const AT_A_GLANCE = [
 ]
 
 export default function BackgroundPage() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (!location.hash) return
+    const id = location.hash.slice(1)
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="background-page">
       {/* ── Section header ─────────────────────────────────────────── */}
@@ -73,13 +84,13 @@ export default function BackgroundPage() {
       </div>
 
       {/* ── Timeline ───────────────────────────────────────────────── */}
-      <section className="background-page__section">
+      <section id="timeline" className="background-page__section">
         <h2 className="background-page__section-heading">Timeline</h2>
         <ProjectTimeline />
       </section>
 
       {/* ── Source library ─────────────────────────────────────────── */}
-      <section className="background-page__section">
+      <section id="sources" className="background-page__section">
         <h2 className="background-page__section-heading">Sources</h2>
         <SourceLibrary />
       </section>

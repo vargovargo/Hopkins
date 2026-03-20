@@ -28,6 +28,14 @@
   gap: 0.25rem;
 }
 
+/* ── Nav item — link + chevron as a unit ─────────────────────────────── */
+
+.navbar__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .navbar__link {
   font-family: var(--font-sans);
   font-size: 0.75rem;
@@ -35,7 +43,7 @@
   letter-spacing: 0.1em;
   color: var(--color-muted);
   text-decoration: none;
-  padding: 0.35rem 0.6rem;
+  padding: 0.35rem 0.25rem 0.35rem 0.6rem;
   border-bottom: 3px solid transparent;
   transition: color 150ms ease, border-color 150ms ease;
   display: block;
@@ -57,4 +65,68 @@
 .navbar__link--active {
   color: var(--color-text);
   border-bottom-color: var(--color-green);
+}
+
+/* ── Chevron toggle ──────────────────────────────────────────────────── */
+
+.navbar__chevron {
+  background: none;
+  border: none;
+  color: var(--color-muted);
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.35rem 0.5rem 0.35rem 0.15rem;
+  display: inline-flex;
+  align-items: center;
+  transition: color 150ms ease, transform 150ms ease;
+  transform-origin: center;
+}
+
+.navbar__chevron:hover {
+  color: var(--color-text);
+}
+
+.navbar__chevron--open {
+  transform: rotate(180deg);
+  color: var(--color-text);
+}
+
+/* ── Dropdown ────────────────────────────────────────────────────────── */
+
+.navbar__dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0.3rem 0;
+  min-width: 210px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  z-index: 200;
+  animation: dropdown-appear 140ms ease;
+}
+
+@keyframes dropdown-appear {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.navbar__dropdown-item {
+  display: block;
+  padding: 0.45rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 100ms ease, background 100ms ease;
+}
+
+.navbar__dropdown-item:hover {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.04);
 }

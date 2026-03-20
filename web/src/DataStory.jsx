@@ -4,6 +4,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
 import scrollama from 'scrollama'
 
 import CorridorMap             from './components/CorridorMap'
@@ -39,6 +40,15 @@ export default function DataStory() {
   const [activeSection, setActiveSection]     = useState(0)
   const [selectedSegmentId, setSelectedSegmentId] = useState(null)
   const scrollerRef = useRef(null)
+  const location = useLocation()
+
+  // Scroll to hash anchor on mount (supports cross-page deep links from navbar)
+  useEffect(() => {
+    if (!location.hash) return
+    const id = location.hash.slice(1)
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const highlightSegment = SECTION_HIGHLIGHT[activeSection] ?? null
   const selectedSegment  = selectedSegmentId ? SEGMENTS_BY_ID[selectedSegmentId] : null
@@ -78,6 +88,7 @@ export default function DataStory() {
       <div className="narrative-panel">
 
         <section
+          id="who"
           className={`narrative-step${activeSection === 0 ? ' narrative-step--active' : ''}`}
           data-index="0"
         >
@@ -93,6 +104,7 @@ export default function DataStory() {
         </section>
 
         <section
+          id="street-design"
           className={`narrative-step${activeSection === 1 ? ' narrative-step--active' : ''}`}
           data-index="1"
         >
@@ -110,6 +122,7 @@ export default function DataStory() {
         </section>
 
         <section
+          id="parking"
           className={`narrative-step${activeSection === 2 ? ' narrative-step--active' : ''}`}
           data-index="2"
         >
@@ -124,11 +137,13 @@ export default function DataStory() {
               other than driving?
             </p>
             <ParkingChart />
+            <span id="opinion" aria-hidden="true" />
             <CommunityFeedbackChart />
           </div>
         </section>
 
         <section
+          id="cost"
           className={`narrative-step${activeSection === 3 ? ' narrative-step--active' : ''}`}
           data-index="3"
         >
@@ -138,10 +153,12 @@ export default function DataStory() {
             </h2>
             <p className="section-body">
               The corridor's current design has a documented history of failure.
-              Two people died in 2017 — a pedestrian at Hopkins and Monterey,
-              a cyclist on Sacramento near Hopkins — and the street remains
-              unchanged. The question is not whether to act. It is how long
-              to wait.
+              Three people have died on or near this corridor since 2017: a
+              pedestrian at Hopkins and Monterey, a cyclist on Sacramento near
+              Hopkins — and then, in January 2025, a third person was killed
+              at California Street and Ada, one block south, while the approved
+              improvements sat on a shelf. The question is not whether to act.
+              It is how long to wait.
             </p>
             <CollisionChart yearRange={[2015, 2018]} />
             <SpeedChart />
@@ -149,6 +166,7 @@ export default function DataStory() {
         </section>
 
         <section
+          id="decided"
           className={`narrative-step${activeSection === 4 ? ' narrative-step--active' : ''}`}
           data-index="4"
         >
