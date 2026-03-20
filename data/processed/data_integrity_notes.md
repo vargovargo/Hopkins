@@ -25,29 +25,19 @@ Per CLAUDE.md (non-negotiable):
 
 ## Streetlight Data Status
 
-**Status:** UNVERIFIED — pending raw export files in `data/raw/streetlight/`
+**Status:** VERIFIED — 2026-03-20
 
-The `streetlight_summary.json` values were transcribed from screenshots of the
-Streetlight platform, not from the raw CSV exports. All numbers must be verified
-by running `analysis/streetlight.py` against the actual export files before any
-public use.
+All three modes confirmed as StL Volume (not Index) via audit of Analysis.txt files in raw CSVs. All 16 ped/bike All Days / All Day zone values spot-checked against raw CSV exports — zero mismatches. See `_metadata.notes` in `data/processed/streetlight_verified.json`.
 
-**Output unit status (from CLAUDE.md):**
-- Vehicle data: StreetLight Volume (confirmed from Analysis.txt)
-- Pedestrian data: UNVERIFIED — must confirm Volume vs Index via audit (Step 1 of streetlight.py)
-- Bicycle data: UNVERIFIED — must confirm Volume vs Index via audit
+**Output unit status:**
+- Vehicle data: `Average Daily Segment Traffic (StL Volume)` — Analysis 2012902
+- Pedestrian data: `StL Pedestrian Volume` — Analysis 2013191
+- Bicycle data: `StL Bicycle Volume` — Analysis 2013334
 
-**Cross-mode comparability:** UNVERIFIED until output units confirmed for ped/bike.
-Per Streetlight documentation: "Trip Index values for different modes of travel
-cannot be compared with each other." If ped/bike use Index while vehicles use
-Volume, they cannot appear on the same chart axis.
+**Cross-mode comparability:** VALID in unit terms. All three modes use StL Volume. Structural caveat remains: vehicle data is segment-based (network performance); ped/bike are zone-based (zone activity). This must be disclosed in any UI showing modes together.
 
-**Action required:**
-1. Place Streetlight export CSVs in `data/raw/streetlight/`
-2. Run `python analysis/streetlight.py`
-3. Review Step 1 audit output — confirm output units for all modes
-4. If modes_comparable = false in streetlight_verified.json, update all charts
-   to use separate axes with explicit unit labels
+**Remaining action:**
+- Streetlight volume estimates vs. independent Berkeley traffic counts still pending (city PDFs processed for speed; volume comparison not yet done — see City of Berkeley Traffic Counts Status below).
 
 ---
 
@@ -73,20 +63,26 @@ average the sources or select the more favorable number.
 
 ## TIMS Collision Data Status
 
-**Status:** PENDING — data pull from tims.berkeley.edu not yet completed
+**Status:** PROCESSED — 2026-03-20
 
-The 36-collision figure cited by Bike East Bay (2015–2018) is from a secondary
-source (city staff report). This has NOT been independently verified against
-TIMS records yet.
+TIMS export pulled and processed via `analysis/collisions.py`. Output files:
+- `data/processed/collisions_clean.csv` — 53 collision-level records, 2014–2025
+- `data/processed/collisions_summary.json` — aggregate statistics
+- `data/processed/collisions_geo.geojson` — point features for map
 
-**What we can claim before TIMS pull:**
-- "Bike East Bay reported 36 collisions 2015–2018, citing city staff data"
-- Do NOT present this as independently verified
+**Key figures (from collisions_summary.json):**
+- 53 total collisions, 2 fatal, date range 2014-04-12 to 2025-12-12
+- 36 of 53 collisions (67.9%) involved a pedestrian or cyclist
+- NOTE: The 36 ped/cyclist collision figure here is a coincidence of numbers — it is NOT the same as the Bike East Bay "36 total collisions 2015–2018" figure. Do not conflate.
 
-**What we need from TIMS:**
-- Full time series back to 2010 minimum (to address "anomaly" argument)
-- Query the Hopkins corridor polygon (lat 37.877–37.882, lon -122.304 to -122.272)
-- Once CSV is in `data/raw/tims/`, run `python analysis/collisions.py`
+**Geographic scope caveat — important:**
+The script applies a bounding box filter (lat 37.875–37.892, lon -122.300 to -122.270), NOT a strict Hopkins-only polygon. Some records from adjacent streets are included:
+- The 2017 cyclist fatality (Sacramento/Ada, CASE_ID 7200177) IS in the dataset
+- The 2025 pedestrian fatality (California/Ada, CASE_ID 9866852) IS in the dataset
+- A handful of records from Gilman/Acton, Solano Ave, and Sacramento/Ada area are included
+- The 2017 pedestrian fatality (Hopkins/Monterey) does NOT appear as fatal in the dataset
+
+The CollisionChart.jsx footnote is accurate: it only states the 2017 pedestrian falls outside the polygon, and describes the other two fatalities as occurring "on or near" the corridor.
 
 ---
 
@@ -94,10 +90,10 @@ TIMS records yet.
 
 | Gap | Impact | Resolution |
 |-----|--------|------------|
-| Ped/bike output unit unverified (Volume vs Index) | Cannot confirm cross-mode comparability | Run streetlight.py Step 1 audit |
+| TIMS bounding box includes some non-Hopkins records | Total collision count (53) includes records from Sacramento/Ada, California/Ada, Gilman/Acton area | Document in chart footnote; consider polygon refinement on future re-pull |
 | No Streetlight data for Monterey Ave segment | Fatality location may not appear in zone data | Fatality coordinates are in corridor.geojson |
-| TIMS data not yet pulled | 36-collision figure is secondary-source only | Pull from tims.berkeley.edu |
 | City count single location (Stannage-Cornell) | Cannot validate commercial strip Streetlight estimates | Use as independent speed corroboration only |
+| Streetlight volume vs. city count volume not yet compared | Cannot confirm Streetlight vehicle volume accuracy | Process network_performance.csv for Stannage–San Pablo zone and compare |
 | Streetlight stannage_sanpablo segment has no ped/bike data | Gap in corridor-wide multimodal picture | Document in chart footnotes |
 
 ---

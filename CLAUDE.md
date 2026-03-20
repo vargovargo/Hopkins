@@ -244,7 +244,7 @@ This project is part of a live public policy debate. The analysis will be scruti
 
 ## Current status
 
-- [x] TIMS data pull — Hopkins Street polygon (Sutter to Gilman), 39 collisions 2014–2025
+- [x] TIMS data pull — Hopkins corridor bounding box, 53 collisions 2014–2025 (see TIMS data notes below)
 - [x] GeoJSON corridor boundary created — `data/geo/corridor.geojson`
 - [x] City staff report and Vision Zero plan PDFs saved to `/docs`
 - [x] Web scaffold created (React + Vite + Scrollama)
@@ -263,16 +263,18 @@ This project is part of a live public policy debate. The analysis will be scruti
 
 ### TIMS data notes
 
-- **Polygon:** Hopkins Street only, Sutter to Gilman. Rose, Cedar, and San Pablo excluded.
-- **39 collisions, 0 fatal as coded.** The 2017 fatalities (pedestrian at Hopkins/Monterey; cyclist on Sacramento) are coded to cross-street coordinates in TIMS and fall outside the Hopkins polygon. They are documented in city staff records and cited in the timeline from those sources.
-- **2025 corridor-area fatality:** A fatal collision occurred at California St & Ada (one block south of Hopkins) on January 26, 2025. It is in the timeline as a corridor-area event but is NOT in the Hopkins TIMS polygon count.
-- **Script:** `analysis/collisions.py` — re-run whenever raw TIMS files are replaced. BBOX in script is set wide enough to pass all TIMS results through; filtering is done by the TIMS polygon at query time.
+- **Filter method:** The script (`analysis/collisions.py`) applies a bounding box filter (lat 37.875–37.892, lon -122.300 to -122.270). This captures all collisions within the box, including some on streets parallel or adjacent to Hopkins (Sacramento, California, Gilman/Acton area). It is NOT a strict Hopkins-only polygon filter.
+- **53 collisions, 2 fatal as coded** (per `data/processed/collisions_summary.json`, generated 2026-03-20). Date range: 2014-04-12 to 2025-12-12.
+- **The 2017 cyclist fatality (Sacramento/Ada, CASE_ID 7200177) IS in the dataset** — it falls within the bounding box. It is coded at Sacramento/Ada coordinates, one block south of Hopkins, and is classified as fatal in the TIMS export.
+- **The 2025 fatality (California St & Ada, January 26, 2025, CASE_ID 9866852) IS in the dataset** — it also falls within the bounding box. It is one block south of Hopkins.
+- **The 2017 pedestrian fatality (Hopkins/Monterey) is NOT in the dataset as fatal** — a severe injury collision at Hopkins/Monterey (CASE_ID 8446899) is present, but the pedestrian fatality appears to be coded outside the bounding box or under a different case ID. All three corridor-area deaths are documented in city staff records and cited in the project timeline.
+- **Script:** `analysis/collisions.py` — re-run whenever raw TIMS files are replaced. The bounding box is intentionally wide; any geographic refinement must be done in the script filter logic.
 
 ### Collision figures in public record (all correct, different subsets)
 
 | Figure | Source | Period | Scope |
 |--------|--------|--------|-------|
-| 39 collisions | TIMS/SWITRS (this project) | 2014–2025 | Hopkins polygon, all severities |
+| 53 collisions | TIMS/SWITRS (this project) | 2014–2025 | Hopkins corridor bounding box, all severities — includes some records from adjacent streets |
 | 36 collisions | Bike East Bay (2018), citing city staff | 2015–2018 | Broader corridor area, all severities |
 | 18 injury/fatal | City workshop presentations (March 2022) | 2016–2019 | Corridor, injury + fatal only |
 
