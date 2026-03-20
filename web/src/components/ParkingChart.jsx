@@ -12,6 +12,7 @@
  * description only. Never fabricate a count.
  */
 
+import { Link } from 'react-router-dom'
 import defaultData from '@data/processed/parking_data.json'
 import './ParkingChart.css'
 
@@ -136,9 +137,9 @@ export default function ParkingChart({ data = defaultData }) {
 
         <p className="parking-chart__estimate-note">
           The count was not disclosed to Council or the public before the May 2022 vote.{' '}
-          <a className="parking-chart__record-link" href="/the-record">
+          <Link className="parking-chart__record-link" to="/the-record">
             See The Record for full context →
-          </a>
+          </Link>
         </p>
       </section>
 
