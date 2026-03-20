@@ -226,6 +226,10 @@ This project is part of a live public policy debate. The analysis will be scruti
 
 1. Go to vercel.com → Add New Project → Import from GitHub
 1. Set Root Directory to `web`
+
+> **Important — Vercel root directory:** Vercel's root is set to `web/`, not the repo root. Any config files that Vercel needs to read (e.g. `vercel.json`) **must live in `web/`**, not at the repo root. The repo-root `vercel.json` is ignored by Vercel. Any new Vercel config changes should be made to `web/vercel.json`. Similarly, any links between routes (e.g. React Router `<Link>`) should use the `<Link>` component rather than bare `<a href>` tags to keep navigation client-side.
+
+> **Important — `web/vercel.json` must contain rewrites only.** Do not add `buildCommand`, `installCommand`, `outputDirectory`, or `framework` to `web/vercel.json`. Those fields belong in the Vercel dashboard (or the repo-root `vercel.json` which Vercel ignores). If build config fields appear in `web/vercel.json`, Vercel loses track of the root directory and runs `npm install` from the repo root where no `package.json` exists — causing a build failure with `ENOENT: no such file or directory, open '/vercel/path0/package.json'`. The only content `web/vercel.json` should ever have is the SPA rewrite rule: `{ "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }] }`.
 1. Build command: `npm run build` | Output directory: `dist`
 1. Add environment variable: `VITE_MAPBOX_TOKEN` → your Mapbox token
 1. Deploy — every push to `main` auto-deploys; every branch gets a preview URL
