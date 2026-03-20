@@ -1,7 +1,7 @@
 {
   "_metadata": {
     "source": "Hopkins Corridor Project — City of Berkeley workshop presentations and staff report",
-    "status": "VERIFIED — numbers sourced directly from city documents",
+    "status": "VERIFIED — block-level counts sourced from city Google My Maps layer (embedded in Berkeleyside Oct 12, 2022 article)",
     "primary_documents": [
       {
         "title": "Hopkins Corridor Project Conceptual Design — Council Staff Report",
@@ -17,12 +17,28 @@
         "title": "Hopkins West of Gilman — Virtual Community Meeting",
         "date": "December 12, 2022",
         "url": "https://berkeleyca.gov/sites/default/files/documents/Hopkins%20West%20Virtual%20Community%20Meeting%2020221212.pdf"
+      },
+      {
+        "title": "Berkeley sticks with plan for Hopkins bike lanes (Berkeleyside, Nico Savidge)",
+        "date": "October 12, 2022",
+        "url": "https://www.berkeleyside.org/2022/10/12/berkeley-hopkins-bike-lanes-city-council-parking",
+        "note": "Article embeds city Google My Maps with block-level parking impact. Map shows 62 spaces (different block boundaries than Attachment A); use Attachment A as authoritative."
+      },
+      {
+        "title": "Reconsideration of Hopkins Corridor Plan in Light of Newly Available Material Information — Action Calendar Item 23",
+        "author": "Councilmember Sophie Hahn (author), Councilmember Susan Wengraf (co-sponsor)",
+        "date": "October 11, 2022",
+        "url": "https://berkeleyca.gov/sites/default/files/documents/2022-10-11%20Item%2023%20Reconsideration%20of%20Hopkins%20Corridor.pdf",
+        "note": "Includes Attachment A — the parking count spreadsheet (pages 10-12) prepared mid-April 2022 but withheld before the May 10 vote. Authoritative block-level source for the 60-space total."
       }
     ],
     "notes": [
-      "East-of-Gilman segment-level space counts not in text portions of documents — require design map images (pages 8-20 of staff report). Those fields marked null.",
+      "AUTHORITATIVE SOURCE: Attachment A of Oct 11, 2022 reconsideration item (city staff spreadsheet) is the definitive block-level parking count. Total removed: 60 spaces.",
+      "The chart was prepared 'as early as Mid-April' 2022 but not shared with the public, the district rep, or Council before the May 10 vote (per document text, page 3).",
+      "During the May 10 meeting a Councilmember asked about the space count and was told 'We can do a count. I don't have the exact number' — when the count already existed.",
+      "Google My Maps (embedded in Berkeleyside) shows 62 spaces using different block boundaries — 2-space difference from the official spreadsheet. Use 60 as the authoritative total.",
       "West-of-Gilman parking inventory IS explicitly stated in December 2022 meeting document.",
-      "The 30-35 and 60 space estimates refer to east-of-Gilman only.",
+      "The original 30–35 and revised 60 space estimates refer to east-of-Gilman only.",
       "December 2022 document covers a separate western extension not yet approved."
     ]
   },
@@ -49,7 +65,39 @@
       "revised_estimate_lost": {
         "value": 60,
         "source": "Revised staff estimate — not disclosed to Council or public before May 2022 vote. Revealed October 2022 by Councilmember Hahn."
+      },
+      "attachment_a_verified_total": {
+        "value": 60,
+        "source": "Attachment A, Reconsideration Item 23, October 11, 2022 — city staff parking spreadsheet prepared mid-April 2022",
+        "note": "Authoritative. Google My Maps approximation shows 62 due to different block boundaries."
       }
+    },
+    "blocks": {
+      "source": "Attachment A — parking count spreadsheet, Oct 11, 2022 reconsideration item. Prepared mid-April 2022, withheld before May 10 vote.",
+      "note": "Columns: existing spaces (S=southside, N=northside, Total); proposed spaces; net change. Positive difference = spaces added.",
+      "eastern_sutter_to_alameda": [
+        { "label": "Sutter St to Napa Ave",    "existing": 35, "proposed": 31, "net": -4  },
+        { "label": "Napa Ave to Milvia St",     "existing": 32, "proposed": 26, "net": -6  },
+        { "label": "Milvia St to The Alameda",  "existing": 19, "proposed": 12, "net": -7  }
+      ],
+      "eastern_sutter_to_alameda_subtotal": { "existing": 86, "proposed": 69, "net": -17 },
+      "middle_alameda_to_mcgee": [
+        { "label": "McGee Ave to Carlotta Ave",     "existing": 15, "proposed": 12, "net": -3  },
+        { "label": "Carlotta Ave to Colusa Ave",    "existing": 14, "proposed": 15, "net": 1  },
+        { "label": "Colusa Ave to Beverly St",      "existing": 60, "proposed": 61, "net": 1  },
+        { "label": "Beverly St to Josephine St",    "existing": 18, "proposed": 17, "net": -1  },
+        { "label": "Josephine St to The Alameda",   "existing":  7, "proposed":  5, "net": -2  }
+      ],
+      "middle_alameda_to_mcgee_subtotal": { "existing": 114, "proposed": 110, "net": -4 },
+      "commercial_gilman_to_mcgee": [
+        { "label": "Gilman St to Albina St",        "existing":  9, "proposed":  0, "net":  -9 },
+        { "label": "Albina St to Sacramento St",    "existing": 11, "proposed":  0, "net": -11 },
+        { "label": "Sacramento St to Hopkins Ct",   "existing":  5, "proposed":  0, "net":  -5 },
+        { "label": "Hopkins Ct to Monterey Ave",    "existing": 10, "proposed":  0, "net": -10 },
+        { "label": "Monterey Ave to McGee Ave",     "existing": 10, "proposed":  6, "net":  -4 }
+      ],
+      "commercial_gilman_to_mcgee_subtotal": { "existing": 45, "proposed": 6, "net": -39 },
+      "grand_total": { "existing": 245, "proposed": 185, "net": -60 }
     },
     "segments": [
       {
@@ -61,9 +109,11 @@
           "northside": "Class II buffered bike lane (westbound/downhill)",
           "parking": "Retained on both sides"
         },
-        "spaces_lost": 0,
-        "net_change": 0,
-        "source": "Staff report page 3",
+        "spaces_lost": 17,
+        "spaces_total": 86,
+        "net_change": -17,
+        "note": "Three blocks per Attachment A: Sutter-Napa (-4), Napa-Milvia (-6), Milvia-Alameda (-7). Total 86 existing spaces, 69 proposed.",
+        "source": "Attachment A, Reconsideration Item 23, Oct 11, 2022",
         "design_images": [
           "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900318/Screenshot_2026-03-18_at_11.05.13_PM_qpmwwv.png",
           "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900383/Screenshot_2026-03-18_at_11.06.18_PM_v5f0qf.png",
@@ -82,10 +132,11 @@
           "lane_width": "Narrowed from 11ft to 10.5ft",
           "loading": "Buffer zone provides separation and loading area"
         },
-        "spaces_lost": null,
-        "net_change": null,
-        "note": "Exact count not in text portions retrieved — requires design map images",
-        "source": "Staff report page 3; Workshop 4.2 presentation March 7 2022",
+        "spaces_lost": 4,
+        "spaces_total": 114,
+        "net_change": -4,
+        "note": "Five blocks per Attachment A: McGee-Carlotta (-3), Carlotta-Colusa (+1), Colusa-Beverly (+1), Beverly-Josephine (-1), Josephine-Alameda (-2). Net loss 4 of 114 total — some blocks gain a space due to reconfiguration.",
+        "source": "Attachment A, Reconsideration Item 23, Oct 11, 2022; Staff report page 3; Workshop 4.2 presentation March 7 2022",
         "design_images": [
           "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900403/Screenshot_2026-03-18_at_11.06.38_PM_dpjpzr.png",
           "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900538/Screenshot_2026-03-18_at_11.08.52_PM_n78nbz.png",
@@ -104,9 +155,10 @@
           "parking": "All parking retained on south side except one stall",
           "loading": "Buffer zone for separation and loading"
         },
-        "spaces_lost": 1,
-        "net_change": -1,
-        "source": "Workshop 4.3 presentation, March 14 2022",
+        "spaces_lost": 4,
+        "spaces_total": 10,
+        "net_change": -4,
+        "source": "City Google My Maps (Berkeleyside Oct 12, 2022); Workshop 4.3 presentation, March 14 2022",
         "design_images": [
           "https://res.cloudinary.com/dbwkloipb/image/upload/v1773900994/Screenshot_2026-03-18_at_11.16.30_PM_myzi1s.png"
         ],
@@ -123,12 +175,13 @@
           "protection": "Raised concrete median separates drivers from cyclists",
           "parking": "All parking removed both sides"
         },
-        "spaces_lost": null,
+        "spaces_lost": 35,
+        "spaces_total": 35,
         "spaces_retained": 0,
-        "net_change": null,
-        "note": "All parking removed — exact pre-existing count requires design map images",
+        "net_change": -35,
+        "note": "All on-street parking removed from two narrow blocks — the most contested removal on the corridor.",
         "fatality_note": "2017 pedestrian fatality at Hopkins/Monterey — raised crosswalk proposed at this intersection",
-        "source": "Staff report pages 3-4; Workshop 4.3 presentation March 14 2022",
+        "source": "City Google My Maps (Berkeleyside Oct 12, 2022); Staff report pages 3-4; Workshop 4.3 presentation March 14 2022",
         "design_images": [
           "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901018/Screenshot_2026-03-18_at_11.16.54_PM_o9bbkb.png",
           "https://res.cloudinary.com/dbwkloipb/image/upload/v1773901038/Screenshot_2026-03-18_at_11.17.14_PM_wyiecm.png"

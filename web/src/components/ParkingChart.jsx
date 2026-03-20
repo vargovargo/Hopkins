@@ -16,9 +16,9 @@ import defaultData from '@data/processed/parking_data.json'
 import './ParkingChart.css'
 
 export default function ParkingChart({ data = defaultData }) {
-  const east    = data?.east_of_gilman ?? {}
-  const west    = data?.west_of_gilman ?? null
-  const segs    = east?.segments ?? []
+  const east      = data?.east_of_gilman ?? {}
+  const west      = data?.west_of_gilman ?? null
+  const segs      = east?.segments ?? []
   const estimates = east?.corridor_total_estimates ?? {}
 
   // Look up segments by id
@@ -29,50 +29,71 @@ export default function ParkingChart({ data = defaultData }) {
   const mcgeeMonterey  = seg('mcgee-monterey')
   const montereyGilman = seg('monterey-gilman')
 
+  const verifiedTotal = estimates.attachment_a_verified_total?.value ?? 60
+
   return (
     <div className="parking-chart">
 
-      {/* ══ VISUALIZATION 1 — Segment summary ═══════════════════════════ */}
+      {/* ══ VISUALIZATION 1 — Segment summary ════════════════════════════ */}
       <section className="parking-chart__section">
         <div className="parking-chart__callout parking-chart__callout--green">
-          <strong>Most of the corridor loses little or no parking.</strong>
-          {' '}The contested removal is concentrated on two blocks:
-          Monterey Avenue to Gilman Street.
+          <strong>39 of the 60 removed spaces are in the contested commercial blocks.</strong>
+          {' '}Eight residential blocks lose 21 spaces combined — less than the two most-contested commercial blocks alone.
         </div>
 
         <h3 className="parking-chart__section-heading">Parking impact by segment</h3>
 
         <div className="parking-chart__segment-rows">
 
-          {/* Sutter to Alameda */}
+          {/* Eastern residential: Sutter to Alameda */}
           <SegmentRow
             label={sutterAlameda.label ?? 'Sutter St to The Alameda'}
             treatment={sutterAlameda.proposed_design?.parking}
-            pill={{ variant: 'green', text: 'No loss' }}
+            pill={{
+              variant: 'green',
+              text: sutterAlameda.spaces_lost != null
+                ? `${sutterAlameda.spaces_lost} of ${sutterAlameda.spaces_total} spaces`
+                : '17 of 86 spaces',
+            }}
           />
 
-          {/* Alameda to McGee */}
+          {/* Mid-residential: Alameda to McGee */}
           <SegmentRow
             label={alamedaMcgee.label ?? 'The Alameda to McGee Ave'}
             treatment={alamedaMcgee.proposed_design?.parking}
-            pill={{ variant: 'amber', text: 'Most retained' }}
+            pill={{
+              variant: 'green',
+              text: alamedaMcgee.spaces_lost != null
+                ? `${alamedaMcgee.spaces_lost} of ${alamedaMcgee.spaces_total} spaces net`
+                : '4 of 114 spaces net',
+            }}
           />
 
-          {/* McGee to Gilman — group header with two sub-segments */}
+          {/* Commercial approach + core — grouped */}
           <div className="parking-chart__group">
-            <div className="parking-chart__group-label">McGee Ave to Gilman St</div>
+            <div className="parking-chart__group-label">McGee Ave to Gilman St — commercial</div>
 
             <SegmentRow
               label={mcgeeMonterey.label ?? 'McGee Ave to Monterey Ave'}
               treatment={mcgeeMonterey.proposed_design?.parking}
-              pill={{ variant: 'green', text: '1 space lost' }}
+              pill={{
+                variant: 'amber',
+                text: mcgeeMonterey.spaces_lost != null
+                  ? `${mcgeeMonterey.spaces_lost} of ${mcgeeMonterey.spaces_total} spaces`
+                  : '4 of 10 spaces',
+              }}
               indented
             />
 
             <SegmentRow
               label={montereyGilman.label ?? 'Monterey Ave to Gilman St'}
               treatment={montereyGilman.proposed_design?.parking}
-              pill={{ variant: 'red', text: 'All removed' }}
+              pill={{
+                variant: 'red',
+                text: montereyGilman.spaces_lost != null
+                  ? `All ${montereyGilman.spaces_lost} spaces removed`
+                  : 'All 35 spaces removed',
+              }}
               indented
             />
           </div>
@@ -80,7 +101,8 @@ export default function ParkingChart({ data = defaultData }) {
         </div>
 
         <p className="parking-chart__source-note">
-          Source: City of Berkeley staff report, May 2022; Workshop 4.3, March 14 2022
+          Source: Attachment A, City of Berkeley reconsideration staff report, Oct 11, 2022.
+          Count prepared mid-April 2022; not disclosed before the May 10 vote.
         </p>
       </section>
 
@@ -102,18 +124,18 @@ export default function ParkingChart({ data = defaultData }) {
 
           <div className="parking-chart__estimate parking-chart__estimate--revised">
             <span className="parking-chart__estimate-number">
-              {estimates.revised_estimate_lost?.value ?? 60}
+              {verifiedTotal}
             </span>
             <span className="parking-chart__estimate-label">spaces</span>
-            <span className="parking-chart__estimate-desc">Revised estimate</span>
+            <span className="parking-chart__estimate-desc">Verified total</span>
             <span className="parking-chart__estimate-timing">
-              {estimates.revised_estimate_lost?.source ?? 'Not disclosed before May 2022 vote — revealed October 2022'}
+              City staff count, mid-April 2022 — not disclosed before May 10 vote
             </span>
           </div>
         </div>
 
         <p className="parking-chart__estimate-note">
-          The revision was not disclosed to Council or the public before the May 2022 vote.{' '}
+          The count was not disclosed to Council or the public before the May 2022 vote.{' '}
           <a className="parking-chart__record-link" href="/the-record">
             See The Record for full context →
           </a>
@@ -186,6 +208,17 @@ export default function ParkingChart({ data = defaultData }) {
 
     </div>
   )
+}
+
+// ── pillFromBlock — derive pill from block data ───────────────────────────────
+function pillFromBlock(block) {
+  const { spaces_lost: lost, spaces_total: total } = block
+  if (lost == null || total == null) return { variant: 'amber', text: 'Partial loss' }
+  if (lost === 0)     return { variant: 'green', text: 'No loss' }
+  if (lost === total) return { variant: 'red',   text: `All ${total} spaces` }
+  const pct = Math.round((lost / total) * 100)
+  const variant = pct >= 40 ? 'amber' : 'green'
+  return { variant, text: `${lost} of ${total} spaces` }
 }
 
 // ── SegmentRow sub-component ─────────────────────────────────────────────────
