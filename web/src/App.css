@@ -252,6 +252,7 @@
 }
 
 .collision-chart__legend-item--fatal::before    { background: #8b2c2c; }
+.collision-chart__legend-item--severe::before   { background: #a85a2a; }
 .collision-chart__legend-item--injury::before   { background: #c4713b; }
 .collision-chart__legend-item--pdo::before      { background: #8a9a78; }
 

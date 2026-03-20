@@ -54,7 +54,7 @@
     ],
     "confidence_intervals_available": true,
     "inferred_volume_zones": [],
-    "notes": "Verified against raw Streetlight CSV exports. "
+    "notes": "Unit verification (2026-03-20): All three modes confirmed as StL Volume output \u2014 NOT Index. Pedestrian output type: 'StL Pedestrian Volume' (Analysis 2013191). Bicycle output type: 'StL Bicycle Volume' (Analysis 2013334). Vehicle output type: 'Average Daily Segment Traffic (StL Volume)' (Analysis 2012902). Cross-mode comparison is valid in unit terms. Structural caveat: vehicle data is segment-based (network performance); ped/bike are zone-based (zone activity). Spot-check (2026-03-20): All 16 ped/bike All Days / All Day zone values in this file verified against raw CSV exports \u2014 zero mismatches. Source: Analysis.txt files in data/raw/streetlight/*/Analysis Details/."
   },
   "zone_activity": {
     "pedestrians": {

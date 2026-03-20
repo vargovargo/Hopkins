@@ -51,7 +51,9 @@ Primary audiences: City Council members, general public and neighbors, press.
 
 **Attribution required:** All Streetlight data must be labeled "Data from Streetlight" in any public display. WBB signed a data contract.
 
-**Output unit status:** UNVERIFIED — must confirm Volume vs Index for ped/bike modes before any cross-mode comparison. See Prompt 3 audit step.
+**Output unit status:** VERIFIED (2026-03-20) — all three modes use StL Volume, not Index. Pedestrian: `StL Pedestrian Volume` (Analysis 2013191). Bicycle: `StL Bicycle Volume` (Analysis 2013334). Vehicle: `Average Daily Segment Traffic (StL Volume)` (Analysis 2012902). Cross-mode comparison is valid in unit terms. Structural caveat remains: vehicle data is segment-based (network performance); ped/bike are zone-based (zone activity) — disclose in any UI showing modes together.
+
+**Spot-check (2026-03-20):** All 16 ped/bike All Days / All Day zone values in `streetlight_verified.json` verified against raw CSV exports. Zero mismatches. See `_metadata.notes` in that file.
 
 ### In hand — City of Berkeley Traffic Counts
 
@@ -251,6 +253,7 @@ This project is part of a live public policy debate. The analysis will be scruti
 - [x] Community feedback chart built — `CommunityFeedbackChart.jsx`, Workshop 2 (2021), parking ranked 9th
 - [x] The Record page built — `BackgroundPage.jsx` with `ProjectTimeline.jsx` + `SourceLibrary.jsx`
 - [x] Project history data — `data/processed/project_history.json`, 14 timeline events through 2026
+- [x] Streetlight ped/bike output units verified as StL Volume (not Index); all zone values spot-checked against raw CSVs — zero errors (2026-03-20)
 - [ ] Streetlight volume estimates validated against independent Berkeley traffic counts (city PDFs in hand)
 - [ ] Parking spaces lost vs. nearest replacement distance (city docs — in record, not yet visualized)
 
