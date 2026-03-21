@@ -18,7 +18,14 @@ const TABS = [
   { key: 'opposition',  label: 'Opposition' },
 ]
 
-function SourceCard({ source }) {
+const LINK_LABEL = {
+  government: 'View document ↗',
+  journalism:  'Read article ↗',
+  advocacy:    'View resource ↗',
+  opposition:  'View resource ↗',
+}
+
+function SourceCard({ source, tab }) {
   return (
     <article className="source-card">
       <div className="source-card__meta">
@@ -48,7 +55,7 @@ function SourceCard({ source }) {
           rel="noopener noreferrer"
           className="source-card__link"
         >
-          Open source ↗
+          {LINK_LABEL[tab] ?? 'Open source ↗'}
         </a>
       )}
     </article>
@@ -93,7 +100,7 @@ export default function SourceLibrary() {
       >
         {currentSources.length > 0 ? (
           currentSources.map((src) => (
-            <SourceCard key={src.id} source={src} />
+            <SourceCard key={src.id} source={src} tab={activeTab} />
           ))
         ) : (
           <p className="source-library__empty">No sources listed for this category yet.</p>

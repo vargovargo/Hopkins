@@ -20,7 +20,7 @@
  * Mapbox token: VITE_MAPBOX_TOKEN environment variable
  */
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
@@ -38,7 +38,27 @@ function segmentFilter(id) {
   return ['==', ['get', 'segment_id'], id]
 }
 
-export default function CorridorMap({
+class MapErrorBoundary extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { error: null }
+  }
+  static getDerivedStateFromError(error) {
+    return { error }
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="corridor-map corridor-map--no-token">
+          <p>Map unavailable in this environment.</p>
+        </div>
+      )
+    }
+    return this.props.children
+  }
+}
+
+function CorridorMapInner({
   highlightSegment = null,
   selectedSegment  = null,
   onSegmentClick   = () => {},
@@ -312,6 +332,11 @@ export default function CorridorMap({
 
       loadedRef.current = true
 
+      // Force Mapbox to re-read container dimensions after layout is stable.
+      // Without this, the map sometimes only renders in the top portion of the
+      // container on first load when the sticky panel hasn't finished painting.
+      map.resize()
+
       // Apply initial filter state (props may have arrived before load)
       map.setFilter('layer-segment-highlight', segmentFilter(highlightSegment))
       map.setFilter('layer-segment-selected-glow', segmentFilter(selectedSegment))
@@ -380,5 +405,13 @@ export default function CorridorMap({
         </div>
       )}
     </div>
+  )
+}
+
+export default function CorridorMap(props) {
+  return (
+    <MapErrorBoundary>
+      <CorridorMapInner {...props} />
+    </MapErrorBoundary>
   )
 }
