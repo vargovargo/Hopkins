@@ -14,17 +14,25 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import './NavBar.css'
 
 const DATA_ITEMS = [
+  { label: 'The cost of inaction',      id: 'cost' },
   { label: "Who's on Hopkins?",         id: 'who' },
   { label: 'How people use the street', id: 'street-design' },
   { label: 'Parking',                   id: 'parking' },
   { label: 'Community opinion',         id: 'opinion' },
-  { label: 'The cost of inaction',      id: 'cost' },
   { label: 'Berkeley already decided',  id: 'decided' },
 ]
 
 const RECORD_ITEMS = [
   { label: 'Timeline', id: 'timeline' },
   { label: 'Sources',  id: 'sources' },
+]
+
+const METHODS_ITEMS = [
+  { label: 'Streetlight Data',          id: 'streetlight' },
+  { label: 'TIMS / SWITRS',             id: 'collisions' },
+  { label: 'City traffic count',        id: 'city-counts' },
+  { label: 'What the data supports',    id: 'claims' },
+  { label: 'Known gaps',                id: 'gaps' },
 ]
 
 function NavItem({ to, label, items }) {
@@ -109,6 +117,7 @@ export default function NavBar() {
       <ul className="navbar__links">
         <NavItem to="/"           label="The Data"   items={DATA_ITEMS} />
         <NavItem to="/the-record" label="The Record" items={RECORD_ITEMS} />
+        <NavItem to="/methods"    label="Methods"    items={METHODS_ITEMS} />
       </ul>
     </nav>
   )
