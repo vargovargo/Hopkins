@@ -87,8 +87,9 @@ export default function SourceLibrary() {
       {/* Opposition framing note */}
       {activeTab === 'opposition' && (
         <div className="source-library__opposition-note">
-          We read the opposition's arguments carefully. Understanding their
-          concerns is essential to responding to them with data.
+          The opposition has raised real questions about parking supply, business
+          access, and neighborhood character. We&rsquo;ve tried to engage those
+          arguments with data &mdash; not dismiss them.
         </div>
       )}
 

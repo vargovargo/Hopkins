@@ -8,6 +8,13 @@
   gap: 1.5rem;
 }
 
+/* ── Horizontal duration bar ─────────────────────────────────────────── */
+
+.timeline-bar {
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
 /* ── Legend ──────────────────────────────────────────────────────────── */
 
 .timeline-legend {

@@ -258,8 +258,30 @@ export default function SpeedChart() {
       </div>
 
       <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.68rem', color: COLORS.muted, marginTop: '0.5rem', lineHeight: 1.4 }}>
-        85th percentile speed is the California standard for speed limit setting (CVC §22358.5).
+        85th percentile speed is the California standard for speed limit setting (CVC §22358.5).{' '}
+        {(() => {
+          const exceeding = data.filter(d => d.exceeds).length
+          return exceeding > 0
+            ? `${exceeding} of ${data.length} segments exceed Berkeley's 25 mph Vision Zero target.`
+            : null
+        })()}
       </p>
+
+      {/* Independent city count corroboration */}
+      <div style={{
+        marginTop: '0.75rem',
+        paddingTop: '0.75rem',
+        borderTop: `1px solid ${COLORS.border}`,
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: '0.7rem',
+        color: COLORS.muted,
+        lineHeight: 1.5,
+      }}>
+        <span style={{ color: COLORS.text, fontWeight: 600 }}>Independent check:</span>{' '}
+        A 2019 city-commissioned pneumatic tube count at Stannage Ave measured a 29 mph 85th percentile
+        westbound — consistent with the Streetlight estimates above. (49% of westbound vehicles exceeded 25 mph.)
+        {' '}<span style={{ opacity: 0.7 }}>Source: City of Berkeley traffic count, 2019 · different methodology and location — corroborating, not directly validating.</span>
+      </div>
     </div>
   )
 }
