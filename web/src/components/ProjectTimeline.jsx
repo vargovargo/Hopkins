@@ -28,6 +28,15 @@ const TYPE_COLOR = {
   safety:      '#4a7c59',
 }
 
+// Legend entries — 'safety' shares the policy color, not shown separately
+const LEGEND_ENTRIES = [
+  { type: 'fatality',    label: 'Fatality' },
+  { type: 'policy',      label: 'Policy / planning' },
+  { type: 'process',     label: 'Project process' },
+  { type: 'controversy', label: 'Controversy' },
+  { type: 'setback',     label: 'Setback' },
+]
+
 function TimelineCard({ event }) {
   const [expanded, setExpanded] = useState(false)
   const color = TYPE_COLOR[event.type] ?? '#8a9a78'
@@ -81,6 +90,18 @@ export default function ProjectTimeline() {
 
   return (
     <section className="project-timeline" aria-label="Project timeline">
+      <div className="timeline-legend" aria-label="Event type key">
+        {LEGEND_ENTRIES.map(({ type, label }) => (
+          <span key={type} className="timeline-legend__item">
+            <span
+              className="timeline-legend__dot"
+              style={{ background: TYPE_COLOR[type] }}
+              aria-hidden="true"
+            />
+            {label}
+          </span>
+        ))}
+      </div>
       <ul className="timeline-list">
         {events.map((event) => (
           <TimelineCard key={event.id} event={event} />
