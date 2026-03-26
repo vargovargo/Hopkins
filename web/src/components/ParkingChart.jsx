@@ -103,13 +103,13 @@ export default function ParkingChart({ data = defaultData }) {
 
         <p className="parking-chart__source-note">
           Source: Attachment A, City of Berkeley reconsideration staff report, Oct 11, 2022.
-          Count prepared mid-April 2022; not disclosed before the May 10 vote.
+          Count prepared mid-April 2022; reviewed during October 2022 reconsideration.
         </p>
       </section>
 
       {/* ══ VISUALIZATION 2 — The two estimates ═════════════════════════ */}
       <section className="parking-chart__section">
-        <h3 className="parking-chart__section-heading">Two estimates. One wasn't disclosed.</h3>
+        <h3 className="parking-chart__section-heading">Two estimates, different counts.</h3>
 
         <div className="parking-chart__estimates">
           <div className="parking-chart__estimate">
@@ -130,13 +130,13 @@ export default function ParkingChart({ data = defaultData }) {
             <span className="parking-chart__estimate-label">spaces</span>
             <span className="parking-chart__estimate-desc">Verified total</span>
             <span className="parking-chart__estimate-timing">
-              City staff count, mid-April 2022 — not disclosed before May 10 vote
+              City staff count, completed mid-April 2022 · reviewed in October 2022 reconsideration
             </span>
           </div>
         </div>
 
         <p className="parking-chart__estimate-note">
-          The count was not disclosed to Council or the public before the May 2022 vote.{' '}
+          The revised count was completed before the May vote and reviewed by Council during the October 2022 reconsideration.{' '}
           <Link className="parking-chart__record-link" to="/the-record">
             See The Record for full context →
           </Link>

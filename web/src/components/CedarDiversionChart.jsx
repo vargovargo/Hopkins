@@ -96,8 +96,11 @@ export default function CedarDiversionChart() {
       <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.05rem', color: COLORS.text, margin: '0 0 0.2rem' }}>
         Where Cyclists Are Going
       </h3>
-      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: COLORS.muted, margin: '0 0 1rem' }}>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: COLORS.muted, margin: '0 0 0.4rem' }}>
         Estimated daily zone activity (Streetlight Volume) · Bicycle · All days
+      </p>
+      <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: COLORS.muted, margin: '0 0 1rem', fontStyle: 'italic' }}>
+        When more cyclists use a parallel route than the direct route, the data is telling us something about the direct route — not the parallel one.
       </p>
 
       <svg

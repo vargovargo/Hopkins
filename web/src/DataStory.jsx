@@ -19,11 +19,12 @@ import { SEGMENTS_BY_ID }      from './data/segments'
 
 import './App.css'
 
+// Section order: cost (0) → who (1) → street-design (2) → parking (3) → decided (4)
 const SECTION_HIGHLIGHT = {
   0: null,
-  1: 'alameda-mcgee',
-  2: 'monterey-gilman',  // contested commercial strip
-  3: null,
+  1: null,
+  2: 'alameda-mcgee',
+  3: 'monterey-gilman',  // contested commercial strip
   4: null,
 }
 
@@ -87,65 +88,11 @@ export default function DataStory() {
 
       <div className="narrative-panel">
 
-        <section
-          id="who"
-          className={`narrative-step${activeSection === 0 ? ' narrative-step--active' : ''}`}
-          data-index="0"
-        >
-          <div className="narrative-card">
-            <h2 className="section-heading">Who's on Hopkins?</h2>
-            <p className="section-body">
-              Even without protected infrastructure, a meaningful share of
-              people arriving on Hopkins Street are not in cars. Pedestrians and
-              cyclists use this corridor today — despite the risks.
-            </p>
-            <SegmentVolumeChart />
-          </div>
-        </section>
-
-        <section
-          id="street-design"
-          className={`narrative-step${activeSection === 1 ? ' narrative-step--active' : ''}`}
-          data-index="1"
-        >
-          <div className="narrative-card">
-            <h2 className="section-heading">
-              The street doesn't match how people use it
-            </h2>
-            <p className="section-body">
-              Cyclists are routing to Cedar and Rose Streets because Hopkins
-              offers no protection. The people most exposed to the current
-              design are concentrated exactly where the infrastructure is worst.
-            </p>
-            <CedarDiversionChart />
-          </div>
-        </section>
-
-        <section
-          id="parking"
-          className={`narrative-step${activeSection === 2 ? ' narrative-step--active' : ''}`}
-          data-index="2"
-        >
-          <div className="narrative-card">
-            <h2 className="section-heading">
-              What's actually at stake with parking
-            </h2>
-            <p className="section-body">
-              The commercial strip between McGee and Gilman is the center of
-              the parking debate. How many spaces would be removed — and how
-              does that compare to the number of people who arrive by modes
-              other than driving?
-            </p>
-            <ParkingChart />
-            <span id="opinion" aria-hidden="true" />
-            <CommunityFeedbackChart />
-          </div>
-        </section>
-
+        {/* ── Section 0: The cost of doing nothing ── */}
         <section
           id="cost"
-          className={`narrative-step${activeSection === 3 ? ' narrative-step--active' : ''}`}
-          data-index="3"
+          className={`narrative-step${activeSection === 0 ? ' narrative-step--active' : ''}`}
+          data-index="0"
         >
           <div className="narrative-card">
             <h2 className="section-heading section-heading--amber">
@@ -165,6 +112,65 @@ export default function DataStory() {
           </div>
         </section>
 
+        {/* ── Section 1: Who's on Hopkins? ── */}
+        <section
+          id="who"
+          className={`narrative-step${activeSection === 1 ? ' narrative-step--active' : ''}`}
+          data-index="1"
+        >
+          <div className="narrative-card">
+            <h2 className="section-heading">Who's on Hopkins?</h2>
+            <p className="section-body">
+              Even without protected infrastructure, a meaningful share of
+              people arriving on Hopkins Street are not in cars. Pedestrians and
+              cyclists use this corridor today — despite the risks.
+            </p>
+            <SegmentVolumeChart />
+          </div>
+        </section>
+
+        {/* ── Section 2: The street doesn't match how people use it ── */}
+        <section
+          id="street-design"
+          className={`narrative-step${activeSection === 2 ? ' narrative-step--active' : ''}`}
+          data-index="2"
+        >
+          <div className="narrative-card">
+            <h2 className="section-heading">
+              The street doesn't match how people use it
+            </h2>
+            <p className="section-body">
+              Cyclists are routing to Cedar and Rose Streets because Hopkins
+              offers no protection. The people most exposed to the current
+              design are concentrated exactly where the infrastructure is worst.
+            </p>
+            <CedarDiversionChart />
+          </div>
+        </section>
+
+        {/* ── Section 3: What's actually at stake with parking ── */}
+        <section
+          id="parking"
+          className={`narrative-step${activeSection === 3 ? ' narrative-step--active' : ''}`}
+          data-index="3"
+        >
+          <div className="narrative-card">
+            <h2 className="section-heading">
+              What's actually at stake with parking
+            </h2>
+            <p className="section-body">
+              The commercial strip between McGee and Gilman is the center of
+              the parking debate. How many spaces would be removed — and how
+              does that compare to the number of people who arrive by modes
+              other than driving?
+            </p>
+            <ParkingChart />
+            <span id="opinion" aria-hidden="true" />
+            <CommunityFeedbackChart />
+          </div>
+        </section>
+
+        {/* ── Section 4: Berkeley already decided ── */}
         <section
           id="decided"
           className={`narrative-step${activeSection === 4 ? ' narrative-step--active' : ''}`}
@@ -193,6 +199,9 @@ export default function DataStory() {
                 Berkeley City Council voted 8–1 to approve the Hopkins Street
                 design in May 2022, and reaffirmed that decision in October 2022
                 when a reconsideration motion failed.
+              </p>
+              <p className="policy-list__punchline">
+                Nine years. Two votes. Ten plans. The street hasn't changed.
               </p>
             </div>
           </div>
