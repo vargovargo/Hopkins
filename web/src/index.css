@@ -5,20 +5,29 @@
 
 :root {
   /* Color palette */
-  --color-bg:        #1a1a18;
-  --color-surface:   #252523;
-  --color-text:      #e8e4db;
-  --color-muted:     #8a9a78;
-  --color-border:    #3a3a38;
-  --color-green:     #4a7c59;
-  --color-amber:     #c4713b;
-  --color-blue:      #6a9bcc;
-  --color-red-deep:  #8b2c2c;
+  --color-bg:          #1a1a18;
+  --color-surface:     #252523;
+  --color-text:        #e8e4db;
+  --color-muted:       #8a9a78;
+  --color-border:      rgba(255,255,255,0.06);   /* whisper — defines edges without competing */
+  --color-border-mid:  rgba(255,255,255,0.12);   /* nav, dropdowns — slightly more presence */
+  --color-green:       #4a7c59;
+  --color-amber:       #c4713b;
+  --color-blue:        #6a9bcc;
+  --color-red-deep:    #8b2c2c;
 
   /* Typography */
   --font-serif:  'DM Serif Display', 'Playfair Display', Georgia, serif;
   --font-sans:   'DM Sans', 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono:   'JetBrains Mono', 'Fira Mono', monospace;
+
+  /* Font scale — five levels, clear jumps */
+  --text-display: clamp(2.25rem, 5vw, 3.25rem);
+  --text-heading: 1.75rem;
+  --text-subhead: 1.1rem;
+  --text-body:    0.95rem;
+  --text-small:   0.82rem;
+  --text-meta:    0.72rem;
 
   /* Base */
   font-family: var(--font-sans);
