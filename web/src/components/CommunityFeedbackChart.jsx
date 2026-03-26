@@ -105,7 +105,7 @@ export default function CommunityFeedbackChart({ data = defaultData }) {
               </div>
 
               <span className="community-chart__value">
-                {item.total_approximate}
+                ~{item.total_approximate}
                 {isTopRank  && <span className="community-chart__rank-label community-chart__rank-label--first">Ranked 1st</span>}
                 {isParking  && <span className="community-chart__rank-label community-chart__rank-label--parking">Ranked 9th</span>}
               </span>

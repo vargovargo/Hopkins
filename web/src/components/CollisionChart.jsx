@@ -221,7 +221,7 @@ export default function CollisionChart({ data = defaultData }) {
         {pedCyclistPct != null ? `${pedCyclistPct}% Involved a Pedestrian or Cyclist.` : ''}
       </h2>
       <p className="collision-chart__subhead">
-        Hopkins Street · Sutter to Gilman · {dateRangeLabel}
+        Hopkins Street corridor · Sutter–Gilman bounding box · {dateRangeLabel}
         <span className="collision-chart__source"> · Source: TIMS/SWITRS</span>
       </p>
 
