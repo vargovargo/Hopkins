@@ -143,24 +143,36 @@ The site has two main sections:
 
 ### "The Data" — scrollytelling data story (main page)
 
-Five scroll-driven sections:
+Five scroll-driven sections (section index in parentheses — order matters for scroll/map sync):
 
-1. **"Who's on Hopkins?"** — Mode split hero. Even before improvements, a meaningful share of people arriving on Hopkins are not in cars. Time-of-day slider. Headline does the work.
-1. **"The street doesn't match how people use it"** — Corridor map showing infrastructure gaps (where bike protection exists vs. doesn't) overlaid with pedestrian and cyclist volume. Tension: people concentrate where protection is worst.
-1. **"What's actually at stake with parking"** — Addresses the opposition's core claim head-on. How many spaces lost vs. how many trips arrive by car? How far is the farthest replacement space? Reframes the loss as manageable.
-1. **"The cost of doing nothing"** — Collision history mapped spatially. Two fatalities, 36 collisions. Amber/terracotta color for severity. Short and visceral, not overloaded.
-1. **"Berkeley already decided"** — Policy alignment callout. Vision Zero, Climate Action Plan, Bicycle Plan, Pedestrian Plan, and six others. Reframes inaction as the anomaly.
+1. (0) **"The cost of doing nothing"** — Lead with the human cost. Collision history mapped spatially. Two fatalities in 2017 triggered the study; a third fatal collision occurred one block away in January 2025 after the project had been approved and shelved. Amber/terracotta color for severity. Short and visceral.
+1. (1) **"Who's on Hopkins?"** — Mode split hero. Even before improvements, a meaningful share of people arriving on Hopkins are not in cars. Lands harder after establishing the safety stakes.
+1. (2) **"The street doesn't match how people use it"** — Corridor map showing infrastructure gaps overlaid with pedestrian and cyclist volume. Cedar diversion chart with revealed-preference interpretation.
+1. (3) **"What's actually at stake with parking"** — Addresses the opposition's core claim head-on. How many spaces lost vs. how many trips arrive by car? Reframes the loss as manageable.
+1. (4) **"Berkeley already decided"** — Policy alignment callout. Vision Zero, Climate Action Plan, Bicycle Plan, Pedestrian Plan, and six others. Closing punchline: "Nine years. Two votes. Ten plans. The street hasn't changed." Reframes inaction as the anomaly.
+
+**SECTION_HIGHLIGHT** (map highlight keyed to scroll section index):
+`{ 0: null, 1: null, 2: 'alameda-mcgee', 3: 'monterey-gilman', 4: null }`
 
 ### "The Record" — background section (/the-record)
 
 A documented history of the project with:
 
-- **Vertical timeline** of key events from the 2017 fatalities through today, color-coded by event type, with source links at each node
+- **Horizontal duration bar** — SVG track showing 2017–2026 span with colored event dots positioned proportionally. Makes 9-year inaction gap spatially legible.
+- **Vertical timeline** of key events from the 2017 fatalities through today, color-coded by event type (legend included), with source links at each node
 - **Source library** tabbed by category: Government Documents | Journalism | Advocacy | Opposition
-- **At-a-glance stats:** "7 years" / "8–1 Council vote" / "36 collisions"
+- **At-a-glance stats:** "9 years" / "8–1 Council vote" / "36 collisions (2015–2018)"
 
 Data for this section lives in `data/processed/project_history.json`.
 This section establishes credibility — it shows the work engaged with all sides.
+
+### "Methods" — methodology and data transparency (/methods)
+
+Standalone page covering:
+- Data source specs for Streetlight, TIMS/SWITRS, and city traffic count
+- "What the data supports" can/cannot table
+- Known gaps and limitations
+- Jump nav anchors: `#streetlight`, `#collisions`, `#city-counts`, `#claims`, `#gaps`
 
 -----
 
@@ -258,6 +270,12 @@ This project is part of a live public policy debate. The analysis will be scruti
 - [x] The Record page built — `BackgroundPage.jsx` with `ProjectTimeline.jsx` + `SourceLibrary.jsx`
 - [x] Project history data — `data/processed/project_history.json`, 14 timeline events through 2026
 - [x] Streetlight ped/bike output units verified as StL Volume (not Index); all zone values spot-checked against raw CSVs — zero errors (2026-03-20)
+- [x] Methods page built — `MethodsPage.jsx` at `/methods`; data sources, methodology, can/cannot table, known gaps
+- [x] Story section order updated — cost (0) → who (1) → street-design (2) → parking (3) → decided (4)
+- [x] Design pass complete — border tokens, font scale variables, de-boxed policy list, timeline legend (2026-03-26)
+- [x] SpeedChart annotation — "so what" segment count + independent city count corroboration note (2026-03-26)
+- [x] Horizontal timeline duration bar added to The Record page (2026-03-26)
+- [x] Framing edits — Cedar revealed preference, CollisionChart bounding box qualifier, CommunityFeedbackChart ~ values, ParkingChart tone (2026-03-26)
 - [ ] Streetlight volume estimates validated against independent Berkeley traffic counts (city PDFs in hand)
 - [ ] Parking spaces lost vs. nearest replacement distance (city docs — in record, not yet visualized)
 

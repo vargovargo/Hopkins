@@ -79,3 +79,71 @@ depend on unprocessed data show clearly-labeled placeholder cards.
 
 TBD — either a subdomain of `vargo.city` or a standalone domain for this project.
 Configure in Vercel: Settings → Domains.
+
+---
+
+## Changelog
+
+### 2026-03-26 — Story review and polish (PRs #9, #10, #11)
+
+Based on a transportation engineer review of the story for a national news outlet
+audience. Three PRs landed on main:
+
+#### PR #9 — Story flow and framing edits
+
+*`DataStory.jsx`, `CedarDiversionChart.jsx`, `CollisionChart.jsx`, `CommunityFeedbackChart.jsx`, `ParkingChart.jsx`*
+
+- **Section order changed.** Narrative now leads with safety costs (collisions first),
+  then mode split, then street design, then parking, then policy alignment. Prior order
+  buried the strongest hook.
+- **Closing punchline added** to policy alignment section: "Nine years. Two votes. Ten
+  plans. The street hasn't changed." Styled as amber serif fragment.
+- **Cedar diversion chart** — added one sentence making the revealed-preference logic
+  explicit: "When more cyclists use a parallel route than the direct route, the data
+  is telling us something about the direct route — not the parallel one."
+- **Collision chart subhead** — changed "Hopkins Street · Sutter to Gilman" to
+  "Hopkins Street corridor · Sutter–Gilman bounding box" to surface the geographic
+  scope at glance level. The 53-collision figure and footnote are unchanged.
+- **Community feedback chart** — added `~` prefix to all bar values (e.g. "~31")
+  to visually signal that figures are approximate even when skimming past the text
+  disclosure. The "estimated from city chart" note above the callout is unchanged.
+- **Parking chart** — softened four strings: section heading, timing label, estimate
+  note, and source note. Removed implication of intent; kept the factual record
+  complete. (The October 2022 reconsideration is now the cited context rather than
+  "not disclosed before the vote.")
+
+#### PR #10 — Methods page and design pass
+
+*`MethodsPage.jsx`, `MethodsPage.css`, `App.jsx`, `NavBar.jsx`, `index.css`,
+`App.css`, `ProjectTimeline.jsx`, `ProjectTimeline.css`, `NavBar.css`*
+
+- **New `/methods` page** — Three per-source sections (Streetlight Data, TIMS/SWITRS,
+  City traffic count) with dataset spec cards and caveats. "What the data supports"
+  can/cannot table. "Known gaps" section. Jump nav anchors. Route added to `App.jsx`;
+  Methods tab added to `NavBar.jsx`.
+- **Design pass** — Border token changed from `#3a3a38` to `rgba(255,255,255,0.06)`
+  (propagates site-wide). Added `--color-border-mid` for nav/dropdown context.
+  Established five-level font scale (`--text-display` through `--text-meta`) as CSS
+  custom properties in `index.css`. Policy list de-boxed (green left-border removed;
+  now typographic rows with bottom rules). Timeline event-type legend added above
+  the vertical list.
+
+#### PR #11 — Remaining review items (open)
+
+*`ProjectTimeline.jsx`, `ProjectTimeline.css`, `SpeedChart.jsx`, `SourceLibrary.jsx`*
+
+- **Horizontal timeline bar** — SVG track above the vertical event list showing the
+  full 2017–2026 project span. Event dots are colored by type and positioned
+  proportionally. "2026 — unbuilt" in amber at the right edge. Makes the 9-year gap
+  spatially legible without reading the full list.
+- **Speed chart annotation** — Inline count "X of N segments exceed Berkeley's 25 mph
+  Vision Zero target" computed live from the data. Day-type toggle updates the count
+  automatically.
+- **Speed chart city count callout** — 2019 city-commissioned pneumatic tube count
+  (Stannage Ave, 29 mph 85th percentile westbound, 49% over 25 mph) shown as
+  corroborating evidence. Explicitly framed as different methodology/location, not
+  direct Streetlight validation (per `do_not_present_as_direct_validation: true`
+  in `city_counts_speed_summary.json`).
+- **Opposition tab framing note** — Revised from "responding to them with data" to
+  "engage those arguments with data — not dismiss them." Acknowledges the opposition's
+  concerns are substantive.
