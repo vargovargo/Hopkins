@@ -1,21 +1,24 @@
 /**
- * CorridorMap.jsx — updated Prompt 11
+ * CorridorMap.jsx
  *
- * Mapbox GL JS map anchoring the Hopkins Street data story.
+ * Mapbox GL JS map used by both the scrollytelling story and the /explore sandbox.
  *
- * Props:
- *   highlightSegment  string | null — segment id driven by scroll position (App.jsx / Scrollama).
- *                     Visual treatment: brighter green, same line width.
- *   selectedSegment   string | null — segment id set by map click.
- *                     Visual treatment: brighter green + wider line (6px).
- *   onSegmentClick    function(id: string) — called when user clicks a segment.
+ * Story props (legacy — still supported):
+ *   highlightSegment  string | null — scroll-driven highlight
+ *   selectedSegment   string | null — single segment click selection
+ *   onSegmentClick    fn(id: string) — called on segment click
  *
- * Both highlightSegment and selectedSegment can be active simultaneously.
- * They use independent layers so their visual treatments do not interfere.
+ * Explorer props (additive — defaults preserve story behavior):
+ *   selectedSegments  string[]       — multi-select; overrides selectedSegment rendering
+ *                                      when set and non-empty
+ *   onSegmentMultiClick fn(id, isAdditive) — additive = Ctrl/Cmd held
+ *   choroplethSegmentColors  object | null  — { segmentId: '#rrggbb' } for choropleth
+ *   collisionPointsVisible   boolean        — show collision_geo.geojson dots
  *
  * Data sources:
  *   data/geo/corridor.geojson           — corridor geometry + intersections
- *   data/geo/fatality_locations.geojson — two 2017 fatalities as Points
+ *   data/geo/fatality_locations.geojson — fatality points
+ *   data/geo/collisions_geo.geojson     — individual collision points (explorer only)
  *
  * Mapbox token: VITE_MAPBOX_TOKEN environment variable
  */
@@ -24,18 +27,25 @@ import { useRef, useEffect, useState, Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import corridorData from '@data/geo/corridor.geojson'
-import fatalityData from '@data/geo/fatality_locations.geojson'
+import corridorData  from '@data/geo/corridor.geojson'
+import fatalityData  from '@data/geo/fatality_locations.geojson'
+import collisionData from '@data/processed/collisions_geo.geojson'
 
 import './CorridorMap.css'
 
 const MAP_CENTER = [-122.281, 37.882]
 const MAP_ZOOM   = 14.5
 
-// Filter selecting a project segment by its segment_id property
+// Filter selecting a single segment by its segment_id property
 function segmentFilter(id) {
   if (!id) return ['literal', false]
   return ['==', ['get', 'segment_id'], id]
+}
+
+// Filter selecting multiple segments (for multi-select mode)
+function multiSegmentFilter(ids) {
+  if (!ids || ids.length === 0) return ['literal', false]
+  return ['in', ['get', 'segment_id'], ['literal', ids]]
 }
 
 class MapErrorBoundary extends Component {
@@ -59,9 +69,15 @@ class MapErrorBoundary extends Component {
 }
 
 function CorridorMapInner({
+  // Story props (legacy)
   highlightSegment = null,
   selectedSegment  = null,
   onSegmentClick   = () => {},
+  // Explorer props (additive)
+  selectedSegments           = [],
+  onSegmentMultiClick        = null,
+  choroplethSegmentColors    = null,
+  collisionPointsVisible     = false,
 }) {
   const containerRef  = useRef(null)
   const mapRef        = useRef(null)
@@ -261,6 +277,50 @@ function CorridorMapInner({
         },
       })
 
+      // ── Choropleth layer (explorer only) ────────────────────────────
+      // Painted over the base corridor line; uses a match expression built
+      // dynamically in response to the choroplethSegmentColors prop.
+      map.addLayer({
+        id: 'layer-choropleth',
+        type: 'line',
+        source: 'corridor',
+        filter: ['==', ['get', 'type'], 'project_segment'],
+        paint: {
+          'line-color': '#4a7c59',
+          'line-width': 6,
+          'line-opacity': 0,  // starts hidden; shown when choroplethSegmentColors is set
+        },
+      })
+
+      // ── Collision points layer (explorer only) ───────────────────────
+      map.addSource('collisions', {
+        type: 'geojson',
+        data: collisionData,
+      })
+
+      map.addLayer({
+        id: 'layer-collision-points',
+        type: 'circle',
+        source: 'collisions',
+        layout: { visibility: 'none' },
+        paint: {
+          'circle-radius': ['match', ['get', 'severity'],
+            'fatal', 9,
+            'severe_injury', 7,
+            5,
+          ],
+          'circle-color': ['match', ['get', 'severity'],
+            'fatal',        '#8b2c2c',
+            'severe_injury','#c4713b',
+            'other_injury', '#c4a03b',
+            '#4a7c59',
+          ],
+          'circle-opacity': 0.75,
+          'circle-stroke-color': '#1a1a18',
+          'circle-stroke-width': 1,
+        },
+      })
+
       // ── Fatality markers ─────────────────────────────────────────────
       fatalityData.features.forEach((feature) => {
         const [lng, lat] = feature.geometry.coordinates
@@ -304,7 +364,12 @@ function CorridorMapInner({
         if (!feature) return
         const id = feature.properties?.segment_id
         if (id) {
-          onSegmentClick(id)
+          if (onSegmentMultiClick) {
+            const isAdditive = e.originalEvent?.metaKey || e.originalEvent?.ctrlKey
+            onSegmentMultiClick(id, isAdditive)
+          } else {
+            onSegmentClick(id)
+          }
           e.stopPropagation?.()
         }
       })
@@ -315,7 +380,11 @@ function CorridorMapInner({
           layers: ['layer-corridor-hit'],
         })
         if (!features.length) {
-          onSegmentClick(null)
+          if (onSegmentMultiClick) {
+            onSegmentMultiClick(null, false)
+          } else {
+            onSegmentClick(null)
+          }
         }
       })
 
@@ -361,16 +430,19 @@ function CorridorMapInner({
     loadedRef.current ? apply() : map.once('load', apply)
   }, [highlightSegment])
 
-  // ── Respond to selectedSegment prop changes ───────────────────────────
+  // ── Respond to selectedSegment prop changes (single-select / story mode) ──
+  // Only applies when the explorer multi-select (selectedSegments) is not in use.
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
+    // If the explorer is driving selection, the multi-select effect handles layers.
+    if (selectedSegments && selectedSegments.length > 0) return
     const apply = () => {
       map.setFilter('layer-segment-selected-glow', segmentFilter(selectedSegment))
       map.setFilter('layer-segment-selected', segmentFilter(selectedSegment))
     }
     loadedRef.current ? apply() : map.once('load', apply)
-  }, [selectedSegment])
+  }, [selectedSegment, selectedSegments])
 
   // ── Respond to hoveredSegment state changes ───────────────────────────
   useEffect(() => {
@@ -382,6 +454,64 @@ function CorridorMapInner({
     }
     loadedRef.current ? apply() : map.once('load', apply)
   }, [hoveredSegment])
+
+  // ── Multi-select highlight (explorer) ────────────────────────────────
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    const apply = () => {
+      if (selectedSegments && selectedSegments.length > 0) {
+        map.setFilter('layer-segment-selected-glow', multiSegmentFilter(selectedSegments))
+        map.setFilter('layer-segment-selected', multiSegmentFilter(selectedSegments))
+      } else if (selectedSegments && selectedSegments.length === 0 && onSegmentMultiClick) {
+        // Explorer mode with no selection — clear the layers
+        map.setFilter('layer-segment-selected-glow', ['literal', false])
+        map.setFilter('layer-segment-selected', ['literal', false])
+      }
+      // If selectedSegments is empty and no multi-click handler, fall through
+      // to the selectedSegment effect (legacy story behavior).
+    }
+    loadedRef.current ? apply() : map.once('load', apply)
+  }, [selectedSegments, onSegmentMultiClick])
+
+  // ── Choropleth layer update (explorer) ───────────────────────────────
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    const apply = () => {
+      if (!choroplethSegmentColors) {
+        map.setPaintProperty('layer-choropleth', 'line-opacity', 0)
+        return
+      }
+      // Build match expression: segmentId → color
+      const entries = Object.entries(choroplethSegmentColors)
+      if (entries.length === 0) {
+        map.setPaintProperty('layer-choropleth', 'line-opacity', 0)
+        return
+      }
+      const matchExpr = ['match', ['get', 'segment_id'],
+        ...entries.flatMap(([id, color]) => [id, color]),
+        '#4a7c59', // default fallback
+      ]
+      map.setPaintProperty('layer-choropleth', 'line-color', matchExpr)
+      map.setPaintProperty('layer-choropleth', 'line-opacity', 0.9)
+    }
+    loadedRef.current ? apply() : map.once('load', apply)
+  }, [choroplethSegmentColors])
+
+  // ── Collision points visibility (explorer) ────────────────────────────
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    const apply = () => {
+      map.setLayoutProperty(
+        'layer-collision-points',
+        'visibility',
+        collisionPointsVisible ? 'visible' : 'none',
+      )
+    }
+    loadedRef.current ? apply() : map.once('load', apply)
+  }, [collisionPointsVisible])
 
   // ── No-token fallback ─────────────────────────────────────────────────
   if (!import.meta.env.VITE_MAPBOX_TOKEN) {

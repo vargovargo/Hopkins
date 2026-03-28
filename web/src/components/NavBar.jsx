@@ -118,6 +118,16 @@ export default function NavBar() {
         <NavItem to="/"           label="The Data"   items={DATA_ITEMS} />
         <NavItem to="/the-record" label="The Record" items={RECORD_ITEMS} />
         <NavItem to="/methods"    label="Methods"    items={METHODS_ITEMS} />
+        <li className="navbar__item">
+          <NavLink
+            to="/explore"
+            className={({ isActive }) =>
+              `navbar__link${isActive ? ' navbar__link--active' : ''}`
+            }
+          >
+            Explore
+          </NavLink>
+        </li>
       </ul>
     </nav>
   )
