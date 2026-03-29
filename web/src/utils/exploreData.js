@@ -368,19 +368,24 @@ export function getStoryCallout(dataset, selectedSegments) {
   const hasCommercial = selectedSegments.some((id) => commercialIds.has(id))
 
   if (dataset === 'collisions') {
-    return { anchor: '#cost',         label: '§1 "The cost of doing nothing"' }
+    return { anchor: '#cost', label: '"The cost of doing nothing"' }
+  }
+  if (dataset === 'city_counts') {
+    // Speed data (85th percentile) is featured in the cost section alongside CollisionChart
+    return { anchor: '#cost', label: '"The cost of doing nothing"' }
   }
   if (dataset === 'pedestrians' || dataset === 'bicycles') {
-    if (hasCommercial || selectedSegments.length === 0) {
-      return { anchor: '#street-design', label: '§3 "The street doesn\'t match how people use it"' }
+    if (hasCommercial) {
+      return { anchor: '#street-design', label: '"The street doesn\'t match how people use it"' }
     }
-    return { anchor: '#who',          label: '§2 "Who\'s on Hopkins?"' }
+    // Default to the general mode overview when no specific or non-commercial segment selected
+    return { anchor: '#who', label: '"Who\'s on Hopkins?"' }
   }
   if (dataset === 'vehicles' && hasCommercial) {
-    return { anchor: '#parking',      label: '§4 "What\'s actually at stake with parking"' }
+    return { anchor: '#parking', label: '"What\'s actually at stake with parking"' }
   }
   if (dataset === 'vehicles') {
-    return { anchor: '#who',          label: '§2 "Who\'s on Hopkins?"' }
+    return { anchor: '#who', label: '"Who\'s on Hopkins?"' }
   }
   return null
 }
