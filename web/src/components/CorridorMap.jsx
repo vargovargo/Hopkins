@@ -426,8 +426,6 @@ function CorridorMapInner({
       map.on('click', 'layer-collision-hit', (e) => {
         const feature = e.features?.[0]
         if (!feature) return
-        e.preventDefault()
-        e.stopPropagation()
 
         const p = feature.properties
         const severityLabel = {
@@ -473,6 +471,12 @@ function CorridorMapInner({
       })
 
       map.on('click', 'layer-corridor-hit', (e) => {
+        // If the click also hit a collision dot, let the collision handler handle it
+        const collisionHits = map.queryRenderedFeatures(e.point, {
+          layers: ['layer-collision-hit'],
+        })
+        if (collisionHits.length) return
+
         const feature = e.features?.[0]
         if (!feature) return
         const id = feature.properties?.segment_id
