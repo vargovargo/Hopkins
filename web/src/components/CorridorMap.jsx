@@ -27,9 +27,10 @@ import { useRef, useEffect, useState, Component } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
-import corridorData  from '@data/geo/corridor.geojson'
-import fatalityData  from '@data/geo/fatality_locations.geojson'
-import collisionData from '@data/processed/collisions_geo.geojson'
+import corridorData   from '@data/geo/corridor.geojson'
+import fatalityData   from '@data/geo/fatality_locations.geojson'
+import collisionsData from '@data/geo/collisions.geojson'
+import collisionData  from '@data/processed/collisions_geo.geojson'
 
 import './CorridorMap.css'
 
@@ -79,10 +80,11 @@ function CorridorMapInner({
   choroplethSegmentColors    = null,
   collisionPointsVisible     = false,
 }) {
-  const containerRef  = useRef(null)
-  const mapRef        = useRef(null)
-  const loadedRef     = useRef(false)
-  const markersRef    = useRef([])
+  const containerRef      = useRef(null)
+  const mapRef            = useRef(null)
+  const loadedRef         = useRef(false)
+  const markersRef        = useRef([])
+  const collisionPopupRef = useRef(null)
   const [showHint, setShowHint]     = useState(true)
   const [hintFading, setHintFading] = useState(false)
   const [hoveredSegment, setHoveredSegment] = useState(null)
@@ -135,6 +137,20 @@ function CorridorMapInner({
           'line-width': 2,
           'line-opacity': 0.4,
           'line-dasharray': [2, 3],
+        },
+      })
+
+      // Cedar and Rose parallel routes — blue dashed lines (below corridor)
+      map.addLayer({
+        id: 'layer-parallel-routes',
+        type: 'line',
+        source: 'corridor',
+        filter: ['==', ['get', 'type'], 'parallel_route_reference'],
+        paint: {
+          'line-color': '#6a9bcc',
+          'line-width': 2,
+          'line-opacity': 0.65,
+          'line-dasharray': [3, 4],
         },
       })
 
@@ -277,9 +293,28 @@ function CorridorMapInner({
         },
       })
 
+      // Cedar / Rose street name labels
+      map.addLayer({
+        id: 'layer-parallel-labels',
+        type: 'symbol',
+        source: 'corridor',
+        filter: ['==', ['get', 'type'], 'parallel_route_reference'],
+        layout: {
+          'text-field': ['get', 'route'],
+          'text-font': ['DIN Offc Pro Regular', 'Arial Unicode MS Regular'],
+          'text-size': 10,
+          'symbol-placement': 'line',
+          'text-offset': [0, 1.2],
+          'text-allow-overlap': false,
+        },
+        paint: {
+          'text-color': '#6a9bcc',
+          'text-halo-color': '#1a1a18',
+          'text-halo-width': 1.5,
+        },
+      })
+
       // ── Choropleth layer (explorer only) ────────────────────────────
-      // Painted over the base corridor line; uses a match expression built
-      // dynamically in response to the choroplethSegmentColors prop.
       map.addLayer({
         id: 'layer-choropleth',
         type: 'line',
@@ -292,8 +327,71 @@ function CorridorMapInner({
         },
       })
 
-      // ── Collision points layer (explorer only) ───────────────────────
+      // ── Story collision source (39 mappable TIMS records, richer schema) ──
       map.addSource('collisions', {
+        type: 'geojson',
+        data: collisionsData,
+      })
+
+      // Non-fatal collision circles — colored by severity
+      map.addLayer({
+        id: 'layer-collision-circles',
+        type: 'circle',
+        source: 'collisions',
+        filter: ['!=', ['get', 'severity'], 'fatal'],
+        paint: {
+          'circle-color': ['match', ['get', 'severity'],
+            'severe', '#c4713b',
+            'injury', '#d4956a',
+            'pdo',    '#6a7a5e',
+            '#6a7a5e',
+          ],
+          'circle-radius': ['match', ['get', 'severity'],
+            'severe', 6,
+            'injury', 4.5,
+            'pdo',    3,
+            4,
+          ],
+          'circle-opacity': ['match', ['get', 'severity'],
+            'severe', 0.9,
+            'injury', 0.8,
+            'pdo',    0.45,
+            0.7,
+          ],
+          'circle-stroke-color': '#1a1a18',
+          'circle-stroke-width': 1,
+        },
+      })
+
+      // Fatal collision circles — larger amber-red, below DOM pulse markers
+      map.addLayer({
+        id: 'layer-collision-fatal',
+        type: 'circle',
+        source: 'collisions',
+        filter: ['==', ['get', 'severity'], 'fatal'],
+        paint: {
+          'circle-color': '#e85d2a',
+          'circle-radius': 9,
+          'circle-opacity': 0.95,
+          'circle-stroke-color': 'rgba(255,255,255,0.6)',
+          'circle-stroke-width': 1.5,
+        },
+      })
+
+      // Transparent hit area for all collisions (above circles, below DOM markers)
+      map.addLayer({
+        id: 'layer-collision-hit',
+        type: 'circle',
+        source: 'collisions',
+        paint: {
+          'circle-radius': 16,
+          'circle-opacity': 0,
+          'circle-stroke-width': 0,
+        },
+      })
+
+      // ── Explorer collision source (53 records, hidden by default) ────
+      map.addSource('collisions-explorer', {
         type: 'geojson',
         data: collisionData,
       })
@@ -301,7 +399,7 @@ function CorridorMapInner({
       map.addLayer({
         id: 'layer-collision-points',
         type: 'circle',
-        source: 'collisions',
+        source: 'collisions-explorer',
         layout: { visibility: 'none' },
         paint: {
           'circle-radius': ['match', ['get', 'severity'],
@@ -359,11 +457,66 @@ function CorridorMapInner({
       })
 
       // ── Click handlers ───────────────────────────────────────────────
+
+      // Collision click — show popup with details
+      map.on('click', 'layer-collision-hit', (e) => {
+        const feature = e.features?.[0]
+        if (!feature) return
+        e.preventDefault()
+
+        const p = feature.properties
+        const severityLabel = {
+          fatal:  'Fatal collision',
+          severe: 'Severe injury',
+          injury: 'Injury',
+          pdo:    'Property damage only',
+        }[p.severity] ?? p.severity
+
+        const severityColor = {
+          fatal:  '#e85d2a',
+          severe: '#c4713b',
+          injury: '#d4956a',
+          pdo:    '#8a9a78',
+        }[p.severity] ?? '#8a9a78'
+
+        const modeIcon = p.ped_involved ? '🚶' : p.bike_involved ? '🚲' : '🚗'
+
+        // Close any existing collision popup
+        if (collisionPopupRef.current) {
+          collisionPopupRef.current.remove()
+        }
+
+        const popup = new mapboxgl.Popup({
+          offset: 12,
+          closeButton: true,
+          className: 'collision-popup-container',
+          maxWidth: '240px',
+        })
+          .setLngLat(feature.geometry.coordinates)
+          .setHTML(
+            `<div class="collision-popup">
+              <span class="collision-popup__severity" style="color:${severityColor}">${severityLabel}</span>
+              <span class="collision-popup__date">${p.date_display}</span>
+              <span class="collision-popup__location">${p.primary_rd} @ ${p.secondary_rd}</span>
+              <span class="collision-popup__mode">${modeIcon} ${p.mode_label}</span>
+              <cite class="collision-popup__source">Source: TIMS/SWITRS</cite>
+            </div>`,
+          )
+          .addTo(map)
+
+        collisionPopupRef.current = popup
+      })
+
       map.on('click', 'layer-corridor-hit', (e) => {
         const feature = e.features?.[0]
         if (!feature) return
         const id = feature.properties?.segment_id
         if (id) {
+          // Close any open collision popup when selecting a segment
+          if (collisionPopupRef.current) {
+            collisionPopupRef.current.remove()
+            collisionPopupRef.current = null
+          }
           if (onSegmentMultiClick) {
             const isAdditive = e.originalEvent?.metaKey || e.originalEvent?.ctrlKey
             onSegmentMultiClick(id, isAdditive)
@@ -374,12 +527,15 @@ function CorridorMapInner({
         }
       })
 
-      // Click outside project segments — deselect
+      // Click outside project segments and collisions — deselect
       map.on('click', (e) => {
-        const features = map.queryRenderedFeatures(e.point, {
+        const corridorHits = map.queryRenderedFeatures(e.point, {
           layers: ['layer-corridor-hit'],
         })
-        if (!features.length) {
+        const collisionHits = map.queryRenderedFeatures(e.point, {
+          layers: ['layer-collision-hit'],
+        })
+        if (!corridorHits.length && !collisionHits.length) {
           if (onSegmentMultiClick) {
             onSegmentMultiClick(null, false)
           } else {
@@ -399,6 +555,14 @@ function CorridorMapInner({
         setHoveredSegment(null)
       })
 
+      // Pointer cursor on collision dots
+      map.on('mouseenter', 'layer-collision-hit', () => {
+        map.getCanvas().style.cursor = 'pointer'
+      })
+      map.on('mouseleave', 'layer-collision-hit', () => {
+        map.getCanvas().style.cursor = ''
+      })
+
       loadedRef.current = true
 
       // Force Mapbox to re-read container dimensions after layout is stable.
@@ -415,6 +579,10 @@ function CorridorMapInner({
     return () => {
       markersRef.current.forEach((m) => m.remove())
       markersRef.current = []
+      if (collisionPopupRef.current) {
+        collisionPopupRef.current.remove()
+        collisionPopupRef.current = null
+      }
       map.remove()
       mapRef.current  = null
       loadedRef.current = false

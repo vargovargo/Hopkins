@@ -424,11 +424,16 @@
         "note": "Cyclist diversion signal — 266 bike trips on Cedar suggests suppressed demand on Hopkins due to lack of protection.",
         "data_source": "Data from Streetlight",
         "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
-        "coordinates_verified": true
+        "coordinates_source": "approximate — OSM alignment; Sacramento Ave intersection point is verified",
+        "coordinates_verified": false
       },
       "geometry": {
-        "type": "Point",
-        "coordinates": [-122.282693, 37.876699]
+        "type": "LineString",
+        "coordinates": [
+          [-122.273500, 37.877300],
+          [-122.282693, 37.876699],
+          [-122.291500, 37.875200]
+        ]
       }
     },
 
@@ -450,11 +455,16 @@
         "ped_bike_volume_year": 2022,
         "data_source": "Data from Streetlight",
         "data_status": "UNVERIFIED — transcribed from screenshots, pending raw export confirmation",
-        "coordinates_verified": true
+        "coordinates_source": "approximate — OSM alignment; Sacramento Ave intersection point is verified",
+        "coordinates_verified": false
       },
       "geometry": {
-        "type": "Point",
-        "coordinates": [-122.282996, 37.878927]
+        "type": "LineString",
+        "coordinates": [
+          [-122.273800, 37.880100],
+          [-122.282996, 37.878927],
+          [-122.291200, 37.878000]
+        ]
       }
     }
 

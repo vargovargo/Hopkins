@@ -32,7 +32,8 @@ const PARALLEL_ZONES = {
   'Rose to Sacramento':  'Rose St (parallel)',
 }
 
-const COMMERCIAL_STRIP = 'Sacramento to McGee'
+const COMMERCIAL_STRIP = 'Sacramento to McGee'  // commercial core — Monterey Ave intersection, cafes/shops
+const CONNECTOR_ZONE   = 'Gilman to Sacramento'  // connector to West Berkeley — highest volume, all parking removed
 
 const NP_KEY = '0: All Days (M-Su) / 0: All Day (12am-12am)'
 
@@ -52,12 +53,13 @@ function parseData() {
 
     return {
       zone,
-      label:   PARALLEL_ZONES[zone] ? PARALLEL_ZONES[zone] : zone,
-      volume:  np.segment_traffic ?? null,
-      lower95: piVal?.lower_95 ?? null,
-      upper95: piVal?.upper_95 ?? null,
+      label:      PARALLEL_ZONES[zone] ? PARALLEL_ZONES[zone] : zone,
+      volume:     np.segment_traffic ?? null,
+      lower95:    piVal?.lower_95 ?? null,
+      upper95:    piVal?.upper_95 ?? null,
       isParallel:   !!PARALLEL_ZONES[zone],
       isCommercial: zone === COMMERCIAL_STRIP,
+      isConnector:  zone === CONNECTOR_ZONE,
     }
   }).filter(d => d.volume !== null)
 }
@@ -123,12 +125,13 @@ export default function SegmentVolumeChart() {
 
           return (
             <g key={d.zone}>
-              {/* Commercial strip amber left accent */}
-              {d.isCommercial && (
+              {/* Amber left accent for commercial core and connector zones */}
+              {(d.isCommercial || d.isConnector) && (
                 <rect
                   x={ML - 6} y={y - 2}
                   width={3} height={BAR_H + 4}
                   fill={COLORS.amber}
+                  opacity={d.isConnector ? 1 : 0.6}
                   aria-hidden="true"
                 />
               )}
@@ -140,7 +143,9 @@ export default function SegmentVolumeChart() {
                 style={{
                   fontFamily: "'DM Sans', sans-serif",
                   fontSize: 11,
-                  fill: d.isCommercial ? COLORS.amber : (d.isParallel ? COLORS.blue : COLORS.text),
+                  fill: (d.isCommercial || d.isConnector) ? COLORS.amber
+                      : d.isParallel ? COLORS.blue
+                      : COLORS.text,
                 }}
               >
                 {d.label}
@@ -202,13 +207,21 @@ export default function SegmentVolumeChart() {
           </g>
         ))}
 
-        {/* Commercial strip annotation */}
+        {/* Annotation: commercial core (Sacramento to McGee, index 2) */}
         <text
           x={ML - 6} y={MT + 2 * (BAR_H + BAR_GAP) + BAR_H / 2 + 4 + 14}
           textAnchor="end"
-          style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9.5, fill: COLORS.amber, opacity: 0.8 }}
+          style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, fill: COLORS.amber, opacity: 0.7 }}
         >
-          ← proposed parking removal
+          ← commercial core · Monterey Ave
+        </text>
+        {/* Annotation: connector zone (Gilman to Sacramento, index 3) */}
+        <text
+          x={ML - 6} y={MT + 3 * (BAR_H + BAR_GAP) + BAR_H / 2 + 4 + 14}
+          textAnchor="end"
+          style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, fill: COLORS.amber, opacity: 0.9 }}
+        >
+          ← connector · all parking removed · 35 spaces
         </text>
       </svg>
 

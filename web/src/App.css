@@ -382,3 +382,63 @@
   margin: 0;
   padding-top: 1.25rem;
 }
+
+/* ── Multi-mode stat callout (section 1 — Who's on Hopkins?) ─────────── */
+
+.multimode-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 1rem 0 0.5rem;
+  background: #1e1e1c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.multimode-stats__tile {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.5rem;
+  gap: 2px;
+}
+
+.multimode-stats__divider {
+  width: 1px;
+  height: 3rem;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.multimode-stats__number {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.multimode-stats__label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: var(--color-muted);
+  text-align: center;
+}
+
+.multimode-stats__year {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: #5a6a52;
+  text-align: center;
+}
+
+.multimode-stats__note {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  color: var(--color-muted);
+  margin: 0 0 0.5rem;
+  line-height: 1.4;
+  font-style: italic;
+}

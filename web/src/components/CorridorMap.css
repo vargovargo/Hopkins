@@ -181,3 +181,74 @@
 .fatality-popup-container .mapboxgl-popup-close-button {
   display: none;
 }
+
+/* ── Collision popup ─────────────────────────────────────────────────── */
+
+.collision-popup-container .mapboxgl-popup-content {
+  background: #252523;
+  border: 1px solid #3a3a38;
+  border-radius: 4px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  min-width: 180px;
+}
+
+.collision-popup-container .mapboxgl-popup-tip {
+  border-top-color: #252523;
+}
+
+.collision-popup-container .mapboxgl-popup-close-button {
+  color: #8a9a78;
+  font-size: 1rem;
+  line-height: 1;
+  top: 6px;
+  right: 6px;
+  background: none;
+  border: none;
+}
+
+.collision-popup-container .mapboxgl-popup-close-button:hover {
+  color: #e8e4db;
+}
+
+.collision-popup {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.collision-popup__severity {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.collision-popup__date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: #e8e4db;
+}
+
+.collision-popup__location {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: #e8e4db;
+  line-height: 1.4;
+}
+
+.collision-popup__mode {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #c8c0b4;
+  margin-top: 2px;
+}
+
+.collision-popup__source {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  color: #6a7a5e;
+  font-style: italic;
+  margin-top: 4px;
+}

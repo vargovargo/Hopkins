@@ -126,6 +126,29 @@ export default function DataStory() {
               cyclists use this corridor today — despite the risks.
             </p>
             <SegmentVolumeChart />
+            <div className="multimode-stats">
+              <div className="multimode-stats__tile">
+                <span className="multimode-stats__number">7,526</span>
+                <span className="multimode-stats__label">vehicles / day</span>
+                <span className="multimode-stats__year">2025 · StL</span>
+              </div>
+              <div className="multimode-stats__divider" aria-hidden="true" />
+              <div className="multimode-stats__tile">
+                <span className="multimode-stats__number">769</span>
+                <span className="multimode-stats__label">pedestrians / day</span>
+                <span className="multimode-stats__year">2022 · StL</span>
+              </div>
+              <div className="multimode-stats__divider" aria-hidden="true" />
+              <div className="multimode-stats__tile">
+                <span className="multimode-stats__number">560</span>
+                <span className="multimode-stats__label">cyclists / day</span>
+                <span className="multimode-stats__year">2022 · StL</span>
+              </div>
+            </div>
+            <p className="multimode-stats__note">
+              Gilman–Sacramento zone — the high-volume connector to West Berkeley.
+              All modes, different survey years. Data from Streetlight.
+            </p>
           </div>
         </section>
 
@@ -140,9 +163,14 @@ export default function DataStory() {
               The street doesn't match how people use it
             </h2>
             <p className="section-body">
-              Cyclists are routing to Cedar and Rose Streets because Hopkins
-              offers no protection. The people most exposed to the current
-              design are concentrated exactly where the infrastructure is worst.
+              Cyclists route to Cedar and Rose where those streets run parallel —
+              a workaround that applies to the residential blocks. But the
+              connector between Sacramento and Gilman has no parallel substitute.
+              It carries more cyclists than any other segment on the corridor —
+              560 per day despite no protection, more than twice Cedar's 266 —
+              because it is the direct path to and from the commercial core and
+              West Berkeley. The chart below shows the diversion only tells half
+              the story.
             </p>
             <CedarDiversionChart />
           </div>
@@ -159,10 +187,13 @@ export default function DataStory() {
               What's actually at stake with parking
             </h2>
             <p className="section-body">
-              The commercial strip between McGee and Gilman is the center of
-              the parking debate. How many spaces would be removed — and how
-              does that compare to the number of people who arrive by modes
-              other than driving?
+              The commercial core is Sacramento to McGee — the Monterey Avenue
+              block where the businesses are and pedestrian activity peaks at
+              1,026 per day. The connector from Sacramento to Gilman carries
+              even more vehicle traffic (7,526 daily) and the most cyclists on
+              the corridor. All those modes — on a street built only for cars —
+              is why the collisions cluster here. The parking debate is real,
+              but it takes place against this backdrop.
             </p>
             <ParkingChart />
             <span id="opinion" aria-hidden="true" />
