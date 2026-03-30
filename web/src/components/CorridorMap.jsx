@@ -140,20 +140,6 @@ function CorridorMapInner({
         },
       })
 
-      // Cedar and Rose parallel routes — blue dashed lines (below corridor)
-      map.addLayer({
-        id: 'layer-parallel-routes',
-        type: 'line',
-        source: 'corridor',
-        filter: ['==', ['get', 'type'], 'parallel_route_reference'],
-        paint: {
-          'line-color': '#6a9bcc',
-          'line-width': 2,
-          'line-opacity': 0.65,
-          'line-dasharray': [3, 4],
-        },
-      })
-
       // Main project corridor — base line, per-segment color + weight
       // Eastern residential segments: green. Western commercial: amber (contested + fatality location)
       map.addLayer({
@@ -293,27 +279,6 @@ function CorridorMapInner({
         },
       })
 
-      // Cedar / Rose street name labels
-      map.addLayer({
-        id: 'layer-parallel-labels',
-        type: 'symbol',
-        source: 'corridor',
-        filter: ['==', ['get', 'type'], 'parallel_route_reference'],
-        layout: {
-          'text-field': ['get', 'route'],
-          'text-font': ['DIN Offc Pro Regular', 'Arial Unicode MS Regular'],
-          'text-size': 10,
-          'symbol-placement': 'line',
-          'text-offset': [0, 1.2],
-          'text-allow-overlap': false,
-        },
-        paint: {
-          'text-color': '#6a9bcc',
-          'text-halo-color': '#1a1a18',
-          'text-halo-width': 1.5,
-        },
-      })
-
       // ── Choropleth layer (explorer only) ────────────────────────────
       map.addLayer({
         id: 'layer-choropleth',
@@ -420,7 +385,12 @@ function CorridorMapInner({
       })
 
       // ── Fatality markers ─────────────────────────────────────────────
-      fatalityData.features.forEach((feature) => {
+      // Sort so recent markers are added first (lower DOM z-order);
+      // older pulsing markers are added last and render on top.
+      const sortedFatalities = [...fatalityData.features].sort(
+        (a, b) => b.properties.year - a.properties.year,
+      )
+      sortedFatalities.forEach((feature) => {
         const [lng, lat] = feature.geometry.coordinates
         const p = feature.properties
 
@@ -463,6 +433,7 @@ function CorridorMapInner({
         const feature = e.features?.[0]
         if (!feature) return
         e.preventDefault()
+        e.stopPropagation()
 
         const p = feature.properties
         const severityLabel = {
