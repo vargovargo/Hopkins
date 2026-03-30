@@ -12,7 +12,6 @@
  * Data source: Streetlight 2025 · All Vehicles · Network Performance
  */
 
-import { useState } from 'react'
 import { scaleLinear } from 'd3'
 import verifiedData from '../data/streetlight_verified.json'
 
@@ -33,12 +32,7 @@ const HOPKINS_ORDER = [
 
 const VISION_ZERO_MPH = 25
 
-const DAY_TYPE_KEYS = {
-  'All Days': '0: All Days (M-Su)',
-  'Weekday':  '1: Weekday (M-Th)',
-  'Weekend':  '2: Weekend (Sa-Su)',
-}
-const ALL_DAY_PART = '0: All Day (12am-12am)'
+const ALL_DAY_KEY = '0: All Days (M-Su) / 0: All Day (12am-12am)'
 
 const COLORS = {
   amber:   '#c4713b',
@@ -55,13 +49,11 @@ const COLORS = {
 // Parse data for a given day type
 // ---------------------------------------------------------------------------
 
-function parseData(dayTypeLabel) {
+function parseData() {
   const { network_performance } = verifiedData
-  const dtKey = DAY_TYPE_KEYS[dayTypeLabel]
-  const key   = `${dtKey} / ${ALL_DAY_PART}`
 
   return HOPKINS_ORDER.map(zone => {
-    const np = network_performance[zone]?.[key] ?? {}
+    const np = network_performance[zone]?.[ALL_DAY_KEY] ?? {}
     return {
       zone,
       avgSpeed: np.avg_speed_mph ?? null,
@@ -76,8 +68,7 @@ function parseData(dayTypeLabel) {
 // ---------------------------------------------------------------------------
 
 export default function SpeedChart() {
-  const [dayType, setDayType] = useState('All Days')
-  const data = parseData(dayType)
+  const data = parseData()
 
   // SVG dimensions
   const W    = 560
@@ -96,39 +87,13 @@ export default function SpeedChart() {
   return (
     <div style={{ background: COLORS.surface, borderRadius: 4, border: `1px solid ${COLORS.border}`, padding: '1.25rem 1rem 1rem' }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
-        <div>
-          <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.05rem', color: COLORS.text, margin: '0 0 0.2rem' }}>
-            Vehicle Speeds by Segment
-          </h3>
-          <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: COLORS.muted, margin: 0 }}>
-            Average speed · 85th percentile · All day
-          </p>
-        </div>
-
-        {/* Day type toggle */}
-        <div style={{ display: 'flex', gap: 4 }}>
-          {Object.keys(DAY_TYPE_KEYS).map(label => (
-            <button
-              key={label}
-              onClick={() => setDayType(label)}
-              style={{
-                background: dayType === label ? COLORS.green : 'transparent',
-                border: `1px solid ${dayType === label ? COLORS.green : COLORS.muted}`,
-                borderRadius: 3,
-                color: dayType === label ? COLORS.text : COLORS.muted,
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: '0.7rem',
-                padding: '10px 12px',
-                cursor: 'pointer',
-                touchAction: 'manipulation',
-                minHeight: 44,
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
+      <div style={{ marginBottom: '0.75rem' }}>
+        <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: '1.05rem', color: COLORS.text, margin: '0 0 0.2rem' }}>
+          Vehicle Speeds by Segment
+        </h3>
+        <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: '0.75rem', color: COLORS.muted, margin: 0 }}>
+          Average speed · 85th percentile · All days · All day
+        </p>
       </div>
 
       <svg
