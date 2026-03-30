@@ -384,19 +384,13 @@ function CorridorMapInner({
         },
       })
 
-      // ── Fatality markers ─────────────────────────────────────────────
-      // Sort so recent markers are added first (lower DOM z-order);
-      // older pulsing markers are added last and render on top.
-      const sortedFatalities = [...fatalityData.features].sort(
-        (a, b) => b.properties.year - a.properties.year,
-      )
-      sortedFatalities.forEach((feature) => {
+      // ── Fatality markers (2017 only) ─────────────────────────────────
+      fatalityData.features.filter(f => f.properties.year < 2025).forEach((feature) => {
         const [lng, lat] = feature.geometry.coordinates
         const p = feature.properties
 
-        const isRecent = p.year >= 2025
         const el = document.createElement('div')
-        el.className = `fatality-marker${isRecent ? ' fatality-marker--recent' : ''}`
+        el.className = 'fatality-marker'
         el.setAttribute('role', 'img')
         el.setAttribute(
           'aria-label',
@@ -409,7 +403,7 @@ function CorridorMapInner({
           closeButton: false,
           className: 'fatality-popup-container',
         }).setHTML(
-          `<div class="fatality-popup${isRecent ? ' fatality-popup--recent' : ''}">
+          `<div class="fatality-popup">
             <span class="fatality-popup__mode">${modeLabel} fatality</span>
             <span class="fatality-popup__year">${p.year}</span>
             <span class="fatality-popup__location">${p.intersection}</span>
