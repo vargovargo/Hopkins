@@ -1,0 +1,915 @@
+{
+  "type": "FeatureCollection",
+  "_metadata": {
+    "description": "TIMS/SWITRS collision records within the Hopkins Street corridor bounding box, 2014\u20132025",
+    "source": "TIMS/SWITRS (tims.berkeley.edu)",
+    "bounding_box": "lat 37.875\u201337.892, lon -122.300 to -122.270",
+    "total_records": 53,
+    "shown_on_map": 39,
+    "omitted_no_coords": 14,
+    "omission_note": "14 records lack GPS coordinates in the TIMS export and could not be geocoded.",
+    "geocoded_from_fatality_locations": [
+      "7200177"
+    ],
+    "generated_by": "analysis/process_collisions_geojson.py"
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9791468",
+        "date": "2025-01-03",
+        "date_display": "Jan 3, 2025",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "The Alameda",
+        "secondary_rd": "Hopkins St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27494812011719,
+          37.885780334472656
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8375570",
+        "date": "2017-04-02",
+        "date_display": "Apr 2, 2017",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Hopkins",
+        "secondary_rd": "Beverly Pl",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27676,
+          37.88425
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8689763",
+        "date": "2018-05-25",
+        "date_display": "May 25, 2018",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "The Alameda",
+        "secondary_rd": "Napa Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27559661865234,
+          37.8861198425293
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9897334",
+        "date": "2025-11-22",
+        "date_display": "Nov 22, 2025",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "The Alameda",
+        "secondary_rd": "Hopkins",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27494812011719,
+          37.88542175292969
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9629224",
+        "date": "2023-09-22",
+        "date_display": "Sep 22, 2023",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "Josephine St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27564239501953,
+          37.88481140136719
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8377689",
+        "date": "2017-03-16",
+        "date_display": "Mar 16, 2017",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Josephine St",
+        "secondary_rd": "Hopkins St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27564,
+          37.88481
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9825727",
+        "date": "2025-07-30",
+        "date_display": "Jul 30, 2025",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Sutter St",
+        "secondary_rd": "Del Norte Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27200317382812,
+          37.89030075073242
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9137817",
+        "date": "2020-07-03",
+        "date_display": "Jul 3, 2020",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "Monterey",
+        "secondary_rd": "Hopkins",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28192901611328,
+          37.88167953491211
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "7200177",
+        "date": "2017-02-08",
+        "date_display": "Feb 8, 2017",
+        "severity": "fatal",
+        "severity_code": 1,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Sacramento",
+        "secondary_rd": "Ada St",
+        "coords_source": "hand-verified (fatality_locations.geojson)"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.2833,
+          37.881
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9001404",
+        "date": "2019-10-18",
+        "date_display": "Oct 18, 2019",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "The Alameda",
+        "secondary_rd": "El Dorado Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27619934082031,
+          37.88636016845703
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8775742",
+        "date": "2018-11-21",
+        "date_display": "Nov 21, 2018",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Hopkins",
+        "secondary_rd": "Napa",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27300262451172,
+          37.88690185546875
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9594805",
+        "date": "2023-05-03",
+        "date_display": "May 3, 2023",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Monterey Av",
+        "secondary_rd": "Hopkins St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.2816162109375,
+          37.882808685302734
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9875040",
+        "date": "2025-08-18",
+        "date_display": "Aug 18, 2025",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "Colusa Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27935791015625,
+          37.88296127319336
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9122616",
+        "date": "2020-05-20",
+        "date_display": "May 20, 2020",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "The Alameda",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27494812011719,
+          37.88542175292969
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8775612",
+        "date": "2018-11-25",
+        "date_display": "Nov 25, 2018",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "Ada",
+        "secondary_rd": "Sacramento",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28299713134766,
+          37.87900161743164
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9436074",
+        "date": "2022-03-31",
+        "date_display": "Mar 31, 2022",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Josepine St",
+        "secondary_rd": "Sonoma Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27564239501953,
+          37.88481140136719
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9739643",
+        "date": "2024-08-31",
+        "date_display": "Aug 31, 2024",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Solano Av",
+        "secondary_rd": "El Dorado Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.2726821899414,
+          37.888980865478516
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8693339",
+        "date": "2018-05-17",
+        "date_display": "May 17, 2018",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "The Alameda",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27874755859375,
+          37.88298034667969
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9455411",
+        "date": "2022-05-11",
+        "date_display": "May 11, 2022",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Gilman",
+        "secondary_rd": "Hopkins St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28478240966797,
+          37.88018035888672
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9652089",
+        "date": "2023-12-21",
+        "date_display": "Dec 21, 2023",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "Sutter St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27237701416016,
+          37.888858795166016
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8446995",
+        "date": "2017-05-23",
+        "date_display": "May 23, 2017",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "The Alameda",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27495,
+          37.88542
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9707690",
+        "date": "2024-05-08",
+        "date_display": "May 8, 2024",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "The Alameda",
+        "secondary_rd": "Hopkins",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27494812011719,
+          37.88542175292969
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9825738",
+        "date": "2025-07-20",
+        "date_display": "Jul 20, 2025",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "Acton Cir",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28600311279297,
+          37.87900161743164
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8734887",
+        "date": "2018-07-24",
+        "date_display": "Jul 24, 2018",
+        "severity": "severe",
+        "severity_code": 2,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "The Alameda",
+        "secondary_rd": "Hopkins St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27494812011719,
+          37.88542175292969
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8689827",
+        "date": "2018-05-17",
+        "date_display": "May 17, 2018",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "Hopkins St 1725",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27864074707031,
+          37.883670806884766
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9705732",
+        "date": "2024-05-28",
+        "date_display": "May 28, 2024",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "The Alameda",
+        "secondary_rd": "Hopkins St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27494812011719,
+          37.88542175292969
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9455412",
+        "date": "2022-05-11",
+        "date_display": "May 11, 2022",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Hopkins",
+        "secondary_rd": "Colusa Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27935791015625,
+          37.88296127319336
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9001812",
+        "date": "2019-10-06",
+        "date_display": "Oct 6, 2019",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Ada St",
+        "secondary_rd": "California St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28160858154297,
+          37.88066101074219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9825739",
+        "date": "2025-07-18",
+        "date_display": "Jul 18, 2025",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Gilman St",
+        "secondary_rd": "Acton",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.2854995727539,
+          37.88029861450195
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9650856",
+        "date": "2023-11-17",
+        "date_display": "Nov 17, 2023",
+        "severity": "severe",
+        "severity_code": 2,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Hopkins",
+        "secondary_rd": "Albina",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.2843017578125,
+          37.880428314208984
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9048231",
+        "date": "2019-12-03",
+        "date_display": "Dec 3, 2019",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Sutter",
+        "secondary_rd": "Amador Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27237701416016,
+          37.88800048828125
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9899855",
+        "date": "2025-12-12",
+        "date_display": "Dec 12, 2025",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "Hopkins Av",
+        "secondary_rd": "Sutter Dr",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27237701416016,
+          37.88887023925781
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9090786",
+        "date": "2020-02-02",
+        "date_display": "Feb 2, 2020",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "Hopkins Av",
+        "secondary_rd": "Albin",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.2843017578125,
+          37.880428314208984
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8446899",
+        "date": "2017-06-11",
+        "date_display": "Jun 11, 2017",
+        "severity": "severe",
+        "severity_code": 2,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Hopkins St",
+        "secondary_rd": "Monterey Av",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28193,
+          37.88168
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8551901",
+        "date": "2017-12-05",
+        "date_display": "Dec 5, 2017",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": false,
+        "mode_label": "Vehicle collision",
+        "primary_rd": "Monterey",
+        "secondary_rd": "Hopkins St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28148,
+          37.88277
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9731741",
+        "date": "2024-07-10",
+        "date_display": "Jul 10, 2024",
+        "severity": "injury",
+        "severity_code": 3,
+        "ped_involved": true,
+        "bike_involved": true,
+        "mode_label": "Pedestrian and cyclist involved",
+        "primary_rd": "Sonoma Av",
+        "secondary_rd": "Josephine St",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27562713623047,
+          37.88523864746094
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8552279",
+        "date": "2017-12-20",
+        "date_display": "Dec 20, 2017",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "Hopkins",
+        "secondary_rd": "Monterey",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28193,
+          37.88168
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "9866852",
+        "date": "2025-01-26",
+        "date_display": "Jan 26, 2025",
+        "severity": "fatal",
+        "severity_code": 1,
+        "ped_involved": true,
+        "bike_involved": false,
+        "mode_label": "Pedestrian involved",
+        "primary_rd": "California",
+        "secondary_rd": "Ada",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.28160095214844,
+          37.88066101074219
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "case_id": "8965098",
+        "date": "2019-07-16",
+        "date_display": "Jul 16, 2019",
+        "severity": "pdo",
+        "severity_code": 4,
+        "ped_involved": false,
+        "bike_involved": true,
+        "mode_label": "Cyclist involved",
+        "primary_rd": "Sutter",
+        "secondary_rd": "Hopkins",
+        "coords_source": "TIMS/SWITRS"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.27237701416016,
+          37.888858795166016
+        ]
+      }
+    }
+  ]
+}

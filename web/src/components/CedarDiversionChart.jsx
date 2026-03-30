@@ -140,6 +140,16 @@ export default function CedarDiversionChart() {
               >
                 {d.volume.toLocaleString()}
               </text>
+
+              {d.zone === 'Gilman to Sacramento' && (
+                <text
+                  x={ML - 10} y={y + BAR_H + 11}
+                  textAnchor="end"
+                  style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 9, fill: COLORS.amber, opacity: 0.7, fontStyle: 'italic' }}
+                >
+                  destination — no parallel route
+                </text>
+              )}
             </g>
           )
         })}
