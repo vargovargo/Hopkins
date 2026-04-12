@@ -13,6 +13,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import NavBar         from './components/NavBar'
+import UrgencyBanner  from './components/UrgencyBanner'
 import DataStory      from './DataStory'
 import BackgroundPage from './components/BackgroundPage'
 import MethodsPage    from './components/MethodsPage'
@@ -22,6 +23,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <NavBar />
+      <UrgencyBanner />
       <Routes>
         <Route path="/"           element={<DataStory />} />
         <Route path="/the-record" element={<BackgroundPage />} />

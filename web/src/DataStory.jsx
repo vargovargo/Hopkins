@@ -88,6 +88,32 @@ export default function DataStory() {
 
       <div className="narrative-panel">
 
+        {/* ── Hero ── */}
+        <div className="narrative-card" style={{ marginBottom: '0' }}>
+          <h1 className="section-heading">
+            Hopkins Street has waited nine years for safety improvements. It may wait longer.
+          </h1>
+          <p className="section-body">
+            Two people were killed on Hopkins in 2017. Berkeley's City Council responded by
+            approving a redesign that would add protected bike lanes, pedestrian improvements,
+            and transit upgrades. That was 2022. The street still looks exactly the same.
+          </p>
+          <p className="section-body">
+            Now, with Hopkins finally due for repaving, a new proposal would pave it as-is —
+            skipping the safety improvements Council already voted for. On April 15, an
+            infrastructure committee will make a recommendation that shapes whether this street
+            changes or stays the same for another decade. This site exists because the data
+            should be part of that conversation.
+          </p>
+          <p className="section-body">
+            The collision record on Hopkins is clear. The speed data is clear. The pedestrian
+            and bicycle volumes — and the people making choices every day about whether this
+            street feels safe enough to use — are clear. What's less clear is why a
+            well-considered plan, approved twice, remains unbuilt while the pavement
+            deteriorates beneath it.
+          </p>
+        </div>
+
         {/* ── Section 0: The cost of doing nothing ── */}
         <section
           id="cost"
