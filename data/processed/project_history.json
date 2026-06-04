@@ -208,7 +208,7 @@
       "date": "November 2024",
       "type": "policy",
       "title": "Voters pass Measure FF — street safety parcel tax",
-      "description": "Berkeley voters approved Measure FF, a parcel tax dedicated to street safety improvements. Simultaneously, they rejected a competing measure with weaker bicycle and pedestrian commitments. Advocates called the outcome a mandate for ambitious safety investment.",
+      "description": "Berkeley voters approved Measure FF, a parcel tax dedicated to street safety improvements. Simultaneously, they rejected a competing measure with weaker bicycle and pedestrian commitments. Note: as a compromise during drafting, the Measure FF ballot language explicitly prohibits its funds from being used for bicycle-specific safety improvements on Hopkins Street between McGee and Gilman — the contested commercial strip.",
       "sources": [
         {
           "label": "\"Street safety activists think Berkeley is on verge of big change\" — Berkeleyside, June 2025",
@@ -239,6 +239,71 @@
         {
           "label": "City of Berkeley project status page",
           "url": "https://berkeleyca.gov/your-government/our-work/capital-projects/street-rehabilitation-hopkins-corridor-improvements"
+        }
+      ]
+    },
+    {
+      "id": "repave-proposal-jan-2026",
+      "date": "January 2026",
+      "type": "setback",
+      "title": "Two council members propose repaving Hopkins without bike lanes",
+      "description": "Councilmembers Kesarwani (D1) and O'Keefe (D5) — the two representatives whose districts include Hopkins — introduced an item to repave the street without the protected bike lane already approved in 2022. Mayor Ishii and Councilmember Humbert co-sponsored. Because Berkeley prohibits digging up newly paved streets for five years, repaving without the lane would lock out safety improvements until at least 2031.",
+      "sources": [
+        {
+          "label": "\"The Hopkins Street battle is back\" — Berkeleyside, April 1 2026",
+          "url": "https://www.berkeleyside.org/2026/04/01/hopkins-street-bike-lane-paving"
+        }
+      ]
+    },
+    {
+      "id": "streetsblog-mar-2026",
+      "date": "March 2026",
+      "type": "advocacy",
+      "title": "National bike press reports fight renewing",
+      "description": "Streetsblog San Francisco reported on the renewed conflict, describing the council proposal as \"effectively killing the project for the foreseeable future.\" The story drew regional attention to what had been an internal city process.",
+      "sources": [
+        {
+          "label": "\"Weekend Roundup: Hopkins Fight Renews in Berkeley\" — Streetsblog SF, March 13 2026",
+          "url": "https://sf.streetsblog.org/2026/03/13/weekend-roundup-activists-install-posts-in-s-f-hopkins-fight-renews-in-berkeley"
+        }
+      ]
+    },
+    {
+      "id": "rally-apr-2026",
+      "date": "April 2026",
+      "type": "advocacy",
+      "title": "100+ supporters rally on Hopkins Street",
+      "description": "More than 100 people lined Hopkins Street on a weekday afternoon — ringing bells on their bikes and holding signs including \"I wish this was a bike lane\" and \"I bike and I vote.\" Walk Bike Berkeley lobbied the Infrastructure Committee against the repaving-without-bike-lanes proposal.",
+      "sources": [
+        {
+          "label": "\"The Hopkins Street battle is back\" — Berkeleyside, April 1 2026",
+          "url": "https://www.berkeleyside.org/2026/04/01/hopkins-street-bike-lane-paving"
+        }
+      ]
+    },
+    {
+      "id": "fites-vote-apr-2026",
+      "date": "April 15, 2026",
+      "type": "setback",
+      "title": "Infrastructure Committee recommends paving without protected bike lane",
+      "description": "The FITES Infrastructure Committee directed Public Works to develop a paving plan incorporating pedestrian safety features — crosswalks, lighting, traffic calming — but without the protected bike lane. The committee directed staff to return by May 2026 with cost estimates for paving with and without the lane, as part of the FY 2026–28 budget process. Full City Council still decides.",
+      "sources": [
+        {
+          "label": "Berkeleyside coverage, April 2026",
+          "url": "https://www.berkeleyside.org/2026/04/01/hopkins-street-bike-lane-paving"
+        }
+      ]
+    },
+    {
+      "id": "parking-meters-may-2026",
+      "date": "May 2026",
+      "type": "process",
+      "title": "Berkeley proposes parking meters for the Hopkins commercial strip",
+      "description": "Berkeley proposed installing parking meters in the Hopkins Street shopping district and extending meter enforcement to Sundays and evenings. The study and public outreach process would require Council approval before implementation. The same commercial strip whose free parking drove most of the opposition to the bike lane could see paid parking regardless of the bike lane outcome.",
+      "sources": [
+        {
+          "label": "\"Berkeley could extend parking meter hours, hike cost of tickets and permits\" — Berkeleyside, May 18 2026",
+          "url": "https://www.berkeleyside.org/2026/05/18/berkeley-parking-meter-rate-extended-hours-sunday"
         }
       ]
     }

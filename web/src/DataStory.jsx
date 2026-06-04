@@ -257,6 +257,15 @@ export default function DataStory() {
                 design in May 2022, and reaffirmed that decision in October 2022
                 when a reconsideration motion failed.
               </p>
+              <p className="policy-list__council-note">
+                In early 2026 — nine years after the fatalities — the two
+                council members representing the Hopkins corridor introduced a
+                proposal to repave the street without the protected bike lane.
+                Berkeley&rsquo;s five-year paving moratorium means that if
+                Hopkins is paved without the lane, safety improvements are
+                locked out until at least 2031. The Infrastructure Committee
+                has recommended that path. City Council decides.
+              </p>
               <p className="policy-list__punchline">
                 Nine years. Two votes. Ten plans. The street hasn't changed.
               </p>

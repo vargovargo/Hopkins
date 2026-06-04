@@ -13,20 +13,10 @@
 
 import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "hopkins_banner_dismissed";
-const MEETING_DATE = new Date("2026-04-15T14:00:00-07:00"); // 2pm PDT
-
-function getDaysUntil(target) {
-  const now = new Date();
-  const diff = target - now;
-  if (diff <= 0) return 0;
-  return Math.ceil(diff / (1000 * 60 * 60 * 24));
-}
+const STORAGE_KEY = "hopkins_banner_dismissed_v2";
 
 export default function UrgencyBanner() {
   const [visible, setVisible] = useState(false);
-  const daysLeft = getDaysUntil(MEETING_DATE);
-  const meetingPassed = daysLeft === 0;
 
   useEffect(() => {
     const dismissed = sessionStorage.getItem(STORAGE_KEY);
@@ -44,50 +34,35 @@ export default function UrgencyBanner() {
     <div style={styles.wrapper} role="alert" aria-live="polite">
       <div style={styles.inner}>
 
-        {/* Left: date badge */}
-        <div style={styles.dateBadge}>
-          <span style={styles.dateDay}>APR</span>
-          <span style={styles.dateNum}>15</span>
-          {!meetingPassed && (
-            <span style={styles.dateDays}>
-              {daysLeft === 1 ? "TOMORROW" : `${daysLeft} DAYS`}
-            </span>
-          )}
+        {/* Left: urgency indicator */}
+        <div style={styles.urgencyBadge}>
+          <span style={styles.urgencyLabel}>ACT</span>
+          <span style={styles.urgencyIcon}>!</span>
+          <span style={styles.urgencyLabel}>NOW</span>
         </div>
 
         {/* Center: message */}
         <div style={styles.content}>
           <p style={styles.headline}>
-            {meetingPassed
-              ? "The FITES Committee has voted — the fight isn't over."
-              : "A committee vote could strip the safety plan from Hopkins Street."}
+            A repaving decision could lock out bike lanes on Hopkins until 2031.
           </p>
           <p style={styles.body}>
-            {meetingPassed
-              ? "The Infrastructure Committee made its recommendation. City Council still decides. The data case for safe streets on Hopkins is as strong as ever."
-              : "On April 15 at 2 pm, Berkeley's Infrastructure Committee will consider a proposal to repave Hopkins without the bike lanes and pedestrian improvements Council already approved in 2022. Tell them the data doesn't support that choice."}
+            The Infrastructure Committee has recommended repaving Hopkins without
+            the protected bike lane already approved in 2022. Berkeley's
+            five-year paving moratorium means a decision to pave without the
+            lane would shelve safety improvements for at least five years.
+            City Council decides — and the budget vote is imminent.
           </p>
-
-          {!meetingPassed && (
-            <div style={styles.actions}>
-              <a
-                href="https://actionnetwork.org/letters/make-hopkins-safe-for-all"
-                style={styles.btnPrimary}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Email the Committee
-              </a>
-              <a
-                href="https://cityofberkeley-info.zoomgov.com/j/1617583394"
-                style={styles.btnSecondary}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Join April 15 Meeting →
-              </a>
-            </div>
-          )}
+          <div style={styles.actions}>
+            <a
+              href="https://actionnetwork.org/letters/safe-hopkins-street"
+              style={styles.btnPrimary}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Tell Council to keep the safety plan
+            </a>
+          </div>
         </div>
 
         {/* Dismiss */}
@@ -124,42 +99,33 @@ const styles = {
     gap: "1.25rem",
   },
 
-  // Date badge
-  dateBadge: {
+  // Urgency badge
+  urgencyBadge: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     background: "#c4713b",
     borderRadius: "4px",
     padding: "0.5rem 0.75rem",
-    minWidth: "56px",
+    minWidth: "52px",
     flexShrink: 0,
   },
-  dateDay: {
-    fontFamily: "'DM Sans', system-ui, sans-serif",
-    fontSize: "0.6rem",
-    fontWeight: 700,
-    letterSpacing: "0.1em",
-    color: "#1a1a18",
-    textTransform: "uppercase",
-    lineHeight: 1,
-  },
-  dateNum: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: "1.75rem",
-    fontWeight: 600,
-    color: "#1a1a18",
-    lineHeight: 1,
-  },
-  dateDays: {
+  urgencyLabel: {
     fontFamily: "'DM Sans', system-ui, sans-serif",
     fontSize: "0.55rem",
     fontWeight: 700,
-    letterSpacing: "0.08em",
+    letterSpacing: "0.12em",
     color: "#1a1a18",
     textTransform: "uppercase",
-    marginTop: "0.2rem",
     lineHeight: 1,
+  },
+  urgencyIcon: {
+    fontFamily: "'JetBrains Mono', monospace",
+    fontSize: "1.75rem",
+    fontWeight: 700,
+    color: "#1a1a18",
+    lineHeight: 1,
+    margin: "0.1rem 0",
   },
 
   // Content
