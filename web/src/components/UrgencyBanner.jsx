@@ -13,7 +13,7 @@
 
 import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "hopkins_banner_dismissed_v2";
+const STORAGE_KEY = "hopkins_banner_dismissed_v3";
 
 export default function UrgencyBanner() {
   const [visible, setVisible] = useState(false);
@@ -44,14 +44,15 @@ export default function UrgencyBanner() {
         {/* Center: message */}
         <div style={styles.content}>
           <p style={styles.headline}>
-            A repaving decision could lock out bike lanes on Hopkins until 2031.
+            City Council votes July 28 on a revived Hopkins safety plan.
           </p>
           <p style={styles.body}>
-            The Infrastructure Committee has recommended repaving Hopkins without
-            the protected bike lane already approved in 2022. Berkeley's
-            five-year paving moratorium means a decision to pave without the
-            lane would shelve safety improvements for at least five years.
-            City Council decides — and the budget vote is imminent.
+            Councilmember Kesarwani has brought back a version of the project
+            shelved in 2023: repaving paired with protected bike lanes on each
+            side of the street, from the Ohlone Greenway at Peralta to The
+            Alameda. Berkeley's five-year paving moratorium means whichever
+            version gets built locks in for years. Council meets July 28, 2026
+            at 6 p.m., BUSD Boardroom, 1231 Addison St.
           </p>
           <div style={styles.actions}>
             <a

@@ -50,7 +50,7 @@ export default function BackgroundPage() {
       <header className="background-page__header">
         <h1 className="background-page__title">The Record</h1>
         <p className="background-page__subtitle">
-          Seven years of process, two fatalities, and one unfinished street.
+          Nine years of process, three fatalities, and one unfinished street.
         </p>
       </header>
 
@@ -61,7 +61,11 @@ export default function BackgroundPage() {
             The Hopkins Street Safety Project is not a new idea. It emerged
             directly from two deaths in 2017 and has been approved by the Berkeley
             City Council twice — once in May 2022 and again, implicitly, when a
-            reconsideration motion failed in October 2022.
+            reconsideration motion failed in October 2022. On July 28, 2026,
+            Council took up the corridor's fate a third time: a revived plan
+            pairing repaving with protected bike lanes, put forward by
+            Councilmember Kesarwani after months of debate over paving the
+            street without them.
           </p>
           <p>
             What follows is the documented record: the policy decisions, the
