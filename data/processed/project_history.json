@@ -2,7 +2,8 @@
   "_metadata": {
     "description": "Hopkins Street corridor project history — timeline and source library",
     "generated": "2026-03-18",
-    "note": "Timeline events are sourced from public records, journalism, and city documents. Source links point to publicly accessible documents where available."
+    "updated": "2026-07-28",
+    "note": "Timeline events are sourced from public records, journalism, and city documents. Source links point to publicly accessible documents where available. Updated 2026-07-28 with coverage of the revived bike lane plan and the July 28 Council vote; July 2026 details verified against the full text of the SF Chronicle article (Rachel Swan, July 24 2026). The vote entry was added the day of the meeting and records no outcome — update it once the result is on the record."
   },
   "timeline": [
     {
@@ -295,6 +296,23 @@
       ]
     },
     {
+      "id": "fire-shift-apr-2026",
+      "date": "April 2026",
+      "type": "process",
+      "title": "Fire chief shifts position on bike lane emergency access",
+      "description": "In an April 2026 memo, city staff indicated that both the one-way and two-way bike path scenarios had an \"acceptable\" width of 10.5 feet to accommodate an emergency response. Berkeley's fire chief — who had previously voiced concerns that bike lanes could block access for emergency vehicles, one of the stated reasons for the 2023 postponement — no longer opposed the project. Councilmember Kesarwani said the shift changed \"what became possible for Hopkins Street.\"",
+      "sources": [
+        {
+          "label": "\"Why one Berkeley street has become the Bay Area's latest bike-lane battleground\" — Rachel Swan, San Francisco Chronicle, July 24 2026",
+          "url": "https://www.yahoo.com/news/us/articles/why-one-berkeley-street-become-120000150.html"
+        },
+        {
+          "label": "\"What's in the revived plan for bike lanes on Hopkins Street\" — Berkeleyside, July 27 2026",
+          "url": "https://www.berkeleyside.org/2026/07/27/hopkins-bike-lane-project-berkeley-city-council"
+        }
+      ]
+    },
+    {
       "id": "parking-meters-may-2026",
       "date": "May 2026",
       "type": "process",
@@ -304,6 +322,48 @@
         {
           "label": "\"Berkeley could extend parking meter hours, hike cost of tickets and permits\" — Berkeleyside, May 18 2026",
           "url": "https://www.berkeleyside.org/2026/05/18/berkeley-parking-meter-rate-extended-hours-sunday"
+        }
+      ]
+    },
+    {
+      "id": "revived-plan-jul-2026",
+      "date": "July 2026",
+      "type": "policy",
+      "title": "Kesarwani puts forward revived bike lane plan",
+      "description": "Councilmember Rashi Kesarwani (D1) — who in January 2026 had co-authored the proposal to repave Hopkins without the bike lane — introduced an updated plan pairing repaving with a revised version of the project shelved in 2023: one-way bike lanes on each side of the street, protected by posts, concrete barriers, or parked cars, stretching nearly a mile from Peralta Avenue (where Hopkins meets the Ohlone Greenway) to the North Branch Library at The Alameda, with painted bike lanes continuing three blocks east to Sutter Street. All street parking would be removed on the 0.4-mile stretch between Monterey and Peralta; east of Monterey, parking would remain on the south side only. The city has not released designs or a parking-impact analysis; interim Public Works Director Wahid Amiri estimated approximately 145 spaces lost in response to a Councilmember inquiry. Kesarwani also called for a \"curb management analysis\" — possibly adding meters on surrounding blocks — and the plan includes raising the street level at Hopkins and Monterey, where a pedestrian was killed in 2017. Reported costs: roughly $11.2 million for repaving, with the protected bike lanes adding about $3.3 million.",
+      "sources": [
+        {
+          "label": "\"What's in the revived plan for bike lanes on Hopkins Street\" — Berkeleyside, July 27 2026",
+          "url": "https://www.berkeleyside.org/2026/07/27/hopkins-bike-lane-project-berkeley-city-council"
+        },
+        {
+          "label": "\"Why one Berkeley street has become the Bay Area's latest bike-lane battleground\" — Rachel Swan, San Francisco Chronicle, July 24 2026",
+          "url": "https://www.yahoo.com/news/us/articles/why-one-berkeley-street-become-120000150.html"
+        }
+      ]
+    },
+    {
+      "id": "council-vote-jul-28-2026",
+      "date": "July 28, 2026",
+      "type": "policy",
+      "title": "Council takes up the revived plan — third decision on the corridor",
+      "description": "The City Council was scheduled to vote on the revived Hopkins bike lane plan at its July 28 regular meeting (6 p.m., BUSD Boardroom, 1231 Addison Street) — the third time the corridor's fate has gone before the full Council since the original 8–1 approval in May 2022. In the days before the vote, anonymous flyers appeared on windshields along the corridor warning that Council would \"vote to remove hundreds of parking spaces\" and urging residents to speak out. NOTE: this entry was added the day of the meeting and records no outcome; update it once the result is on the public record.",
+      "sources": [
+        {
+          "label": "City Council Regular Meeting eAgenda, July 28 2026",
+          "url": "https://berkeleyca.gov/city-council-regular-meeting-eagenda-july-28-2026"
+        },
+        {
+          "label": "\"Why one Berkeley street has become the Bay Area's latest bike-lane battleground\" — Rachel Swan, San Francisco Chronicle, July 24 2026",
+          "url": "https://www.yahoo.com/news/us/articles/why-one-berkeley-street-become-120000150.html"
+        },
+        {
+          "label": "\"This Week: Lake Merritt Ride, Hopkins Vote, Courtyard Urbanism\" — Streetsblog SF, July 27 2026",
+          "url": "https://sf.streetsblog.org/2026/07/27/this-week-lake-merritt-ride-hopkins-vote-courtyard-urbanism"
+        },
+        {
+          "label": "\"What's in the revived plan for bike lanes on Hopkins Street\" — Berkeleyside, July 27 2026",
+          "url": "https://www.berkeleyside.org/2026/07/27/hopkins-bike-lane-project-berkeley-city-council"
         }
       ]
     }
@@ -473,6 +533,28 @@
           "Hopkins identified as key east-west active transportation corridor",
           "Equity dimension: connects historically redlined West Berkeley to North Berkeley amenities"
         ]
+      },
+      {
+        "id": "alternatives-overview-2026",
+        "title": "Hopkins Street Alternatives 1 and 2 Overview",
+        "organization": "City of Berkeley Public Works",
+        "year": 2026,
+        "summary": "Legislative meeting attachment (Item 02) presenting two paving alternatives for Hopkins — consistent with the April 2026 FITES Infrastructure Committee directive that staff return with cost estimates for paving with and without the protected bike lane. The document itself is undated in the URL; verify meeting date against the legislative record before citing a specific date.",
+        "url": "https://berkeleyca.gov/sites/default/files/legislative-body-meeting-attachments/Item%2002%20Hopkins%20Street%20Alternatives%201%20and%202%20Overview.pdf",
+        "key_facts": [
+          "Presents side-by-side paving alternatives with and without the protected bike lane"
+        ]
+      },
+      {
+        "id": "council-agenda-jul-28-2026",
+        "title": "City Council Regular Meeting eAgenda — July 28, 2026",
+        "organization": "City of Berkeley",
+        "year": 2026,
+        "summary": "Agenda for the July 28, 2026 regular meeting at which Council was scheduled to take up the revived Hopkins bike lane plan put forward by Councilmember Kesarwani. Meeting held at 6 p.m., BUSD Boardroom, 1231 Addison Street.",
+        "url": "https://berkeleyca.gov/city-council-regular-meeting-eagenda-july-28-2026",
+        "key_facts": [
+          "Third full-Council decision on the corridor since May 2022"
+        ]
       }
     ],
     "journalism": [
@@ -536,6 +618,66 @@
         "summary": "Detailed status report on Vision Zero and Measure FF implementation. Confirms the 27% Transportation Division vacancy rate and its connection to the Hopkins political fallout.",
         "url": "https://www.berkeleyscanner.com/2025/10/14/traffic-safety/berkeley-measure-ff-safe-streets-whats-happening/",
         "key_facts": []
+      },
+      {
+        "id": "berkeleyside-battle-back-2026",
+        "title": "The Hopkins Street battle is back: Berkeley reopens 'toxic' debate over bike lane",
+        "organization": "Berkeleyside",
+        "year": 2026,
+        "summary": "Reports the January 2026 Kesarwani/O'Keefe proposal to repave Hopkins without the approved bike lane, the April rally of 100+ supporters, and the April 15 FITES Infrastructure Committee direction to develop a paving plan without the protected lane. Documents the five-year repaving moratorium that would lock out the lane until at least 2031.",
+        "url": "https://www.berkeleyside.org/2026/04/01/hopkins-street-bike-lane-paving",
+        "key_facts": [
+          "Kesarwani (D1) and O'Keefe (D5) proposed repaving without the approved bike lane; Mayor Ishii and Humbert co-sponsored",
+          "Berkeley's five-year rule against digging up newly paved streets would defer the lane to 2031+",
+          "100+ supporters rallied on Hopkins; Walk Bike Berkeley lobbied the Infrastructure Committee"
+        ]
+      },
+      {
+        "id": "berkeleyside-revived-plan-2026",
+        "title": "What's in the revived plan for bike lanes on Hopkins Street",
+        "organization": "Berkeleyside",
+        "year": 2026,
+        "summary": "Detailed preview of the plan before Council on July 28, 2026. Kesarwani — a January co-author of the repave-without-lanes item — instead put forward a version of the shelved bike lane project. Includes the Public Works parking estimate, segment-level parking changes, costs, and the Fire Department's reversal on emergency access.",
+        "url": "https://www.berkeleyside.org/2026/07/27/hopkins-bike-lane-project-berkeley-city-council",
+        "key_facts": [
+          "1.2 miles of new or upgraded bike lanes, Sutter Street to Peralta Avenue (Ohlone Greenway connection)",
+          "Initial Public Works estimate: 145 parking spaces removed",
+          "All street parking removed Monterey to Peralta (0.4 mi); south-side-only parking east of Monterey",
+          "Raised street level at Hopkins/Monterey — site of the 2017 pedestrian fatality",
+          "Reported costs: ~$11.2M repaving; protected bike lanes add ~$3.3M",
+          "Fire Department report: bike lane would not significantly impede emergency response — reversal from 2023"
+        ]
+      },
+      {
+        "id": "chronicle-battleground-2026",
+        "title": "Why one Berkeley street has become the Bay Area's latest bike-lane battleground",
+        "organization": "San Francisco Chronicle",
+        "author": "Rachel Swan",
+        "year": 2026,
+        "summary": "July 24, 2026 feature ahead of the July 28 Council vote. Details the revived plan: one-way protected lanes on each side (posts, concrete barriers, or parked cars), nearly a mile from Peralta/Ohlone Greenway to the North Branch Library at The Alameda, painted lanes continuing three blocks east to Sutter. Reports that the city has not released designs or a parking-impact analysis — the ~145-space figure came from interim Public Works Director Wahid Amiri in response to Councilmember O'Keefe's inquiry. Frames Hopkins alongside Telegraph Avenue (Oakland), Richmond Street (El Cerrito), and Valencia Street (San Francisco), with a largely generational divide: older, car-dependent homeowners in Thousand Oaks versus young families in Westbrae.",
+        "url": "https://www.yahoo.com/news/us/articles/why-one-berkeley-street-become-120000150.html",
+        "key_facts": [
+          "By Rachel Swan, San Francisco Chronicle, July 24 2026 (link is a Yahoo News syndication of the article)",
+          "City has not released designs or calculated parking loss; no parking-impact analysis conducted yet",
+          "~145 spaces: informal estimate by interim Public Works Director Wahid Amiri, in email to Councilmember O'Keefe",
+          "Protected lanes: Peralta to The Alameda (~1 mile); painted lanes three blocks east to Sutter",
+          "April 2026 staff memo: 10.5-ft width \"acceptable\" for emergency response in both one-way and two-way scenarios; fire chief no longer opposed",
+          "Previous design (two-way track on south side) \"left for dead\" in 2023",
+          "Opposition group: Friends of Hopkins Street (aka Save Hopkins), organized by Donna DeDiemar",
+          "Anonymous flyers on windshields urged residents to oppose parking removal at the July 28 vote",
+          "Fight has spanned two mayoral administrations and at least one internal City Hall investigation"
+        ]
+      },
+      {
+        "id": "streetsblog-vote-preview-2026",
+        "title": "This Week: Lake Merritt Ride, Hopkins Vote, Courtyard Urbanism",
+        "organization": "Streetsblog San Francisco",
+        "year": 2026,
+        "summary": "Weekly roundup previewing the July 28 Council vote, describing the Hopkins protected bikeway saga as nearing a conclusion with a protected bikeway recommendation going to Council at 6 p.m. at the BUSD Boardroom, 1231 Addison Street.",
+        "url": "https://sf.streetsblog.org/2026/07/27/this-week-lake-merritt-ride-hopkins-vote-courtyard-urbanism",
+        "key_facts": [
+          "Vote: July 28, 2026, 6 p.m., BUSD Boardroom, 1231 Addison Street"
+        ]
       }
     ],
     "advocacy": [
@@ -577,15 +719,16 @@
     "opposition": [
       {
         "id": "save-hopkins",
-        "title": "Save Hopkins — opposition materials",
-        "organization": "Save Hopkins",
+        "title": "Save Hopkins / Friends of Hopkins Street — opposition materials",
+        "organization": "Friends of Hopkins Street (aka Save Hopkins)",
         "year": null,
-        "summary": "Save Hopkins is the primary opposition group, formed around the parking removal concern. Their central arguments: (1) the revised parking estimate (60 spaces) was not disclosed before the Council vote; (2) the 2016–2019 designation period was an anomaly; (3) parking loss would harm local businesses and residents who depend on cars, including seniors and people with disabilities. These arguments are engaged directly in the data analysis — see the collision time series and the data integrity notes.",
+        "summary": "The primary opposition group, formed around the parking removal concern and organized by Donna DeDiemar (per SF Chronicle, July 2026). Their central arguments: (1) the revised parking estimate (60 spaces) was not disclosed before the 2022 Council vote; (2) the 2016–2019 designation period was an anomaly; (3) parking loss would harm local businesses and residents who depend on cars, including seniors and people with disabilities. Ahead of the July 28, 2026 vote, DeDiemar conducted her own parking counts on the corridor, citing the absence of released city designs. These arguments are engaged directly in the data analysis — see the collision time series and the data integrity notes.",
         "url": "https://savehopkins.org",
         "key_facts": [
           "Core argument: undisclosed parking revision undermines vote legitimacy",
           "Claims 2016–2019 was an anomalous period — addressed by full TIMS time series",
-          "Raises legitimate concerns about business impact and accessibility for seniors"
+          "Raises legitimate concerns about business impact and accessibility for seniors",
+          "2026: argues no alternative to the bike lane design has been seriously considered"
         ]
       }
     ]

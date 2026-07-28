@@ -16,8 +16,9 @@ import './SegmentPanel.css'
 
 const IMAGE_CAVEAT =
   'These drawings show the 2022 conceptual design approved by City Council. ' +
-  'Detailed engineering design is ongoing — final designs may differ. ' +
-  'Source: City of Berkeley, May 2022.'
+  'The revived plan before Council in July 2026 differs in places — one-way ' +
+  'protected lanes on each side of the street — and the city has not released ' +
+  'updated segment designs. Source: City of Berkeley, May 2022.'
 
 export default function SegmentPanel({ segment, onClose }) {
   const panelRef = useRef(null)

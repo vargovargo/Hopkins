@@ -99,11 +99,13 @@ export default function DataStory() {
             and transit upgrades. That was 2022. The street still looks exactly the same.
           </p>
           <p className="section-body">
-            Now, with Hopkins finally due for repaving, a new proposal would pave it as-is —
-            skipping the safety improvements Council already voted for. On April 15, an
-            infrastructure committee will make a recommendation that shapes whether this street
-            changes or stays the same for another decade. This site exists because the data
-            should be part of that conversation.
+            Now the street&rsquo;s fate is back before City Council. On July 28, 2026, Council
+            votes on a revived version of the project: repaving paired with protected bike
+            lanes on each side of the street from the Ohlone Greenway at Peralta to The
+            Alameda, with painted lanes continuing to Sutter Street. Earlier in 2026, a
+            competing proposal would have paved the street as-is &mdash; and Berkeley&rsquo;s
+            five-year paving moratorium means whichever version gets built locks in for years.
+            This site exists because the data should be part of that decision.
           </p>
           <p className="section-body">
             The collision record on Hopkins is clear. The speed data is clear. The pedestrian
@@ -260,11 +262,15 @@ export default function DataStory() {
               <p className="policy-list__council-note">
                 In early 2026 — nine years after the fatalities — the two
                 council members representing the Hopkins corridor introduced a
-                proposal to repave the street without the protected bike lane.
+                proposal to repave the street without the protected bike lane,
+                and the Infrastructure Committee recommended that path.
                 Berkeley&rsquo;s five-year paving moratorium means that if
                 Hopkins is paved without the lane, safety improvements are
-                locked out until at least 2031. The Infrastructure Committee
-                has recommended that path. City Council decides.
+                locked out until at least 2031. In July, one of those council
+                members — Rashi Kesarwani — reversed course and brought a
+                revived version of the project to Council: repaving paired
+                with protected bike lanes from Peralta to The Alameda. The
+                vote is set for July 28, 2026. City Council decides.
               </p>
               <p className="policy-list__punchline">
                 Nine years. Two votes. Ten plans. The street hasn't changed.
